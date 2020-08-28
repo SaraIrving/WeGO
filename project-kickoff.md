@@ -3,15 +3,7 @@
 ## Pick a Project
 
 - Buddy Finder App
-- name: 
-
-RecHub
-Rec Network
-RecConnect
-ActiveHub
-ActiveRec
-Central Rec
-Community
+- name: WeGo
 
 <!-- - They have the form: As a ___, I want to _, because ____.
 - eg. As a user, I want to be able to save posts, because I want to review them later.
