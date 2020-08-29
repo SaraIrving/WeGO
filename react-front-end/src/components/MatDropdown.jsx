@@ -16,18 +16,18 @@ export default function MatButton(props) {
 
   return (
     <TextField
-          id="outlined-select"
+          id={props.id}
           select
           label={props.label}
           helperText={props.field}
-          variant="outlined"
+          variant={props.variant}
         >
         {options.map((option) => (
           <MenuItem key={option} value={option}>
             {option}
           </MenuItem>
         ))}
-        </TextField>
+    </TextField>
   )
 };
 

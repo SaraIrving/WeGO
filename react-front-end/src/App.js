@@ -8,8 +8,8 @@ import MatDropdown from './components/MatDropdown';
 import MatRadioBox from './components/MatRadioBox';
 import MatMultiSelect from './components/MatMultiSelect';
 import MatNotificationDot from './components/MatNotificationDot';
-import MatSearch from './components/MatSearch';
 import MatTag from './components/MatTag';
+import MatMultiValues from './components/MatMultiValues';
 
 
 
@@ -70,10 +70,10 @@ export default function App(props) {
               <Link to="/MatNotificationDot">MatNotificationDot</Link>
             </li>
             <li>
-              <Link to="/MatSearch">MatSearch</Link>
+              <Link to="/MatTag">MatTag</Link>
             </li>
             <li>
-              <Link to="/MatTag">MatTag</Link>
+              <Link to="/MatMultiValues">MatMultiValues</Link>
             </li>
           </ul>
         </nav>
@@ -94,19 +94,19 @@ export default function App(props) {
             <MatDropdown label="Skill Level" field="Please Select Skill Level" options={['beginner', 'intermediate', 'advanced']}/>
           </Route>
           <Route path="/MatRadioBox">
-            <MatRadioBox />
+            <MatRadioBox options={["mon", "tues", "wed"]} category="days"/>
           </Route>
           <Route path="/MatMultiSelect">
-            <MatMultiSelect />
+            <MatMultiSelect items={[1,2,3,4]} />
           </Route>
           <Route path="/MatNotificationDot">
             <MatNotificationDot new_messages="3"/>
           </Route>
-          <Route path="/MatSearch">
-            <MatSearch />
-          </Route>
           <Route path="/MatTag">
             <MatTag tag="Outdoor"/>
+          </Route>
+          <Route path="/MatMultiValues">
+            <MatMultiValues />
           </Route>
         </Switch>
       </div>

@@ -19,6 +19,10 @@ export default function MatInput(props) {
     multiline={props.multiline}
     variant={props.variant}
     rows={props.rows}
+    size={props.size}
+    fullWidth={props.fullWidth}
+    defaultValue={props.defaultValue}
+    color={props.color}
   />
   )
 };
