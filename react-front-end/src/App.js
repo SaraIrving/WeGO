@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import './App.css';
-// import Button from './components/Button';
-import { Button } from '@material-ui/core';
+import MatButton from './components/Button';
+import { Input } from '@material-ui/core';
 
 // class App extends Component {
 //   constructor(props) {
@@ -57,7 +57,7 @@ fetchData();
 
 export default function App(props) {
   return(
-    <Button>Push Me</Button>
+    <MatButton>Push Me</MatButton>
   )
 }
 

@@ -1,9 +1,9 @@
 import React from 'react';
+import { Button } from '@material-ui/core';
+// const myButton = Button
 
-
-
-export default function Button(props) {
+export default function MatButton(props) {
   return (
-    <button>Push Me</button>
+    <Button>Push Me</Button>
   )
 };
