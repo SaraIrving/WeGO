@@ -27,19 +27,22 @@ dn't be able to _, because ___.
 ## Stories
 
 - As a user I want to visit the site and search or browse categories for a particular activity to join
-- As a user I want to be able to chat with the activity's host and ask particular questions
+- As a user or a participant I want to be able to chat with the activity's host and ask particular questions
 - As a user I want to be able to join an activity of interest
-- As a user I want to see a list of upcoming activities that i've joined
+- As a user I want to see a list of pending activities that i've joined
 - As a user if I don't find the activity i'm looking for, I want to be able to create my own activity posting
-- As a user I want to be able to receive chats from users who are interested in my activity
-- As a user I want to be able to accept or reject users who are asking to join my activity
+- As an activity host I want to be able to receive chats from users who are interested in my activity
+- As an activity host I want to be able to accept or reject users who are asking to join my activity
+- As a host I want to send a message to all activity participants*
 
 ### Stretch stories
 
-- As a host, I get a notification for new join requests
-- Based on a users previous activities, there's a smart suggestion feature that shows me relavent activities I might be particularly interested in joining
-- As a user, my location is dynamicly inferred (geolocation)
-- As a online user, the app gives me relative timeframes based on timezones
+- ** As a host, I get a notification for new join requests
+- ** Based on a users previous activities, there's a smart suggestion feature that shows me relavent activities I might be particularly interested in joining
+- actualy login Functionality
+- deployment 
+- As a user, my location is dynamicly inferred (geolocation)-ISS spotter: location based on IP address 
+- As a online user, the app gives me relative timeframes based on timezones - check out moments.js
 - As a user, I can get new message notifications
 
 ## User Flow / Pages
@@ -48,6 +51,7 @@ dn't be able to _, because ___.
 - All signed in users can view posted activities
 - Your Activities page
   - Your joined activities
+  - Your pending activities
   - Your hosted activies - edit, delete
   - Post a new activity button
 - Messages page
@@ -153,6 +157,8 @@ Functionality
 
 Teck Stack
 - React, Express, PostgreSQL
+- Sockets.io for chat? or Firebase
+- Moments.js for 
 
 ## Tables
 
@@ -201,6 +207,7 @@ Activity_participants
   - id
   - FK: activity_id
   - FK: user_id
+  - status
   - created_at
 
 Messages
@@ -258,6 +265,11 @@ Messages
 - Decide if you want/need to deploy your application to the cloud
 - Ask a mentor for assistance/advice if your team decides to deploy
 
+## Work Flow
+- finish state planning 
+- build out componenets
+- chat functionality (mid to late next week)
+
 ## Presentation
 - 
 
@@ -265,5 +277,82 @@ Messages
 5 talking points
 - 
 
+
+## React Build
+
+### Components
+
+- Button
+- Input
+- Textarea
+- Dropdown
+- RadioBox
+- MultiSelect
+- NotificationDot
+- Search
+- Tag
+	- Form
+	- Navbar
+	- Footer
+	- Landing
+	- Login
+	- Signup
+	- Activities
+	- CreateActivity
+	- ActivityCard
+	- Participant
+	- AcceptedParticipants
+	- PendingParticipants
+	- JoinedDashboard
+	- HostedDashboard
+	- MessageCard
+	- MessageDashboard
+	- ChatCard
+	- ChatPage
+
+
+### State
+
+- loggedIn: user_id | null
+- activities: [{activity}] | [] (with js, add participants to each activity)
+- activityDisplay: [base, pending, joined, hosted]
+- filters: [tag1, tag2] | [] (update activities state based on filters list)
+- view: ‘signin’ | landing (login, browse, create, joined, hosted, pending, messages, chat)
+- messages: [{}] | [] (based on user_id all relavent messages for them)
+
+
+
+
+### Troubleshooting
+
+#### psql connection errors
+
+- Ran into issue where trying to 'npm start' in vagrant, was throwing psql error, saying psql could not authenticate user 'vagrant'
+
+- Couldn't really pinpoint source of problem with mentor, but he helped us get it working through a workaround, involving ditching vagrant and only running it off of local host.
+
+  1. Install homebrew with command: `$/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"`
+
+  2. Install Postgres with command: `$ brew install postgresql`
+
+  3. Then run command: `$ brew services start postgresql`
+
+  4. Then run command: `$ psql postgres`
+
+  5. Then run: `$ CREATE USER jeremyhuot;` 'jeremyhuot' is my main computer user
+
+  6. Then run: `$ CREATE DATABASE jeremyhuot;`
+
+  7. Then run: `$ ALTER USER jeremyhuot WITH superuser createrole createdb replication;`
+
+  8. Then run: `$ psql`
+
+  9. Then run: `$ CREATE USER development WITH PASSWORD 'development';`
+
+  10. Then run: `$ CREATE DATABASE final OWNER development;`
+
+  11. Then run: `$ ALTER USER development WITH superuser createrole createdb replication;`
+
+  12. Then run: `$ npm start` in project in host machine (not vagrant)
 
 
