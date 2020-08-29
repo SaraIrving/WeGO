@@ -12,18 +12,18 @@ import { Button } from '@material-ui/core';
 //     }
 //   }
 
-//   fetchData = () => {
-//     axios.get('/api/users') // You can simply make your requests to "/api/whatever you want"
-//     .then((response) => {
-//       // handle success
-//       console.log(response.data) // The entire response from the Express API
+  // fetchData = () => {
+  //   axios.get('/api/users') // You can simply make your requests to "/api/whatever you want"
+  //   .then((response) => {
+  //     // handle success
+  //     console.log(response.data) // The entire response from the Express API
 
-//       console.log(response.data.message) // Just the message
-//       this.setState({
-//         message: response.data[0].name
-//       });
-//     }) 
-//   }
+  //     console.log(response.data.message) // Just the message
+  //     this.setState({
+  //       message: response.data[0].name
+  //     });
+  //   }) 
+  // }
 
 //   render() {
 //     return (
@@ -38,10 +38,26 @@ import { Button } from '@material-ui/core';
 // }
 
 
+const fetchData = () => {
+  axios.get('/api/activities') // You can simply make your requests to "/api/whatever you want"
+  .then((response) => {
+    // handle success
+    console.log(response.data) // The entire response from the Express API
+
+    // console.log(response.data) // Just the message
+    // this.setState({
+    //   message: response.data[0].name
+    // });
+  }) 
+};
+
+fetchData();
+
+
 
 export default function App(props) {
   return(
-    <Button />
+    <Button>Push Me</Button>
   )
 }
 
