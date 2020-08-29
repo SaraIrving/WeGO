@@ -106,7 +106,7 @@ export default function App(props) {
             <MatSearch />
           </Route>
           <Route path="/MatTag">
-            <MatTag />
+            <MatTag tag="Outdoor"/>
           </Route>
         </Switch>
       </div>
