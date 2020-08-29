@@ -85,13 +85,13 @@ export default function App(props) {
             <MatButton>Push me</MatButton>
           </Route>
           <Route path="/MatInput">
-            <MatInput />
+            <MatInput label="Name"/>
           </Route>
           <Route path="/MatTextarea">
             <MatTextarea />
           </Route>
           <Route path="/MatDropdown">
-            <MatDropdown />
+            <MatDropdown label="Skill Level" field="Please Select Skill Level" options={['beginner', 'intermediate', 'advanced']}/>
           </Route>
           <Route path="/MatRadioBox">
             <MatRadioBox />
