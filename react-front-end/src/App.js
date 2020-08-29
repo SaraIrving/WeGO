@@ -85,13 +85,13 @@ export default function App(props) {
             <MatButton disableElevation variant="contained" href="#" endIcon="DeleteIcon" >Push me</MatButton>
           </Route>
           <Route path="/MatInput">
-            <MatInput />
+            <MatInput required={true} label="Name"/>
           </Route>
           <Route path="/MatTextarea">
             <MatTextarea />
           </Route>
           <Route path="/MatDropdown">
-            <MatDropdown />
+            <MatDropdown label="Skill Level" field="Please Select Skill Level" options={['beginner', 'intermediate', 'advanced']}/>
           </Route>
           <Route path="/MatRadioBox">
             <MatRadioBox />
@@ -100,7 +100,7 @@ export default function App(props) {
             <MatMultiSelect />
           </Route>
           <Route path="/MatNotificationDot">
-            <MatNotificationDot />
+            <MatNotificationDot new_messages="3"/>
           </Route>
           <Route path="/MatSearch">
             <MatSearch />
