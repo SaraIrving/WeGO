@@ -1,9 +1,13 @@
 import React from 'react';
-import { Button } from '@material-ui/core';
-// const myButton = Button
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+
+
 
 export default function MatButton(props) {
   return (
-    <Button />
+    <FormControlLabel value="female" control={<Radio />} label="Day" />
+
   )
 };
