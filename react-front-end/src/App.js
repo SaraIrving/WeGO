@@ -1,41 +1,25 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import './App.css';
-import MatButton from './components/Button';
-import { Input } from '@material-ui/core';
+import MatButton from './components/MatButton';
+import MatInput from './components/MatInput';
+import MatTextarea from './components/MatTextarea';
+import MatDropdown from './components/MatDropdown';
+import MatRadioBox from './components/MatRadioBox';
+import MatMultiSelect from './components/MatMultiSelect';
+import MatNotificationDot from './components/MatNotificationDot';
+import MatSearch from './components/MatSearch';
+import MatTag from './components/MatTag';
 
-// class App extends Component {
-//   constructor(props) {
-//     super(props)
-//     this.state = {
-//       message: 'Click the button to load data!'
-//     }
-//   }
 
-  // fetchData = () => {
-  //   axios.get('/api/users') // You can simply make your requests to "/api/whatever you want"
-  //   .then((response) => {
-  //     // handle success
-  //     console.log(response.data) // The entire response from the Express API
 
-  //     console.log(response.data.message) // Just the message
-  //     this.setState({
-  //       message: response.data[0].name
-  //     });
-  //   }) 
-  // }
 
-//   render() {
-//     return (
-//       <div className="App">
-//         <h1>{ this.state.message }</h1>
-//         <button onClick={this.fetchData} >
-//           Fetch Data
-//         </button>        
-//       </div>
-//     );
-//   }
-// }
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
 
 
 const fetchData = () => {
@@ -57,10 +41,91 @@ fetchData();
 
 export default function App(props) {
   return(
-    <MatButton>Push Me</MatButton>
+    <Router>
+      <div>
+        <nav>
+          <ul>
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="/MatButton">MatButton</Link>
+            </li>
+            <li>
+              <Link to="/MatInput">MatInput</Link>
+            </li>
+            <li>
+              <Link to="/MatTextarea">MatTextarea</Link>
+            </li>
+            <li>
+              <Link to="/MatDropdown">MatDropdown</Link>
+            </li>
+            <li>
+              <Link to="/MatRadioBox">MatRadioBox</Link>
+            </li>
+            <li>
+              <Link to="/MatMultiSelect">MatMultiSelect</Link>
+            </li>
+            <li>
+              <Link to="/MatNotificationDot">MatNotificationDot</Link>
+            </li>
+            <li>
+              <Link to="/MatSearch">MatSearch</Link>
+            </li>
+            <li>
+              <Link to="/MatTag">MatTag</Link>
+            </li>
+          </ul>
+        </nav>
+
+        {/* A <Switch> looks through its children <Route>s and
+            renders the first one that matches the current URL. */}
+        <Switch>
+          <Route path="/MatButton">
+            <MatButton>Push me</MatButton>
+          </Route>
+          <Route path="/MatInput">
+            <MatInput />
+          </Route>
+          <Route path="/MatTextarea">
+            <MatTextarea />
+          </Route>
+          <Route path="/MatDropdown">
+            <MatDropdown />
+          </Route>
+          <Route path="/MatRadioBox">
+            <MatRadioBox />
+          </Route>
+          <Route path="/MatMultiSelect">
+            <MatMultiSelect />
+          </Route>
+          <Route path="/MatNotificationDot">
+            <MatNotificationDot />
+          </Route>
+          <Route path="/MatSearch">
+            <MatSearch />
+          </Route>
+          <Route path="/MatTag">
+            <MatTag />
+          </Route>
+        </Switch>
+      </div>
+    </Router>
   )
 }
 
+
+// function Home() {
+//   return <h2>Home</h2>;
+// }
+
+// function MatButton() {
+//   return <MatButton>push me</MatButton>;
+// }
+
+// function MatInput() {
+//   return <MatInput></MatInput>;
+// }
 
 
 

@@ -4,6 +4,6 @@ import { Button } from '@material-ui/core';
 
 export default function MatButton(props) {
   return (
-    <Button>Push Me</Button>
+    <Button />
   )
 };
