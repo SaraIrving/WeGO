@@ -85,7 +85,7 @@ export default function App(props) {
             <MatButton>Push me</MatButton>
           </Route>
           <Route path="/MatInput">
-            <MatInput label="Name"/>
+            <MatInput required={true} label="Name"/>
           </Route>
           <Route path="/MatTextarea">
             <MatTextarea />
