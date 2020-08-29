@@ -282,15 +282,15 @@ Messages
 
 ### Components
 
-- Button
-- Input
-- Textarea
-- Dropdown
-- RadioBox
-- MultiSelect
-- NotificationDot
-- Search
-- Tag
+- Button - Jeremy *
+- Input - Sara
+- Textarea - Jeremy
+- Dropdown - Sara
+- RadioBox - Jeremy
+- MultiSelect - Together
+- NotificationDot - Sara
+- Search - Jeremy
+- Tag - Sara
 	- Form
 	- Navbar
 	- Footer
@@ -331,7 +331,7 @@ Messages
 
 - Couldn't really pinpoint source of problem with mentor, but he helped us get it working through a workaround, involving ditching vagrant and only running it off of local host.
 
-  1. Install homebrew with command: `$/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"`
+  1. Install homebrew with command: `$ /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"`
 
   2. Install Postgres with command: `$ brew install postgresql`
 
