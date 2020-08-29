@@ -6,26 +6,50 @@ import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import KeyboardVoiceIcon from '@material-ui/icons/KeyboardVoice';
 import Icon from '@material-ui/core/Icon';
 import SaveIcon from '@material-ui/icons/Save';
-
-let icons = {
-  DeleteIcon,
-  CloudUploadIcon,
-  KeyboardVoiceIcon,
-  SaveIcon
-}
+import CancelIcon from '@material-ui/icons/Cancel';
+import CloseIcon from '@material-ui/icons/Close';
+import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
+import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
+import AddIcon from '@material-ui/icons/Add';
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 
 export default function MatButton(props) {
-  // variant= outlined, contained
-  // color= primary, secondary
+
+  let icons = [
+    DeleteIcon,
+    CloudUploadIcon,
+    KeyboardVoiceIcon,
+    SaveIcon,
+    CancelIcon,
+    CloseIcon,
+    ArrowDropDownIcon,
+    ArrowDropUpIcon,
+    AddIcon,
+    CheckCircleIcon
+  ]
+
+  // Conditionally set icon from parent props if startIcon or endIcon is set
   let EndIcon;
   let StartIcon;
+
   if (props.endIcon) {
-    EndIcon = `<${props.endIcon} />`;
+    for (let i of icons) {
+      if (i.displayName === props.endIcon) {
+        EndIcon = i;
+      }
+    }
   } else if (props.startIcon) {
-    StartIcon = props.startIcon;
+    for (let i of icons) {
+      if (i.displayName === props.startIcon) {
+        StartIcon = i;
+      }
+    }
   }
-  console.log(EndIcon);
+
+  // variant= outlined, contained
+  // color= primary, secondary
+
   return (
-  <Button size={props.size} endIcon={EndIcon ? EndIcon : false } variant={props.variant} color={props.color} disabled={props.disabled} disableElevation={props.disableElevation} href={props.href} onClick={() => props.onClick}>{props.children}</Button>
+  <Button size={props.size} endIcon={props.endIcon ? <EndIcon /> : false } startIcon={props.startIcon ? <StartIcon /> : false } variant={props.variant} color={props.color} disabled={props.disabled} disableElevation={props.disableElevation} href={props.href} onClick={() => props.onClick}>{props.children}</Button>
   )
 };
