@@ -8,8 +8,7 @@ export default function MatInput(props) {
     <TextField
     required
     id="outlined-required"
-    label="Required"
-    defaultValue="Enter your whatever..."
+    label={props.label}
     variant="outlined"
   />
   )
