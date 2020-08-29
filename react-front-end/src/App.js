@@ -82,7 +82,7 @@ export default function App(props) {
             renders the first one that matches the current URL. */}
         <Switch>
           <Route path="/MatButton">
-            <MatButton disableElevation variant="contained" href="#" startIcon="SaveIcon" >Push me</MatButton>
+            <MatButton variant="contained" href="#" startIcon="SaveIcon" >Push me</MatButton>
           </Route>
           <Route path="/MatInput">
             <MatInput required={true} label="Name" variant="filled"/>
