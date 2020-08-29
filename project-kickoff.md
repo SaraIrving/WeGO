@@ -284,7 +284,7 @@ Messages
 
 - Button - Jeremy *
 - Input - Sara
-- Textarea - Jeremy
+- Textarea - Jeremy *
 - Dropdown - Sara
 - RadioBox - Jeremy
 - MultiSelect - Together

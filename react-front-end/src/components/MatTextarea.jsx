@@ -1,9 +1,9 @@
 import React from 'react';
-import { Button } from '@material-ui/core';
+import { TextField } from '@material-ui/core';
 // const myButton = Button
 
-export default function MatButton(props) {
+export default function MatTextarea(props) {
   return (
-    <Button />
+    <TextField multiline variant="filled" label="label" rows={3} />
   )
 };
