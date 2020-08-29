@@ -100,7 +100,7 @@ export default function App(props) {
             <MatMultiSelect />
           </Route>
           <Route path="/MatNotificationDot">
-            <MatNotificationDot />
+            <MatNotificationDot new_messages="3"/>
           </Route>
           <Route path="/MatSearch">
             <MatSearch />
