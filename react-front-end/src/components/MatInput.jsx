@@ -4,6 +4,13 @@ import { TextField } from '@material-ui/core';
 
 export default function MatInput(props) {
   return (
-    <TextField id="filled-basic" label="Your Name etc..." variant="filled" />
+  
+    <TextField
+    required
+    id="outlined-required"
+    label="Required"
+    defaultValue="Enter your whatever..."
+    variant="outlined"
+  />
   )
 };
