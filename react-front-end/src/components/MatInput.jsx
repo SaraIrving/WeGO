@@ -1,9 +1,9 @@
 import React from 'react';
-import { Button } from '@material-ui/core';
-// const myButton = Button
+import { TextField } from '@material-ui/core';
 
-export default function MatButton(props) {
+
+export default function MatInput(props) {
   return (
-    <Button />
+    <TextField id="filled-basic" label="Your Name etc..." variant="filled" />
   )
 };
