@@ -85,7 +85,7 @@ export default function App(props) {
             <MatButton disableElevation variant="contained" href="#" startIcon="SaveIcon" >Push me</MatButton>
           </Route>
           <Route path="/MatInput">
-            <MatInput required={true} label="Name"/>
+            <MatInput required={true} label="Name" variant="filled"/>
           </Route>
           <Route path="/MatTextarea">
             <MatTextarea />

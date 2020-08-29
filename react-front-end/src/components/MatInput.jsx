@@ -3,6 +3,9 @@ import { TextField } from '@material-ui/core';
 
 // props.label: a string of whatever label you want to appear over the Input, ex: "Name"
 //props.required: a boolean, true if field is required, false if field is not required 
+// ?? might need an ID prop?
+// props.error toggles the error state
+// props.helperText will display text to explain the errors 
 
 export default function MatInput(props) {
 
@@ -10,9 +13,12 @@ export default function MatInput(props) {
   
     <TextField
     required={props.required}
-    id="outlined-basic"
     label={props.label}
-    variant="outlined"
+    error={props.error}
+    helperText={props.helperText}
+    multiline={props.multiline}
+    variant={props.variant}
+    rows={props.rows}
   />
   )
 };
