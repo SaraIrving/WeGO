@@ -1,9 +1,12 @@
 import React from 'react';
-import { Button } from '@material-ui/core';
-// const myButton = Button
+import { Chip } from '@material-ui/core';
 
-export default function MatButton(props) {
+//props.new_messages is a number that represents how many new messages have been sent since the last time a user open this chat 
+
+export default function MatNotificationDot(props) {
   return (
-    <Button />
+    <Chip 
+      label={props.new_messages} 
+    />
   )
 };
