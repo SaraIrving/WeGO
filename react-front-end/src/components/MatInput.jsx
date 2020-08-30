@@ -23,6 +23,7 @@ export default function MatInput(props) {
     fullWidth={props.fullWidth}
     defaultValue={props.defaultValue}
     color={props.color}
+    onChange={props.onChange}
   />
   )
 };

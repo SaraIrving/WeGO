@@ -283,17 +283,17 @@ Messages
 ### Components
 
 - Button - Jeremy *
-- Input - Sara
+- Input - Sara *
 - Textarea - Jeremy *
-- Dropdown - Sara
-- RadioBox - Jeremy
-- MultiSelect - Together
-- NotificationDot - Sara
-- Search - Jeremy
-- Tag - Sara
-	- Form
-	- Navbar
-	- Footer
+- Dropdown - Sara *
+- RadioBox - Jeremy *
+- MultiSelect - Together *
+- NotificationDot - Sara *
+- MutliValues - Jeremy *
+- Tag - Sara *
+	- Form 
+	- Navbar *
+	- Footer *
 	- Landing
 	- Login
 	- Signup

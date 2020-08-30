@@ -9,18 +9,24 @@ import { MenuItem } from '@material-ui/core';
 // props.options: an array of the strings you want to have as the options in the dropdown list 
 // option refers to the option (as in state)
 
-
-
-export default function MatButton(props) {
+export default function MatDropdown(props) {
   const options = props.options
+
+  const [name, setName] = React.useState('Cat in the Hat');
+  const handleChange = (event) => {
+    setName(event.target.value);
+  };
 
   return (
     <TextField
           id={props.id}
+          type="select"
           select
           label={props.label}
           helperText={props.field}
           variant={props.variant}
+          onChange={handleChange}
+          value={name}
         >
         {options.map((option) => (
           <MenuItem key={option} value={option}>
