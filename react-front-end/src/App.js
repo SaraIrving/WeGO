@@ -13,6 +13,10 @@ import MatMultiValues from './components/MatMultiValues';
 import NavBar from './components/Navbar';
 import Footer from './components/Footer';
 import Login from './components/Login';
+import ActivityList from './components/ActivityList';
+import ActivityCard from './components/ActivityCard';
+import SubNav from './components/SubNav';
+import ActivityForm from './components/ActivityForm';
 
 import {
   BrowserRouter as Router,
@@ -28,28 +32,44 @@ export default function App(props) {
   const [state,setState] = useState({
     loggedIn: null,
     activities: [],
-    activityDisplay: [],
     filters: [],
     view: 'landing',
     messages: [],
+    tags: [],
+    activityParticipants: [],
+    activityTags: [],
     users: []
   });
 
-  useEffect(() => {
-    const fetchData = () => {
-      axios.get('/api/users') // You can simply make your requests to "/api/whatever you want"
-      .then((response) => {
-        // handle success
-        console.log(response.data) // The entire response from the Express API
-  
-        setState((prev) => {
-          return {...prev, users: response.data};
-        });
-      })
-    };
 
-    fetchData();
-  },[])
+  useEffect(() => {
+    const promiseOne = axios.get('/api/users');
+    const promiseTwo = axios.get('/api/activities');
+    const promiseThree = axios.get('/api/activity_participants');
+    const promiseFour = axios.get('/api/activity_tags');
+    const promiseFive = axios.get('/api/tags');
+    const promiseSix = axios.get('/api/messages');
+
+    Promise.all([promiseOne, promiseTwo, promiseThree, promiseFour, promiseFive, promiseSix])
+    .then((arrayOfValues) => {
+      let [usersData, activitiesData, activityParticipantsData, activityTagsData, tagsData, messagesData] = arrayOfValues;
+      setState((prev) => {
+        console.log(arrayOfValues);
+
+        return ({...prev, users: usersData.data,
+        activities: activitiesData.data,
+        activityParticipants: activityParticipantsData.data,
+        activityTags: activityTagsData.data,
+        tags: tagsData.data,
+        messages: messagesData.data
+        })
+      })
+    })
+    .catch((error) => {
+      console.log(error);
+    })
+  }, []);
+
 
   return(
     <Fragment>
@@ -86,6 +106,18 @@ export default function App(props) {
             <li>
               <Link to="/MatMultiValues">MatMultiValues</Link>
             </li>
+            <li>
+              <Link to="/ActivityCard">ActivityCard</Link>
+            </li>
+            <li>
+              <Link to="/ActivityList">ActivityList</Link>
+            </li>
+            <li>
+              <Link to="/SubNav">SubNav</Link>
+            </li>
+            <li>
+              <Link to="/ActivityForm">ActivityForm</Link>
+            </li>
           </ul>
         </nav>
 
@@ -115,6 +147,18 @@ export default function App(props) {
           </Route>
           <Route path="/MatMultiValues">
             <MatMultiValues />
+          </Route>
+          <Route path="/ActivityCard">
+            <ActivityCard setState={setState} state={state} />
+          </Route>
+          <Route path="/ActivityList">
+            <ActivityList setState={setState} state={state} />
+          </Route>
+          <Route path="/SubNav">
+            <SubNav setState={setState} state={state} />
+          </Route>
+          <Route path="/ActivityForm">
+            <ActivityForm setState={setState} state={state} />
           </Route>
         </Switch>
       </div>

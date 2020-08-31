@@ -347,7 +347,6 @@ Messages
 
 - loggedIn: user_id | null
 - activities: [{activity}] | [] (with js, add participants to each activity)
-- activityDisplay: [base, pending, joined, hosted]
 - filters: [tag1, tag2] | [] (update activities state based on filters list)
 - view: ‘signin’ | landing (login, browse, create, joined, hosted, pending, messages, chat)
 - messages: [{}] | [] (based on user_id all relavent messages for them)

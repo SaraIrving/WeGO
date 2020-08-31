@@ -1,9 +1,12 @@
-DROP TABLE IF EXISTS users CASCADE;
-DROP TABLE IF EXISTS activities CASCADE;
-DROP TABLE IF EXISTS messages CASCADE;
 DROP TABLE IF EXISTS activity_participants CASCADE;
 DROP TABLE IF EXISTS tags CASCADE;
 DROP TABLE IF EXISTS activity_tags CASCADE;
+DROP TABLE IF EXISTS activities CASCADE;
+DROP TABLE IF EXISTS users CASCADE;
+DROP TABLE IF EXISTS messages CASCADE;
+
+
+
 
 CREATE TABLE users (
   id SERIAL PRIMARY KEY NOT NULL,
@@ -30,13 +33,13 @@ CREATE TABLE activities (
   description TEXT NOT NULL
 );
 
--- CREATE TABLE messages (
---   id SERIAL PRIMARY KEY NOT NULL,
---   activity_id INTEGER RERERENCES activities(id) ON DELETE CASCADE,
---   user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
---   text TEXT NOT NULL,
---   created_at TIMESTAMPTZ default NOW()
--- );
+CREATE TABLE messages (
+  id SERIAL PRIMARY KEY NOT NULL,
+  activity_id INTEGER REFERENCES activities(id) ON DELETE CASCADE,
+  user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+  text TEXT NOT NULL,
+  created_at TIMESTAMPTZ default NOW()
+);
 
 
 CREATE TABLE activity_participants (
