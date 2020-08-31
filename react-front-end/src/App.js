@@ -13,7 +13,6 @@ import MatMultiValues from './components/MatMultiValues';
 import NavBar from './components/Navbar';
 import Footer from './components/Footer';
 import Login from './components/Login';
-// import useAppData from './hooks/useAppData'
 
 import {
   BrowserRouter as Router,

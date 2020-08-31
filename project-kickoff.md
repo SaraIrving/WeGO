@@ -291,24 +291,56 @@ Messages
 - NotificationDot - Sara *
 - MutliValues - Jeremy *
 - Tag - Sara *
-	- Form 
+	- Activity Form
+    - MatButton
+    - MatInput
+    - MatMultiValues
+  - Login Form / Signup
+    - MatButton
+    - MatInput
 	- Navbar *
+    - MatButton
 	- Footer *
 	- Landing
-	- Login
-	- Signup
-	- Activities
-	- CreateActivity
-	- ActivityCard
-	- Participant
-	- AcceptedParticipants
-	- PendingParticipants
+    - MatButton
+	- BrowseDashboard 
+    - MatMultiValues
+    - SubNav
+    - ActivityList
+      - ActivityCard
+        - MatButton
+	- Participants
+    - MatButtons (conditionally)
+    - Notification Dot (Conditionally)
+	- ParticipantsList
+    - Participants
 	- JoinedDashboard
+    - SubNav
+    - ActivityList
 	- HostedDashboard
+    - SubNav
+    - ActivityList
+      - conditionally: ParticipantsList - props.accepted / props.pending
+  - ActivityList
+    - ActivityCard
 	- MessageCard
+    - Participant
+      - Notification Dot
+      - MatButton
 	- MessageDashboard
+   - SubNav
+    - MatButton
+   - MessagesList
+   	- MessageCard
 	- ChatCard
+    - MatButton
+    - MatInput
+    - Participant
 	- ChatPage
+    - SubNav
+    - ChatCard
+  - SubNav
+  - Signup
 
 
 ### State
