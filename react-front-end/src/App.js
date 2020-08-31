@@ -13,9 +13,7 @@ import MatMultiValues from './components/MatMultiValues';
 import NavBar from './components/Navbar';
 import Footer from './components/Footer';
 import Login from './components/Login';
-
-
-
+// import useAppData from './hooks/useAppData'
 
 import {
   BrowserRouter as Router,
@@ -24,25 +22,6 @@ import {
   Link
 } from "react-router-dom";
 import { Input } from '@material-ui/core';
-
-
-// const fetchData = () => {
-//   axios.get('/api/users') // You can simply make your requests to "/api/whatever you want"
-//   .then((response) => {
-//     // handle success
-//     console.log(response.data) // The entire response from the Express API
-
-//     console.log(response.data) // Just the message
-//     setState({
-//       ...state,
-//       users: response.data
-//     });
-//   }) 
-// };
-
-// fetchData();
-
-
 
 
 export default function App(props) {
@@ -57,31 +36,26 @@ export default function App(props) {
     users: []
   });
 
-
   useEffect(() => {
     const fetchData = () => {
       axios.get('/api/users') // You can simply make your requests to "/api/whatever you want"
       .then((response) => {
         // handle success
         console.log(response.data) // The entire response from the Express API
-
+  
         setState((prev) => {
           return {...prev, users: response.data};
         });
       })
     };
-    
+
     fetchData();
   },[])
 
-
-
-
-
   return(
     <Fragment>
-    <NavBar loggedIn={state.loggedIn} />
-    <Login users={state.users} setState={setState} state={state} />
+    <NavBar loggedIn={state.loggedIn} setState={setState} state={state}/>
+    <Login setState={setState} state={state} />
     <Router>
       <div>
         <nav>
