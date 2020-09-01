@@ -137,7 +137,7 @@ export default function App(props) {
             <MatDropdown label="Skill Level" field="Please Select Skill Level" options={['beginner', 'intermediate', 'advanced']} varient="filled"/>
           </Route>
           <Route path="/MatMultiSelect">
-            <MatMultiSelect items={[1,2,3,4]} />
+            <MatMultiSelect items={[1,2,3,4]} inputLabel="Numbers"/>
           </Route>
           <Route path="/MatNotificationDot">
             <MatNotificationDot new_messages="3"/>
@@ -146,7 +146,7 @@ export default function App(props) {
             <MatTag tag="Outdoor"/>
           </Route>
           <Route path="/MatMultiValues">
-            <MatMultiValues />
+            <MatMultiValues setState={setState} state={state} options={["beginner", "intermediate", "advanced"]}/>
           </Route>
           <Route path="/ActivityCard">
             <ActivityCard setState={setState} state={state} />

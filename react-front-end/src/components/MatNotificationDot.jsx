@@ -6,7 +6,7 @@ import { Chip } from '@material-ui/core';
 export default function MatNotificationDot(props) {
   return (
     <Chip 
-      label={props.new_messages} 
+      label={props.newMessages} 
     />
   )
 };

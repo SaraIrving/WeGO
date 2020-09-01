@@ -14,29 +14,33 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function MatMultiValues() {
+export default function MatMultiValues(props) {
   const classes = useStyles();
+  console.log("props = ", props.options)
 
   return (
     <div className={classes.root}>
       <Autocomplete
         multiple
         id="tags-standard"
-        options={top100Films}
-        getOptionLabel={(option) => option.title}
-        defaultValue={[top100Films[13]]}
+        options={props.options}
+        getOptionLabel={(option) => option.name}
+        //defaultValue={[top100Films[0]]}
         renderInput={(params) => (
           <TextField
             {...params}
             variant="standard"
             label="Multiple values"
-            placeholder="Favorites"
+            placeholder="Searchable Tags"
           />
         )}
       />
-    </div>
+      </div>
   );
 }
+
+
+
 
 // Top 100 films as rated by IMDb users. http://www.imdb.com/chart/top
 const top100Films = [

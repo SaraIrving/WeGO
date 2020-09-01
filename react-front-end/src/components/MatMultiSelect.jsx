@@ -53,13 +53,31 @@ export default function MatMultiSelect(props) {
 
   const handleChange = (event) => {
     setPersonName(event.target.value);
+    props.onChange(event);
+
   };
+  
+  // const handleChangeMultiple = (event) => {
+  //   const { options } = event.target;
+  //   console.log("options = ", options)
+  //   console.log("Event.target.value = ", event.target.value)
+  //   //const options = event.target.value
+  //   const value = [];
+  //   for (let i = 0, l = options.length; i < l; i += 1) {
+  //     if (options[i].selected) {
+  //       value.push(options[i].value);
+  //     }
+  //   }
+  //   console.log('value = ', value);
+  //   setPersonName(value);
+  //   props.onChange(event);
+  // };
 
   return (
     <div>
 
       <FormControl className={classes.formControl}>
-        <InputLabel id="demo-mutiple-chip-label">Chip</InputLabel>
+        <InputLabel id="demo-mutiple-chip-label">{props.inputLabel}</InputLabel>
         <Select
           labelId={props.labelId}
           id={props.id}
@@ -77,7 +95,7 @@ export default function MatMultiSelect(props) {
           MenuProps={MenuProps}
         >
           {props.items.map((i) => (
-            <MenuItem key={i} value={i} style={getStyles(i, personName, theme)}>
+            <MenuItem key={i} value={i} style={getStyles(i, personName, theme)} >
               {i}
             </MenuItem>
           ))}
@@ -86,3 +104,11 @@ export default function MatMultiSelect(props) {
     </div>
   );
 }
+
+
+// days: multi - select
+// frequency: single - select
+// timeframe: multi - select
+
+// tags: multiValue
+// search:multiValues

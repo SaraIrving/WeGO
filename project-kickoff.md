@@ -319,7 +319,7 @@ Messages
     - ActivityList
 	- HostedDashboard
     - SubNav
-    - ActivityList
+    - ActivityList *
       - conditionally: ParticipantsList - props.accepted / props.pending
   - ActivityList
     - ActivityCard

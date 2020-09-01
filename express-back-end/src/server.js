@@ -38,6 +38,21 @@ App.get('/api/ap_count', (req, res) => {
     });
 });
 
+App.get('/api/activity_tag_fetch', (req, res) => {
+  let tagId = req.query.tags
+    db.query(
+      `
+      SELECT
+        tags.name
+      FROM tags
+      JOIN activity_tags ON tags.id = activity_tags.tag_id
+      WHERE activity_tags.activity_id = ${tagId}
+    `
+    ).then(({ rows: tags }) => {
+      res.json(tags);
+    });
+});
+
 
 // App.use("/api", ap_count(db,activity_id));
 App.use("/api", activity_participants(db));

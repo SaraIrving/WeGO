@@ -1,21 +1,41 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import MatAvatar from './MatAvatar';
 import MatButton from './MatButton';
+import ParticipantsList from './ParticipantsList';
 import axios from 'axios';
 
 export default function ActivityCard(props) {
   // Set number of players message based on props.currentPlayers and props.numoOfParticipants
 
+  const [tagName, setTagName] = useState(['','outdoor']);
+
   let currentPlayers;
   useEffect(() => {
+
     const fetchCount = function(id) {
       axios.get(`/api/ap_count?activity_id=${id}`)
       .then((response) => {
         currentPlayers = response.data.count;
       })
     }
+
     fetchCount(props.id)
+
   },[])
+
+  useEffect(() => {
+    
+    const fetchTags = function(id) {
+      axios.get(`/api/activity_tag_fetch?tags=${id}`)
+      .then((response) => {
+        console.log(response);
+        setTagName(prev => response.data)
+      })
+    }
+    fetchTags(props.id)
+
+  },[])
+
 
   let playerMessage = '';
   let playerFraction = `${props.currentPlayers} / ${props.numOfParticipants}`;
@@ -23,6 +43,25 @@ export default function ActivityCard(props) {
     playerMessage = `Looking for ${props.numOfParticipants - props.currentPlayers} more (${playerFraction} Filled)`;
   } else if (props.currentPlayers >= props.numOfParticipants) {
     playerMessage = 'Filled'
+  }
+
+  const images = {
+    spikeball: '../images/spikeball.png',
+    tennis: '../images/tennis.jpeg',
+    court: '../images/tennis.jpeg',
+    hiking: '../images/hiking.jpeg',
+    badminton: '../images/badminton.jpeg',
+    frisbee: '../images/frisbee.jpeg',
+    golf: '../images/golf.jpeg',
+    biking: '../images/biking.jpeg',
+    gaming: '../images/gaming.jpeg',
+    pinpong: '../images/pingpong.jpeg',
+    pool: '../images/pool.jpeg',
+    park: '../images/park.jpeg',
+    recreation: '../images/park.jpeg',
+    outdoor:'../images/park.jpeg',
+    kayake: '../images/kayaking.jpeg',
+    ski: '../images/skiiing.jpeg'
   }
 
   const ask = () => {
@@ -48,28 +87,29 @@ export default function ActivityCard(props) {
   const viewChats = () => {
     
   };
-
+  
   return (
     <article>
       <div>
         <div>
-          {/* <img src={props.images[props.tags[0]]} width="100%"></img> */}
+          <img src={images[(tagName[1].name)] || '../images/park.jpeg'} width="100%"></img>
         </div>
         <h2>{props.name}</h2>
-        {/* <ul>
-          {props.tags.map(tag => <li>{tag}</li>)}
-        </ul> */}
+        <ul>
+          {tagName.map(tag => <li>{tag.name}</li>)}
+        </ul>
         <MatAvatar name={props.hostName} avatar={props.avatar} city={props.city} />
       </div>
       <div>
       {props.state.view === 'hosted' && <div><MatButton variant="standard">Edit</MatButton></div>}
         <h3>{playerMessage}</h3>
-        <h5>Skill Level: {props.skillLevel}</h5>
+        <h5>Skill Level: {props.skillTag}</h5>
+        <h5>Frequency: {props.frequency}</h5>
         <h5>Days: {props.days}</h5>
         <h5>Timeframe: {props.timeframe}</h5>
         {props.location && <h5>Location: {props.location}</h5>}
         <p>{props.description}</p>
-        {props.state.view === 'browse' && 
+        {props.state.view === 'browse' || props.state.view === 'landing' && 
           <div>
             <MatButton variant="contained" color="primary" onClick={() => ask()}>Ask to Join</MatButton>
             <MatButton variant="contained" color="primary" onClick={() => message()}>Message Host</MatButton>
@@ -95,6 +135,11 @@ export default function ActivityCard(props) {
         }
 
       </div>
+      {props.state.view === 'hosted' &&
+        <div>
+          <ParticipantsList state={props.state} setState={props.setState} />
+        </div>
+      }
     </article>
   )
 };

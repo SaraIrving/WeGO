@@ -1,6 +1,5 @@
 import React from 'react';
 import ActivityCard from './ActivityCard';
-import axios from 'axios';
 
 export default function ActivityList(props) {
 
@@ -22,6 +21,8 @@ export default function ActivityList(props) {
         tags={activity.tags}
         state={props.state}
         key={activity.id}
+        days={activity.days_available}
+        frequency={activity.frequency}
        />
      })}
    </div>
