@@ -22,14 +22,10 @@ export default function ActivityForm(props) {
     logged_in_user_id: props.state.loggedIn
   });
 
-  console.log("stateForm = ", stateForm);
-  console.log('app state = ', props.state);
-
-
   const create = function(stateForm) {
+    console.log('inside create function');
     // update Activity participants, activity tags, activities 
     // need to put activity in the DB first so we can use the activity id to update the activity tags page and the activity participants page
-    console.log("Inside the create function")
     if (stateForm.activity_name &&
       stateForm.description &&
       stateForm.max_participants &&
@@ -43,18 +39,19 @@ export default function ActivityForm(props) {
       ) {
       axios.put(`/api/activities`, {stateForm})
       .then(() => {
-        props.setState({...props.state, view: 'browse'})
+        // not sure why, but not getting a response back
       })
       .catch(err => console.log(err));
     }
-
-    
+    setTimeout(() => {
+      props.setState(prev => { return {...prev, view: 'browse', refresh: prev.refresh += 1 }})
+    }, 1000)    
   }
 
   return (
-    <section>
+    <div>
       <h2>CREATE AN ACTIVITY</h2>
-      <form onSubmit={e => e.preventDefault()}>
+      <form className="form activity-form" onSubmit={e => e.preventDefault()}>
         <MatInput 
           required={true}
           onChange={event => setStateForm({...stateForm, activity_name: event.target.value, city: props.state.users[props.state.loggedIn].city})} 
@@ -116,12 +113,12 @@ export default function ActivityForm(props) {
           />
         <MatButton 
           variant="outlined" 
-          type="submit" 
+          type="submit"
           onClick={() => create(stateForm)}
           >
           CREATE
           </MatButton>
       </form>
-    </section>
+    </div>
   )
 };

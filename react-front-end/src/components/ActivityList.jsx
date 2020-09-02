@@ -30,6 +30,7 @@ export default function ActivityList(props) {
         key={activity.id}
         days={activity.days_available}
         frequency={activity.frequency}
+        hostId={activity.user_id}
        />
      })}
    </div>

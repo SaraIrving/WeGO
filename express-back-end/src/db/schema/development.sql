@@ -20,14 +20,21 @@ INSERT INTO activity_participants (activity_id, user_id, status)
 VALUES (1, 2,'null'),
 (2,4,'pending'),
 (3,2,'accepted'),
+(4,2,'accepted'),
+(5,2,'accepted'),
+(2,2,'pending'),
 (4,4,'pending'),
 (4,6,'accepted'),
+(6,1,'accepted'),
+(6,2,'accepted'),
+(6,3,'pending'),
+(6,4,'pending'),
 (1, 1, 'host'),
 (2, 3, 'host'),
 (3, 4, 'host'),
 (4, 1, 'host'),
 (5, 5, 'host'),
-(6, 1, 'host');
+(6, 2, 'host');
 
 INSERT INTO tags (name)
 VALUES ('outdoor'),

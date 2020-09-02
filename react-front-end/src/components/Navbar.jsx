@@ -5,14 +5,14 @@ import MatButton from './MatButton';
   export default function NavBar(props) {
 
     const logout = function() {
-      props.setState({...props.state, loggedIn: null, view:'landing'});
+      props.setState(prev => { return {...prev, loggedIn: null, view:'landing'}});
     }
 
     return (
       <section className="navbar">
         {props.loggedIn === null &&
           <div>
-            <img alt="LOGO HERE" src=""/>
+            <img alt="LOGO HER" src="../images/logo-dark.png" width="200px" />
             <div>
               <MatButton variant="text" onClick={() => props.setState({...props.state, view: 'landing'})} >HOME</MatButton>
               <MatButton variant="text" onClick={e => props.setState({...props.state, view: "login"})}>LOGIN</MatButton>

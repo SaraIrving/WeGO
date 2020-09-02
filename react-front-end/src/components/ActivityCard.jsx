@@ -32,22 +32,13 @@ export default function ActivityCard(props) {
     const fetchTags = function(id) {
       axios.get(`/api/activity_tag_fetch?tags=${id}`)
       .then((response) => {
-        console.log(response);
+        //console.log(response);
         setTagName(response.data)
       })
     }
     fetchTags(props.id)
 
-  });
-
-
-  // let playerMessage = '';
-  // let playerFraction = `${currentPlayers} / ${props.numOfParticipants}`;
-  // if (currentPlayers < props.numOfParticipants) {
-  //   playerMessage = `Looking for ${props.numOfParticipants - currentPlayers} more (${playerFraction} Filled)`;
-  // } else if (props.currentPlayers >= props.numOfParticipants) {
-  //   playerMessage = 'Filled'
-  // }
+  }, []);
 
   const images = {
     spikeball: '../images/spikeball.png',
@@ -69,33 +60,56 @@ export default function ActivityCard(props) {
   }
 
   const ask = () => {
-    // adds the user to the activity_participants table with a status of pending 
+    // adds the user to the activity_participants table with a status of pending
     // in the request body pass along: logged in users id, and the id of the activity they are asking to join
-    axios.put(`/api/activity_participants`, {user_id: props.state.loggedIn, activity_id: props.id})
-    .then(err => console.log(err));
-    props.setState({...props.state, view: 'browse'})
+    console.log("Inside the ask function front end")
+    axios.post(`/api/activity_participants`, {user_id: props.state.loggedIn, activity_id: props.id})
+    .then(() => {
+      props.setState(prev => { return {...prev, view: 'browse', refresh: prev.refresh += 1}})
+    })
+    .catch(err => console.log(err));
   };
 
   const message = () => {
     
   };
 
-  const cancel = () => {
-    // sets the user's status in the activity_participants table to null 
-    // specify the id of line in activity_participants that needs to be updated
-    
-    //find activity_participants.id logged in user id and current activity id
-    // const 
-    
+  const cancel = (userId, activityId) => {
+    // cancels a pending request
+    // deletes the entry into the activity participants table 
+    // delete requests accept a path and an optional object where you can put information
+    // put the user_id and activity_id in the optional object so we can use them in the db query?
+
+    console.log("inside the cancel function front end")
+
+    axios.delete(`/api/activity_participants?user_id=${userId}&activity_id=${activityId}`)
+    .then(() => {
+      props.setState(prev => { return {...prev, refresh: prev.refresh += 1}})
+    })
+    .catch(err => console.log(err));
+
+    // refresh the state after the axios request, don't change the view since we could cancel from either browse or from pending and we would just want to stay where we are 
   };
 
   const remove = () => {
-    // sets the user's status in the activity_participants table to null 
+    // remove the activity 
+    
+    
     
   };
 
-  const leave = () => {
+  const leave = (userId, activityId) => {
+    //used by the logged in user to remove themself from an activity where they are an accepted participant 
     // sets the user's status in the activity_participants table to null 
+    //don't change the state since they could be in browse or in joined and we want them to stay where they are
+
+    console.log("inside the leave function front end")
+
+    axios.put(`/api/activity_participants?user_id=${userId}&activity_id=${activityId}`)
+    .then(() => {
+      props.setState(prev => { return {...prev, refresh: prev.refresh += 1}})
+    })
+    .catch(err => console.log(err));
     
   };
 
@@ -103,67 +117,179 @@ export default function ActivityCard(props) {
     
   };
 
+
+
+  let hosted = props.hostId === props.state.loggedIn ? true : false;
+  let pending = false;
+  let joined = false;
+  let filled = playerMessage === 'Filled' ? true : false;
+  const filterParticipants = (userId, activityId) => {
+    for (let i of props.state.activityParticipants) {
+      if (activityId === i.activity_id && userId === i.user_id) {
+        if (i.status === 'pending') {
+          pending = true;
+        }
+        if (i.status === 'accepted') {
+          joined = true;
+        }
+      }
+    }
+  }
+  filterParticipants(props.state.loggedIn, props.id)
+
   const pickClass = classnames({'pending': props.pending});
   
   return (
+    <div>
+
+    {props.state.view === 'browse' && !filled &&
     <article className={pickClass}>
       <div>
         <div>
           <img src={images[(tagName[0].name)] || '../images/park.jpeg'} width="100%"></img>
         </div>
-        <h2>{props.name}</h2>
-        <ul>
-          {tagName.map(tag => <li key={tagName.indexOf(tag)}>{tag.name}</li>)}
-        </ul>
-        <MatAvatar name={props.hostName} avatar={props.avatar} city={props.city} />
+        <div>
+          <h3>{playerMessage}</h3>
+          <ul>
+            {tagName.map(tag => <li key={tagName.indexOf(tag)}>{tag.name}</li>)}
+          </ul>
+          <MatAvatar name={props.hostName} avatar={props.avatar} city={props.city} />
+        </div>
       </div>
       <div>
       {props.state.view === 'hosted' && <div><MatButton variant="contained">Edit</MatButton></div>}
-      {props.pending === true && <h2>REQUEST SENT!</h2>}
-        <h3>{playerMessage}</h3>
+      {props.pending === true && <h2 className="request-sent">REQUEST SENT!</h2>}
+        <h2>{props.name}</h2>
         <h5>Skill Level: {props.skillTag}</h5>
         <h5>Frequency: {props.frequency}</h5>
         <h5>Days: {props.days}</h5>
         <h5>Timeframe: {props.timeframe}</h5>
         {props.location && <h5>Location: {props.location}</h5>}
         <p>{props.description}</p>
-        {(props.state.view === 'browse' || props.state.view === 'landing') && !props.pending && 
+        {props.state.view === 'browse' && !pending && !hosted && !joined &&
           <div>
             <MatButton variant="contained" color="primary" onClick={() => ask()}>Ask to Join</MatButton>
             <MatButton variant="contained" color="primary" onClick={() => message()}>Message Host</MatButton>
           </div>
         }
-        {props.state.view === 'joined' && !props.pending && 
+        {joined && 
           <div>
             <MatButton variant="contained" color="primary" onClick={() => message()}>Message Host</MatButton>
-            <MatButton variant="contained" color="primary" onClick={() => leave()}>Leave</MatButton>
+            <MatButton variant="contained" color="primary" onClick={() => leave(props.state.loggedIn, props.id)}>Leave</MatButton>
           </div>
         }
-        {props.state.view === 'pending' && !props.pending && 
-          <div>
-            <MatButton variant="contained" color="primary" onClick={() => message()}>Message Host</MatButton>
-            <MatButton variant="contained" color="primary" onClick={() => cancel()}>Cancel</MatButton>
-          </div>
-        }
-        {props.state.view === 'hosted' && !props.pending && 
+        {hosted && 
           <div>
             <MatButton variant="contained" color="primary" onClick={() => viewChats()}>View Chats</MatButton>
             <MatButton variant="contained" color="primary" onClick={() => remove()}>Delete</MatButton>
           </div>
         }
-        {props.pending &&
+        {pending &&
           <div>
-          <MatButton variant="contained" color="primary" onClick={() => viewChats()}>Message Host</MatButton>
-          <MatButton variant="contained" color="primary" onClick={() => remove()}>Cancel</MatButton>
-        </div>
+          <MatButton variant="contained" color="primary" onClick={() => message()}>Message Host</MatButton>
+          <MatButton variant="contained" color="primary" onClick={() => cancel(props.state.loggedIn, props.id)}>Cancel</MatButton>
+          </div>
         }
-
       </div>
-      {props.state.view === 'hosted' &&
+    </article>
+    }
+
+
+    {props.state.loggedIn === props.hostId && props.state.view === 'hosted' && !filled &&
+    <article className={pickClass}>
+      <div>
         <div>
+          <img src={images[(tagName[0].name)] || '../images/park.jpeg'} width="100%"></img>
+        </div>
+        <div>
+          <h3>{playerMessage}</h3>
+          <ul>
+            {tagName.map(tag => <li key={tagName.indexOf(tag)}>{tag.name}</li>)}
+          </ul>
+          <MatAvatar name={props.hostName} avatar={props.avatar} city={props.city} />
+        </div>
+      </div>
+      <div>
+      <div><MatButton variant="outlined">Edit</MatButton></div>
+        <h2>{props.name}</h2>
+        <h5>Skill Level: {props.skillTag}</h5>
+        <h5>Frequency: {props.frequency}</h5>
+        <h5>Days: {props.days}</h5>
+        <h5>Timeframe: {props.timeframe}</h5>
+        {props.location && <h5>Location: {props.location}</h5>}
+        <p>{props.description}</p>
+          <div>
+            <MatButton variant="contained" color="primary" onClick={() => viewChats()}>View Chats</MatButton>
+            <MatButton variant="contained" color="primary" onClick={() => remove()}>Delete</MatButton>
+          </div>
+      </div>
+        <div className="participants-wrapper">
           <ParticipantsList state={props.state} setState={props.setState} activity_id={props.id} />
         </div>
-      }
     </article>
+    }
+
+    {joined && props.state.view === 'joined' &&
+    <article className={pickClass}>
+      <div>
+        <div>
+          <img src={images[(tagName[0].name)] || '../images/park.jpeg'} width="100%"></img>
+        </div>
+        <div> 
+          <h3>{playerMessage}</h3>
+          <ul>
+            {tagName.map(tag => <li key={tagName.indexOf(tag)}>{tag.name}</li>)}
+          </ul>
+          <MatAvatar name={props.hostName} avatar={props.avatar} city={props.city} />
+        </div>
+      </div>
+      <div>
+        <h2>{props.name}</h2>
+        <h5>Skill Level: {props.skillTag}</h5>
+        <h5>Frequency: {props.frequency}</h5>
+        <h5>Days: {props.days}</h5>
+        <h5>Timeframe: {props.timeframe}</h5>
+        {props.location && <h5>Location: {props.location}</h5>}
+        <p>{props.description}</p>
+          <div>
+            <MatButton variant="contained" color="primary" onClick={() => message()}>Message Host</MatButton>
+            <MatButton variant="contained" color="primary" onClick={() => leave(props.state.loggedIn, props.id)}>Leave</MatButton>
+          </div>
+      </div>
+    </article>
+    }
+
+
+    {pending && props.state.view === 'pending' &&
+    <article className={pickClass}>
+      <div>
+        <div>
+          <img src={images[(tagName[0].name)] || '../images/park.jpeg'} width="100%"></img>
+        </div>
+        <div>
+         <h3>{playerMessage}</h3>
+          <ul>
+            {tagName.map(tag => <li key={tagName.indexOf(tag)}>{tag.name}</li>)}
+          </ul>
+          <MatAvatar name={props.hostName} avatar={props.avatar} city={props.city} />
+        </div>
+      </div>
+      <div>
+        <h2 className="request-sent">REQUEST SENT!</h2>
+        <h2>{props.name}</h2>
+        <h5>Skill Level: {props.skillTag}</h5>
+        <h5>Frequency: {props.frequency}</h5>
+        <h5>Days: {props.days}</h5>
+        <h5>Timeframe: {props.timeframe}</h5>
+        {props.location && <h5>Location: {props.location}</h5>}
+        <p>{props.description}</p>
+          <div>
+            <MatButton variant="contained" color="primary" onClick={() => message()}>Message Host</MatButton>
+            <MatButton variant="contained" color="primary" onClick={() => cancel(props.state.loggedIn, props.id)}>Cancel</MatButton>
+          </div>
+      </div>
+    </article>
+    }
+  </div>
   )
 };

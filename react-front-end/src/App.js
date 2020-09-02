@@ -31,9 +31,9 @@ import { Input } from '@material-ui/core';
 
 const theme = createMuiTheme({
   palette: createPalette({
-       primary: {main: '#651FFF'},
+       primary: { main: '#576D5C' },//{main: '#651FFF'},
        accent: green,
-       secondary: green
+       secondary: { main: '#F85466' }
  }),
   typography: {
     // Use the system font instead of the default Roboto font.
@@ -52,15 +52,16 @@ const theme = createMuiTheme({
 export default function App(props) {
 
   const [state,setState] = useState({
-    loggedIn: null,
+    loggedIn: 2,
     activities: [],
     filters: [],
-    view: 'landing',
+    view: 'browse',
     messages: [],
     tags: [],
     activityParticipants: [],
     activityTags: [],
-    users: []
+    users: [],
+    refresh: 1
   });
 
 
@@ -76,6 +77,7 @@ export default function App(props) {
     .then((arrayOfValues) => {
       let [usersData, activitiesData, activityParticipantsData, activityTagsData, tagsData, messagesData] = arrayOfValues;
       setState((prev) => {
+        console.log('axios call');
         return ({...prev, users: usersData.data,
         activities: activitiesData.data,
         activityParticipants: activityParticipantsData.data,
@@ -88,13 +90,13 @@ export default function App(props) {
     .catch((error) => {
       console.log(error);
     })
-  }, [state.activites, state.view, state.activityParticipants]);
+  }, [state.refresh]);
 
   const login = function(username) {
     
     for (let i of state.users) {
       if (username) {
-        setState({...state, loggedIn: 4, view: 'browse'});
+        setState(prev => { return {...prev, loggedIn: 2, view: 'browse', refresh: prev.refresh += 1 }});
       }
     }
   }

@@ -48,6 +48,6 @@ export default function MatButton(props) {
   // color= primary, secondary
 
   return (
-  <Button onClick={props.onClick} size={props.size} endIcon={props.endIcon ? <EndIcon /> : false } startIcon={props.startIcon ? <StartIcon /> : false } variant={props.variant} color={props.color} disabled={props.disabled} disableElevation href={props.href}>{props.children}</Button>
+  <Button onClick={props.onClick} size={props.size} endIcon={props.endIcon ? <EndIcon /> : false } startIcon={props.startIcon ? <StartIcon /> : false } variant={props.variant} color={props.color} disabled={props.disabled} disableElevation href={props.href} type={props.type}>{props.children}</Button>
   )
 };

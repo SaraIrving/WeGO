@@ -25,22 +25,20 @@ App.get('/api/data', (req, res) => res.json({
 
 
 App.get('/api/ap_count', (req, res) => {
-  let id = req.query.activity_id
     db.query(
       `
       SELECT
         COUNT(*)
       FROM activity_participants
-      WHERE activity_id = $1
+      WHERE activity_id = $1 AND (status = 'host' OR status = 'accepted');
     `
-    ,[Number(id)])
+    ,[Number(req.query.activity_id)])
     .then(({ rows: ap_count }) => {
       res.json(ap_count);
     });
 });
 
 App.get('/api/activity_tag_fetch', (req, res) => {
-  let activity_id = req.query.tags
     db.query(
       `
       SELECT
@@ -49,7 +47,7 @@ App.get('/api/activity_tag_fetch', (req, res) => {
       LEFT JOIN activity_tags ON tags.id = activity_tags.tag_id
       WHERE activity_tags.activity_id = $1
     `
-    ,[Number(activity_id)])
+    ,[Number(req.query.tags)])
     .then(({ rows: tags }) => {
       res.json(tags);
     });

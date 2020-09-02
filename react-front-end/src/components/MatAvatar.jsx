@@ -15,7 +15,7 @@ export default function MatAvatar(props) {
   const classes = useStyles();
 
   return (
-    <div>
+    <div className="avatar-wrapper">
       <div className={classes.root}>
         <Avatar alt={props.name} src={props.avatar} />
       </div>
