@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import MatInput from './MatInput';
+import MatTextarea from './MatTextarea';
+import axios from 'axios';
 import MatButton from './MatButton';
 import MatMultiValue from './MatMultiValues';
 import MatMultiSelect from './MatMultiSelect';
 
 export default function ActivityForm(props) {
-  console.log("tags = ", props.state.tags)
 
   const [stateForm, setStateForm] = useState({
     activity_name: "",
@@ -17,96 +18,109 @@ export default function ActivityForm(props) {
     timeframe: [],
     days: [],
     skill_level: [],
-    tags: []
-
+    tags: [],
+    logged_in_user_id: props.state.loggedIn
   });
 
-  const tagsObject = props.state.tags
-  let tagsArray = tagsObject.map(tagObject => tagObject.name);
-
-  const login = function(username) {
-    
-    for (let i of props.state.users) {
-      if (username === 'user') {
-        props.setState({...props.state, loggedIn: 3});
-      }
-    }
-  }
-
   console.log("stateForm = ", stateForm);
+  console.log('app state = ', props.state);
+
+
   const create = function(stateForm) {
-    console.log("Inside the create function");
+    // update Activity participants, activity tags, activities 
+    // need to put activity in the DB first so we can use the activity id to update the activity tags page and the activity participants page
+    console.log("Inside the create function")
+    if (stateForm.activity_name &&
+      stateForm.description &&
+      stateForm.max_participants &&
+      stateForm.city &&
+      stateForm.frequency &&
+      stateForm.timeframe &&
+      stateForm.days &&
+      stateForm.skill_level &&
+      stateForm.tags &&
+      stateForm.logged_in_user_id 
+      ) {
+      axios.put(`/api/activities`, {stateForm})
+      .then(() => {
+        props.setState({...props.state, view: 'browse'})
+      })
+      .catch(err => console.log(err));
+    }
 
-    let currentActivityState = props.state.activities
-    console.log("props.activities = ", props);
-    currentActivityState.push(stateForm)  
-
-    props.setState({...props.state, activities: currentActivityState})
+    
   }
-
-  const handleSelectedMultiple = evt => {
-    const values = Array.from(evt.target.selectedOptions, option => option.value);
-    // Or this way
-   // const values = [...evt.target.selectedOptions].map(opt => opt.value)
-    console.log('values', values);
-  };
 
   return (
     <section>
       <h2>CREATE AN ACTIVITY</h2>
       <form onSubmit={e => e.preventDefault()}>
         <MatInput 
-          required={true} 
-          onChange={event => setStateForm({...stateForm, name: event.target.value})} 
+          required={true}
+          onChange={event => setStateForm({...stateForm, activity_name: event.target.value, city: props.state.users[props.state.loggedIn].city})} 
           label="activity_name" 
           value={stateForm.activity_name} variant="filled" 
           size="small" 
-          fullfullWidth={true} />
-        <MatInput 
-          required={true} 
+          fullfullWidth={true} 
+          />
+        <MatTextarea 
+          required={true}
           onChange={event => setStateForm({...stateForm, description: event.target.value})} 
           label="description" 
           value={stateForm.description} 
           variant="filled" size="small" 
-          fullfullWidth={true} multiline/>
+          fullfullWidth={true} multiline
+          />
         <MatInput 
           required={true} 
           onChange={event => setStateForm({...stateForm, max_participants: event.target.value})} 
-          label="max_participants" 
-          value={stateForm.max_participants} 
-          variant="filled" size="small" 
-          fullfullWidth={true} />
+          label="max_participants"
+          value={stateForm.max_participants}
+          variant="filled" size="small"
+          fullfullWidth={true}
+          />
         <MatInput 
-          required={false} 
+          required={false}
           onChange={event => setStateForm({...stateForm, location: event.target.value})} 
           label="location" 
           value={stateForm.max_participants} 
           variant="filled" 
           size="small" f
-          ullfullWidth={true} />
+          ullfullWidth={true}
+          />
         <MatMultiSelect 
           items={['One Time', 'Weekly', 'Bi-Weekly', 'Monthly']} 
           inputLabel="Frequency" 
-          onChange={event => setStateForm({...stateForm, frequency: event.target.value})} />
+          onChange={event => setStateForm({...stateForm, frequency: event.target.value})}
+          />
         <MatMultiSelect 
           items={['Morning', 'Daytime', 'Evening']} 
           inputLabel="Timeframe" 
-          onChange={event => setStateForm({...stateForm, timeframe: event.target.value})}  />
+          onChange={event => setStateForm({...stateForm, timeframe: event.target.value})}
+          />
         <MatMultiSelect 
           items={['Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat', 'Sun']} 
           inputLabel="Days" 
-          onChange={event => setStateForm({...stateForm, days: event.target.value})}  />
+          onChange={event => setStateForm({...stateForm, days: event.target.value})}
+          />
         <MatMultiSelect 
           items={['Beginner', 'Intermediate', 'Advanced']} 
           inputLabel="Skill Level" 
-          onChange={event => setStateForm({...stateForm, frequency: event.target.value})}   />
-        <MatMultiValue options={props.state.tags}/>
-
-        <MatButton variant="outlined" type="submit" onClick={() => create()}>CREATE</MatButton>
-        
-
-
-        {/* <MatButton variant="outlined" type="submit" onClick={() => login(stateLogin.username, stateLogin.password)}>CREATE</MatButton> */}
+          onChange={event => setStateForm({...stateForm, skill_level: event.target.value})}
+          />
+        <MatMultiValue 
+          options={props.state.tags} 
+          label="Searchable Tags" 
+          placeholder="Select Searchable Tags" 
+          onChange={(event, values) => setStateForm({...stateForm, tags: values})}
+          />
+        <MatButton 
+          variant="outlined" 
+          type="submit" 
+          onClick={() => create(stateForm)}
+          >
+          CREATE
+          </MatButton>
       </form>
     </section>
   )

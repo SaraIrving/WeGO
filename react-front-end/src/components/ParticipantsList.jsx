@@ -8,15 +8,15 @@ export default function ParticipantsList(props) {
       <div>
         <ul>
           {props.state.activityParticipants.map(part => {
-            if (part.status === "accepted" && part.activity_id === props.id) {
+            if (part.status === "accepted" && part.activity_id === props.activity_id) {
               return (
-                <Participant
+                <li><Participant
                   name={props.state.users[part.user_id].name}
                   city={props.state.users[part.user_id].city}
                   avatar={props.state.users[part.user_id].avatar}
                   key={part.id}
                   status="accepted"
-                />
+                /></li>
               )
             }
           })}
@@ -26,7 +26,7 @@ export default function ParticipantsList(props) {
       <div>
         <ul>
           {props.state.activityParticipants.map(part => {
-            if (part.status === "pending" && part.activity_id === props.id) {
+            if (part.status === "pending" && part.activity_id === props.activity_id) {
               return (
                 <Participant 
                   name={props.state.users[part.user_id].name}

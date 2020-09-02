@@ -1,33 +1,5 @@
 const router = require("express").Router();
 
-// module.exports = db => {
-//   router.get("/activities", (request, response) => {
-//     db.query(
-//       `
-//       SELECT
-//         activities.id,
-//         activities.user_id,
-//         activities.name,
-//         activities.num_of_participants, 
-//         activities.frequency, 
-//         activities.days_available, 
-//         activities.timeframe,
-//         activities.location, 
-//         activities.skill_tag,
-//         activities.tags,
-//         activities.created_at,
-//         activities.description
-//       FROM activities
-//       GROUP BY activities.id
-//       ORDER BY activities.location, activities.created_at
-//     `
-//     ).then(({ rows: activities }) => {
-//       response.json(activities);
-//     });
-//   });
-
-
-
 
   module.exports = db => {
     router.get("/activities", (request, response) => {
@@ -35,7 +7,6 @@ const router = require("express").Router();
         `
         SELECT
           activities.id,
-          activities.user_id,
           activities.name,
           activities.num_of_participants, 
           activities.frequency, 
@@ -43,7 +14,6 @@ const router = require("express").Router();
           activities.timeframe,
           activities.location, 
           activities.skill_tag,
-          activities.tags,
           activities.created_at,
           activities.description,
           activity_participants.user_id,
@@ -58,6 +28,50 @@ const router = require("express").Router();
         response.json(activities);
       });
     });
+
+    router.put("/activities",(request, response) => {
+      console.log('made it to server');
+      console.log('1 req body: ', request.body.stateForm);
+      db.query(
+        `INSERT INTO activities (name, num_of_participants, frequency, days_available, timeframe, location, skill_tag, description)
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+        RETURNING *;`
+      ,[request.body.stateForm.activity_name, Number(request.body.stateForm.max_participants), request.body.stateForm.frequency.join(', '), request.body.stateForm.days.join(', '), request.body.stateForm.timeframe.join(', '), request.body.stateForm.location, request.body.stateForm.skill_level.join(', '), request.body.stateForm.description])
+      .then(({ rows: activity }) => {
+        console.log('2 activity :', activity);
+        console.log('2 req body: ', request.body.stateForm);
+        // console.log("in activities.js-activity.id = ", activity.id)
+
+        db.query(
+          `
+          INSERT INTO activity_participants (activity_id, user_id, status)
+          VALUES ($1, $2, $3)
+          RETURNING *;
+        `, [Number(activity[0].id), Number(request.body.stateForm.logged_in_user_id), "host"])
+        .then(({rows: activity_participants}) => {
+          console.log('3 activity :', activity_participants);
+          console.log('3 req body: ', request.body.stateForm);
+          console.log('tags= ', request.body.stateForm.tags);
+
+          for (let tag of request.body.stateForm.tags) {
+            console.log("In the loop***********")
+            db.query(
+              `
+              INSERT INTO activity_tags (activity_id, tag_id)
+              VALUES($1, $2)
+              RETURNING *;`
+              , [Number(activity_participants[0].activity_id), Number(tag.id)]
+            )
+          }
+        
+        })
+        
+
+      })
+      .catch(err => console.log(err));
+
+
+    })
 
   return router;
 };

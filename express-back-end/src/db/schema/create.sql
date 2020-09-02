@@ -20,7 +20,6 @@ CREATE TABLE users (
 
 CREATE TABLE activities (
   id SERIAL PRIMARY KEY NOT NULL,
-  user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
   name VARCHAR(255) NOT NULL,
   num_of_participants INTEGER,
   frequency VARCHAR(255) NOT NULL,
@@ -28,7 +27,6 @@ CREATE TABLE activities (
   timeframe VARCHAR(255),
   location VARCHAR(255),
   skill_tag VARCHAR(555),
-  tags VARCHAR(800),
   created_at TIMESTAMPTZ default NOW(),
   description TEXT NOT NULL
 );

@@ -18,8 +18,8 @@ export default function ActivityList(props) {
         frequency={activity.frequency}
         description={activity.description}
         id={activity.id}
-        tags={activity.tags}
         state={props.state}
+        setState={props.setState}
         key={activity.id}
         days={activity.days_available}
         frequency={activity.frequency}

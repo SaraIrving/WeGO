@@ -1,6 +1,7 @@
 import React from 'react';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
+import ActivityList from './ActivityList';
 
 
 
@@ -12,7 +13,7 @@ export default function SubNav(props) {
   // !!!!!! eventually the first criteria should be set to Browse, not to Landing!!!!!
   let subNavHeading = '';
   let viewIndex;
-  if (props.state.view === 'landing') {
+  if (props.state.view === 'browse') {
     subNavHeading = "All Activities"
     viewIndex = 0;
   } else if (props.state.view === 'hosted'){
@@ -23,10 +24,10 @@ export default function SubNav(props) {
     viewIndex = 2;
   } else if (props.state.view === 'pending'){
     subNavHeading = "Pending Activities"
-    viewIndex = 4;
+    viewIndex = 3;
   } else if (props.state.view === 'messages'){
     subNavHeading = "All Messages"
-    viewIndex = 5;
+    viewIndex = 4;
   }
 
   const [value, setValue] = React.useState(viewIndex);
@@ -57,14 +58,15 @@ export default function SubNav(props) {
         <Tab label="Pending" id="simple-tab-3" aria-controls="simple-tabpanel-3" />
         <Tab label="Messages" id="simple-tab-4" aria-controls="simple-tabpanel-4" />
       </Tabs>
+      <div>
+        {value === 0 && <div><ActivityList setState={props.setState} state={props.state} /></div>}
+        {value === 1 && <div><ActivityList setState={props.setState} state={props.state} /></div>}
+        {value === 2 && <div><ActivityList setState={props.setState} state={props.state} /></div>}
+        {value === 3 && <div><ActivityList setState={props.setState} state={props.state} /></div>}
+        {value === 4 && <div>Messages here...</div>}
+       
+      </div>
     </div>
+    
   );
 }
-
-// How we would render different components associated with each tab if we choose to 
-// {value === 0 && <div>Widdll it work?</div>}
-// {value === 1 && <div>Widddddddll it work?</div>}
-// {value === 2 && <div>Wilvl it work?</div>}
-// {value === 3 && <div>Will  it work?</div>}
-// {value === 4 && <div>Wiscsdfsll it work?</div>}
-// {value === 5 && <div>Will it work?</div>}

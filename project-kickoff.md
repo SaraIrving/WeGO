@@ -301,9 +301,9 @@ Messages
 	- Navbar *
     - MatButton
 	- Footer *
-	- Landing
+	- Landing 
     - MatButton
-	- BrowseDashboard 
+	- BrowseDashboard
     - MatMultiValues
     - SubNav
     - ActivityList
@@ -313,18 +313,18 @@ Messages
     - MatButtons (conditionally)
     - Notification Dot (Conditionally)
 	- ParticipantsList
-    - Participants
+    - Participants *
 	- JoinedDashboard
-    - SubNav
-    - ActivityList
+    - SubNav *
+    - ActivityList *
 	- HostedDashboard
-    - SubNav
+    - SubNav *
     - ActivityList *
       - conditionally: ParticipantsList - props.accepted / props.pending
-  - ActivityList
-    - ActivityCard
+  - ActivityList *
+    - ActivityCard *
 	- MessageCard
-    - Participant
+    - Participant *
       - Notification Dot
       - MatButton
 	- MessageDashboard

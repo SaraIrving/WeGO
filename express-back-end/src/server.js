@@ -31,24 +31,26 @@ App.get('/api/ap_count', (req, res) => {
       SELECT
         COUNT(*)
       FROM activity_participants
-      WHERE activity_id = ${id}
+      WHERE activity_id = $1
     `
-    ).then(({ rows: ap_count }) => {
+    ,[Number(id)])
+    .then(({ rows: ap_count }) => {
       res.json(ap_count);
     });
 });
 
 App.get('/api/activity_tag_fetch', (req, res) => {
-  let tagId = req.query.tags
+  let activity_id = req.query.tags
     db.query(
       `
       SELECT
         tags.name
       FROM tags
-      JOIN activity_tags ON tags.id = activity_tags.tag_id
-      WHERE activity_tags.activity_id = ${tagId}
+      LEFT JOIN activity_tags ON tags.id = activity_tags.tag_id
+      WHERE activity_tags.activity_id = $1
     `
-    ).then(({ rows: tags }) => {
+    ,[Number(activity_id)])
+    .then(({ rows: tags }) => {
       res.json(tags);
     });
 });

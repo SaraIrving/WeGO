@@ -7,21 +7,24 @@ import axios from 'axios';
 export default function ActivityCard(props) {
   // Set number of players message based on props.currentPlayers and props.numoOfParticipants
 
-  const [tagName, setTagName] = useState(['','outdoor']);
+  const [tagName, setTagName] = useState([{},{name: 'outdoor'}]);
+  const [playerMessage, setPlayerMessage] = useState('');
 
-  let currentPlayers;
   useEffect(() => {
 
     const fetchCount = function(id) {
       axios.get(`/api/ap_count?activity_id=${id}`)
       .then((response) => {
-        currentPlayers = response.data.count;
+        let playerFraction = `${response.data[0].count} / ${props.numOfParticipants}`;
+        if (response.data[0].count < props.numOfParticipants) {
+          setPlayerMessage(prev => `Looking for ${props.numOfParticipants - response.data[0].count} more (${playerFraction} Filled)`);
+        } else if (response.data[0].count >= props.numOfParticipants) {
+          setPlayerMessage(prev => 'Filled')
+        }
       })
     }
-
     fetchCount(props.id)
-
-  },[])
+  },[]);
 
   useEffect(() => {
     
@@ -29,21 +32,21 @@ export default function ActivityCard(props) {
       axios.get(`/api/activity_tag_fetch?tags=${id}`)
       .then((response) => {
         console.log(response);
-        setTagName(prev => response.data)
+        setTagName(response.data)
       })
     }
     fetchTags(props.id)
 
-  },[])
+  });
 
 
-  let playerMessage = '';
-  let playerFraction = `${props.currentPlayers} / ${props.numOfParticipants}`;
-  if (props.currentPlayers < props.numOfParticipants) {
-    playerMessage = `Looking for ${props.numOfParticipants - props.currentPlayers} more (${playerFraction} Filled)`;
-  } else if (props.currentPlayers >= props.numOfParticipants) {
-    playerMessage = 'Filled'
-  }
+  // let playerMessage = '';
+  // let playerFraction = `${currentPlayers} / ${props.numOfParticipants}`;
+  // if (currentPlayers < props.numOfParticipants) {
+  //   playerMessage = `Looking for ${props.numOfParticipants - currentPlayers} more (${playerFraction} Filled)`;
+  // } else if (props.currentPlayers >= props.numOfParticipants) {
+  //   playerMessage = 'Filled'
+  // }
 
   const images = {
     spikeball: '../images/spikeball.png',
@@ -92,16 +95,16 @@ export default function ActivityCard(props) {
     <article>
       <div>
         <div>
-          <img src={images[(tagName[1].name)] || '../images/park.jpeg'} width="100%"></img>
+          <img src={images[(tagName[0].name)] || '../images/park.jpeg'} width="100%"></img>
         </div>
         <h2>{props.name}</h2>
         <ul>
-          {tagName.map(tag => <li>{tag.name}</li>)}
+          {tagName.map(tag => <li key={tagName.indexOf(tag)}>{tag.name}</li>)}
         </ul>
         <MatAvatar name={props.hostName} avatar={props.avatar} city={props.city} />
       </div>
       <div>
-      {props.state.view === 'hosted' && <div><MatButton variant="standard">Edit</MatButton></div>}
+      {props.state.view === 'hosted' && <div><MatButton variant="contained">Edit</MatButton></div>}
         <h3>{playerMessage}</h3>
         <h5>Skill Level: {props.skillTag}</h5>
         <h5>Frequency: {props.frequency}</h5>
@@ -109,7 +112,7 @@ export default function ActivityCard(props) {
         <h5>Timeframe: {props.timeframe}</h5>
         {props.location && <h5>Location: {props.location}</h5>}
         <p>{props.description}</p>
-        {props.state.view === 'browse' || props.state.view === 'landing' && 
+        {(props.state.view === 'browse' || props.state.view === 'landing') && 
           <div>
             <MatButton variant="contained" color="primary" onClick={() => ask()}>Ask to Join</MatButton>
             <MatButton variant="contained" color="primary" onClick={() => message()}>Message Host</MatButton>
@@ -137,7 +140,7 @@ export default function ActivityCard(props) {
       </div>
       {props.state.view === 'hosted' &&
         <div>
-          <ParticipantsList state={props.state} setState={props.setState} />
+          <ParticipantsList state={props.state} setState={props.setState} activity_id={props.id} />
         </div>
       }
     </article>

@@ -1,22 +1,18 @@
 import React, { Fragment, Component, useState, useEffect } from 'react';
 import axios from 'axios';
 import './App.css';
-import MatButton from './components/MatButton';
-import MatInput from './components/MatInput';
-import MatTextarea from './components/MatTextarea';
-import MatDropdown from './components/MatDropdown';
-import MatRadioBox from './components/MatRadioBox';
-import MatMultiSelect from './components/MatMultiSelect';
-import MatNotificationDot from './components/MatNotificationDot';
-import MatTag from './components/MatTag';
-import MatMultiValues from './components/MatMultiValues';
 import NavBar from './components/Navbar';
 import Footer from './components/Footer';
 import Login from './components/Login';
-import ActivityList from './components/ActivityList';
-import ActivityCard from './components/ActivityCard';
 import SubNav from './components/SubNav';
 import ActivityForm from './components/ActivityForm';
+import Landing from './components/Landing';
+import Signup from './components/Signup';
+
+import { ThemeProvider,createMuiTheme } from '@material-ui/core/styles';
+// import { createPalette } from '@material-ui/core/styles';
+import createPalette from '@material-ui/core/styles/createPalette';
+import { purple } from '@material-ui/core/colors';
 
 import {
   BrowserRouter as Router,
@@ -25,6 +21,19 @@ import {
   Link
 } from "react-router-dom";
 import { Input } from '@material-ui/core';
+
+// const theme = createMuiTheme({
+//   palette: createPalette({
+//     primary: red
+//   })
+// });
+
+const theme = createMuiTheme({
+  palette: createPalette({
+       primary: purple,
+       accent: purple.A400
+ }),
+});
 
 
 export default function App(props) {
@@ -54,8 +63,6 @@ export default function App(props) {
     .then((arrayOfValues) => {
       let [usersData, activitiesData, activityParticipantsData, activityTagsData, tagsData, messagesData] = arrayOfValues;
       setState((prev) => {
-        console.log(arrayOfValues);
-
         return ({...prev, users: usersData.data,
         activities: activitiesData.data,
         activityParticipants: activityParticipantsData.data,
@@ -68,109 +75,155 @@ export default function App(props) {
     .catch((error) => {
       console.log(error);
     })
-  }, []);
+  }, [state.activites]);
+
+  const login = function(username) {
+    
+    for (let i of state.users) {
+      if (username) {
+        setState({...state, loggedIn: 3, view: 'browse'});
+      }
+    }
+  }
 
 
   return(
-    <Fragment>
-    <NavBar loggedIn={state.loggedIn} setState={setState} state={state}/>
-    <Login setState={setState} state={state} />
-    <Router>
-      <div>
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/MatButton">MatButton</Link>
-            </li>
-            <li>
-              <Link to="/MatInput">MatInput</Link>
-            </li>
-            <li>
-              <Link to="/MatTextarea">MatTextarea</Link>
-            </li>
-            <li>
-              <Link to="/MatDropdown">MatDropdown</Link>
-            </li>
-            <li>
-              <Link to="/MatMultiSelect">MatMultiSelect</Link>
-            </li>
-            <li>
-              <Link to="/MatNotificationDot">MatNotificationDot</Link>
-            </li>
-            <li>
-              <Link to="/MatTag">MatTag</Link>
-            </li>
-            <li>
-              <Link to="/MatMultiValues">MatMultiValues</Link>
-            </li>
-            <li>
-              <Link to="/ActivityCard">ActivityCard</Link>
-            </li>
-            <li>
-              <Link to="/ActivityList">ActivityList</Link>
-            </li>
-            <li>
-              <Link to="/SubNav">SubNav</Link>
-            </li>
-            <li>
-              <Link to="/ActivityForm">ActivityForm</Link>
-            </li>
-          </ul>
-        </nav>
-
-        {/* A <Switch> looks through its children <Route>s and
-            renders the first one that matches the current URL. */}
-        <Switch>
-          <Route path="/MatButton">
-            <MatButton variant="contained" href="#" startIcon="SaveIcon" >Push me</MatButton>
-          </Route>
-          <Route path="/MatInput">
-            <MatInput required={true} label="Name" variant="filled"/>
-          </Route>
-          <Route path="/MatTextarea">
-            <MatTextarea />
-          </Route>
-          <Route path="/MatDropdown">
-            <MatDropdown label="Skill Level" field="Please Select Skill Level" options={['beginner', 'intermediate', 'advanced']} varient="filled"/>
-          </Route>
-          <Route path="/MatMultiSelect">
-            <MatMultiSelect items={[1,2,3,4]} inputLabel="Numbers"/>
-          </Route>
-          <Route path="/MatNotificationDot">
-            <MatNotificationDot new_messages="3"/>
-          </Route>
-          <Route path="/MatTag">
-            <MatTag tag="Outdoor"/>
-          </Route>
-          <Route path="/MatMultiValues">
-            <MatMultiValues setState={setState} state={state} options={["beginner", "intermediate", "advanced"]}/>
-          </Route>
-          <Route path="/ActivityCard">
-            <ActivityCard setState={setState} state={state} />
-          </Route>
-          <Route path="/ActivityList">
-            <ActivityList setState={setState} state={state} />
-          </Route>
-          <Route path="/SubNav">
-            <SubNav setState={setState} state={state} />
-          </Route>
-          <Route path="/ActivityForm">
-            <ActivityForm setState={setState} state={state} />
-          </Route>
-        </Switch>
-      </div>
-    </Router>
-    <Footer />
-    </Fragment>
+    <ThemeProvider theme={theme}>
+      <NavBar loggedIn={state.loggedIn} setState={setState} state={state} login={login}/>
+      {state.view === "landing" &&
+          <Landing setState={setState} state={state} />
+          }
+      {state.view === "signup" &&
+          <Signup setState={setState} state={state} login={login} />
+          }
+      {state.view === "login" &&
+          <Login setState={setState} state={state} login={login} />
+          }
+      {state.view === "browse" &&
+          <SubNav setState={setState} state={state} />
+          }
+      {state.view === "joined" &&
+          <SubNav setState={setState} state={state} />
+          }
+      {state.view === "hosted" &&
+          <SubNav setState={setState} state={state} />
+          }
+      {state.view === "pending" &&
+          <SubNav setState={setState} state={state} />
+          }
+      {state.view === "create" &&
+          <ActivityForm setState={setState} state={state} />
+          }
+      {state.view === "messages" &&
+          <SubNav setState={setState} state={state} />
+          }
+      <Footer />
+    </ThemeProvider>
   )
 }
 
 
 
 
+
+
+
+
+
+
+{/* <Fragment>
+<NavBar loggedIn={state.loggedIn} setState={setState} state={state}/>
+<Login setState={setState} state={state} />
+<Router>
+  <div>
+    <nav>
+      <ul>
+        <li>
+          <Link to="/">Home</Link>
+        </li>
+        <li>
+          <Link to="/MatButton">MatButton</Link>
+        </li>
+        <li>
+          <Link to="/MatInput">MatInput</Link>
+        </li>
+        <li>
+          <Link to="/MatTextarea">MatTextarea</Link>
+        </li>
+        <li>
+          <Link to="/MatDropdown">MatDropdown</Link>
+        </li>
+        <li>
+          <Link to="/MatMultiSelect">MatMultiSelect</Link>
+        </li>
+        <li>
+          <Link to="/MatNotificationDot">MatNotificationDot</Link>
+        </li>
+        <li>
+          <Link to="/MatTag">MatTag</Link>
+        </li>
+        <li>
+          <Link to="/MatMultiValues">MatMultiValues</Link>
+        </li>
+        <li>
+          <Link to="/ActivityCard">ActivityCard</Link>
+        </li>
+        <li>
+          <Link to="/ActivityList">ActivityList</Link>
+        </li>
+        <li>
+          <Link to="/SubNav">SubNav</Link>
+        </li>
+        <li>
+          <Link to="/ActivityForm">ActivityForm</Link>
+        </li>
+      </ul>
+    </nav>
+
+    {/* A <Switch> looks through its children <Route>s and
+        renders the first one that matches the current URL. */}
+//     <Switch>
+//       <Route path="/MatButton">
+//         <MatButton variant="contained" href="#" startIcon="SaveIcon" color="accent" >Push me</MatButton>
+//       </Route>
+//       <Route path="/MatInput">
+//         <MatInput required={true} label="Name" variant="filled"/>
+//       </Route>
+//       <Route path="/MatTextarea">
+//         <MatTextarea />
+//       </Route>
+//       <Route path="/MatDropdown">
+//         <MatDropdown label="Skill Level" field="Please Select Skill Level" options={['beginner', 'intermediate', 'advanced']} varient="filled"/>
+//       </Route>
+//       <Route path="/MatMultiSelect">
+//         <MatMultiSelect items={[1,2,3,4]} inputLabel="Numbers"/>
+//       </Route>
+//       <Route path="/MatNotificationDot">
+//         <MatNotificationDot new_messages="3"/>
+//       </Route>
+//       <Route path="/MatTag">
+//         <MatTag tag="Outdoor"/>
+//       </Route>
+//       <Route path="/MatMultiValues">
+//         <MatMultiValues setState={setState} state={state} options={["beginner", "intermediate", "advanced"]}/>
+//       </Route>
+//       <Route path="/ActivityCard">
+//         <ActivityCard setState={setState} state={state} />
+//       </Route>
+//       <Route path="/ActivityList">
+//         <ActivityList setState={setState} state={state} />
+//       </Route>
+//       <Route path="/SubNav">
+//         <SubNav setState={setState} state={state} />
+//       </Route>
+//       <Route path="/ActivityForm">
+//         <ActivityForm setState={setState} state={state} />
+//       </Route>
+//     </Switch>
+//   </div>
+// </Router>
+// <Footer />
+// </Fragment> */}
 
 
 
