@@ -6,7 +6,14 @@ export default function ActivityList(props) {
   return(
    <div>
      {props.state.activities.map(activity => {
+       let pending = false;
+       for (let i of props.state.activityParticipants) {
+         if (i.activity_id === activity.id && i.user_id === props.state.loggedIn && i.status === "pending") {
+          pending = true;
+         }
+       }
        return <ActivityCard
+        pending={pending}
         name={activity.name}
         city={props.state.users[activity.user_id].city}
         hostName={props.state.users[activity.user_id].name}

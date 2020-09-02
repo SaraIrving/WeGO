@@ -18,5 +18,19 @@ module.exports = db => {
     });
   });
 
+  router.put("/activity_participants", (request, response) => {
+    console.log("made it to the activity_p PUT!")
+    db.query(
+      `
+      INSERT INTO activity_participants (activity_id, user_id)
+      VALUES ($1, $2);
+      `
+      , [request.body.activity_id, request.body.user_id]
+    ).then(({ rows: activity_participants }) => {
+      console.log("after the put!")
+      response.json(activity_participants);
+    });
+  });
+
   return router;
 };

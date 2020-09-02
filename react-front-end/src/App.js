@@ -8,11 +8,12 @@ import SubNav from './components/SubNav';
 import ActivityForm from './components/ActivityForm';
 import Landing from './components/Landing';
 import Signup from './components/Signup';
+import classNames from 'classnames';
 
-import { ThemeProvider,createMuiTheme } from '@material-ui/core/styles';
+import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 // import { createPalette } from '@material-ui/core/styles';
 import createPalette from '@material-ui/core/styles/createPalette';
-import { purple } from '@material-ui/core/colors';
+import { purple, green } from '@material-ui/core/colors';
 
 import {
   BrowserRouter as Router,
@@ -30,10 +31,22 @@ import { Input } from '@material-ui/core';
 
 const theme = createMuiTheme({
   palette: createPalette({
-       primary: purple,
-       accent: purple.A400
+       primary: {main: '#651FFF'},
+       accent: green,
+       secondary: green
  }),
+  typography: {
+    // Use the system font instead of the default Roboto font.
+    fontFamily: [
+      'Balsamiq Sans',
+      'sans-serif',
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"',
+    ].join(','),
+  }
 });
+
 
 
 export default function App(props) {
@@ -75,13 +88,13 @@ export default function App(props) {
     .catch((error) => {
       console.log(error);
     })
-  }, [state.activites]);
+  }, [state.activites, state.view, state.activityParticipants]);
 
   const login = function(username) {
     
     for (let i of state.users) {
       if (username) {
-        setState({...state, loggedIn: 3, view: 'browse'});
+        setState({...state, loggedIn: 4, view: 'browse'});
       }
     }
   }
@@ -89,34 +102,36 @@ export default function App(props) {
 
   return(
     <ThemeProvider theme={theme}>
-      <NavBar loggedIn={state.loggedIn} setState={setState} state={state} login={login}/>
-      {state.view === "landing" &&
-          <Landing setState={setState} state={state} />
-          }
-      {state.view === "signup" &&
-          <Signup setState={setState} state={state} login={login} />
-          }
-      {state.view === "login" &&
-          <Login setState={setState} state={state} login={login} />
-          }
-      {state.view === "browse" &&
-          <SubNav setState={setState} state={state} />
-          }
-      {state.view === "joined" &&
-          <SubNav setState={setState} state={state} />
-          }
-      {state.view === "hosted" &&
-          <SubNav setState={setState} state={state} />
-          }
-      {state.view === "pending" &&
-          <SubNav setState={setState} state={state} />
-          }
-      {state.view === "create" &&
-          <ActivityForm setState={setState} state={state} />
-          }
-      {state.view === "messages" &&
-          <SubNav setState={setState} state={state} />
-          }
+      <NavBar className='navbar' loggedIn={state.loggedIn} setState={setState} state={state} login={login}/>
+      <main className="activity-views">
+        {state.view === "landing" &&
+            <Landing setState={setState} state={state} />
+            }
+        {state.view === "signup" &&
+            <Signup setState={setState} state={state} login={login} />
+            }
+        {state.view === "login" &&
+            <Login setState={setState} state={state} login={login} />
+            }
+        {state.view === "browse" &&
+            <SubNav setState={setState} state={state} />
+            }
+        {state.view === "joined" &&
+            <SubNav setState={setState} state={state} />
+            }
+        {state.view === "hosted" &&
+            <SubNav setState={setState} state={state} />
+            }
+        {state.view === "pending" &&
+            <SubNav setState={setState} state={state} />
+            }
+        {state.view === "create" &&
+            <ActivityForm setState={setState} state={state} />
+            }
+        {state.view === "messages" &&
+            <SubNav setState={setState} state={state} />
+            }
+        </main>
       <Footer />
     </ThemeProvider>
   )

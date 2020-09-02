@@ -9,7 +9,7 @@ import MatButton from './MatButton';
     }
 
     return (
-      <section>
+      <section className="navbar">
         {props.loggedIn === null &&
           <div>
             <img alt="LOGO HERE" src=""/>
