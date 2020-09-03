@@ -24,6 +24,7 @@ export default function MatInput(props) {
     defaultValue={props.defaultValue}
     color={props.color}
     onChange={props.onChange}
+    value={props.value}
   />
   )
 };

@@ -5,6 +5,19 @@ const BodyParser = require('body-parser');
 const PORT = 8080;
 const db = require("./db");
 
+// const io = require('socket.io')(App);
+
+const http = require('http').createServer(App) // might need?
+const io = require('socket.io')(http);
+
+
+io.on('connection', socket => {
+  socket.on('message', (message) => {
+    console.log('message received on server: ', message)
+    io.emit('message', {message})
+  })
+})
+
 // require routes
 const activity_participants = require("./routes/activity_participants");
 const activities = require("./routes/activities");
@@ -64,7 +77,11 @@ App.use("/api", messages(db));
 
 
 
-App.listen(PORT, () => {
+http.listen(PORT, () => {
   // eslint-disable-next-line no-console
   console.log(`Express seems to be listening on port ${PORT} so that's pretty good 👍`);
 });
+// App.listen(PORT, () => {
+//   // eslint-disable-next-line no-console
+//   console.log(`Express seems to be listening on port ${PORT} so that's pretty good 👍`);
+// });

@@ -3,25 +3,24 @@ import ActivityCard from './ActivityCard';
 
 export default function ActivityList(props) {
 
-  const [status, setStatus] = useState({
-    accepted: true,
-    pending: true
-  })
+  // const [status, setStatus] = useState({
+  //   accepted: true,
+  //   pending: true
+  // })
 
-  useEffect(() => {
-    const checkEmptys = () => {
-      for(let i of props.state.activityParticipants) {
-        if (props.state.loggedIn === i.user_id && i.status === 'pending') {
-          return setStatus(prev => {return {...prev, pending: false }})
-        }
-        if (props.state.loggedIn === i.user_id && i.status === 'accepted') {
-          return setStatus(prev => {return {...prev, accepted: false }})
-        }
-      }
-    }
-    checkEmptys();
-  },[])
-
+  // useEffect(() => {
+  //   const checkEmptys = () => {
+  //     for(let i of props.state.activityParticipants) {
+  //       if (props.state.loggedIn === i.user_id && i.status === 'pending') {
+  //         return setStatus(prev => {return {...prev, pending: false }})
+  //       }
+  //       if (props.state.loggedIn === i.user_id && i.status === 'accepted') {
+  //         return setStatus(prev => {return {...prev, accepted: false }})
+  //       }
+  //     }
+  //   }
+  //   checkEmptys();
+  // },[])
 
   // if (!status.pending) {
   //   return (<h3>Empty pending</h3>);
@@ -59,5 +58,5 @@ export default function ActivityList(props) {
      }})}
     </div>
     )
-    
+
 }

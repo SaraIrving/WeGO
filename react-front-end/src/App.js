@@ -1,4 +1,6 @@
 import React, { Fragment, Component, useState, useEffect } from 'react';
+import io from 'socket.io-client';
+import TextField from '@material-ui/core/TextField'
 import axios from 'axios';
 import './App.css';
 import NavBar from './components/Navbar';
@@ -8,13 +10,14 @@ import SubNav from './components/SubNav';
 import ActivityForm from './components/ActivityForm';
 import Landing from './components/Landing';
 import Signup from './components/Signup';
+import ChatCard from './components/ChatCard';
 import EditForm from './components/EditForm';
 import classNames from 'classnames';
 
 import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 // import { createPalette } from '@material-ui/core/styles';
 import createPalette from '@material-ui/core/styles/createPalette';
-import { purple, green } from '@material-ui/core/colors';
+import { green } from '@material-ui/core/colors';
 
 import {
   BrowserRouter as Router,
@@ -22,13 +25,10 @@ import {
   Route,
   Link
 } from "react-router-dom";
-import { Input } from '@material-ui/core';
 
-// const theme = createMuiTheme({
-//   palette: createPalette({
-//     primary: red
-//   })
-// });
+const socket = io.connect('http://localhost:8080', {resource: '/nodejs/socket.io'});
+// const socket = io.connect('http://localhost:3000')
+// const socket = io('http://localhost', {path: '/nodejs/socket.io'})
 
 const theme = createMuiTheme({
   palette: createPalette({
@@ -57,15 +57,37 @@ export default function App(props) {
     loggedIn: 2,
     activities: [],
     filters: [],
-    view: 'browse',
+    view: 'chatcard',
     messages: [],
     tags: [],
     activityParticipants: [],
     activityTags: [],
     users: [],
-    refresh: 1
+    refresh: 1,
+    message: '',
+    name: '',
+    chat: []
   });
 
+  useEffect(() => {
+    socket.on('message', ({message}) => {
+      console.log('message received: ', message);
+      setState(prev => ({...prev, chat: [...prev.chat, {name: message.name, message: message.message }]}))
+    })
+  },[])
+
+
+  const onMessageSubmit = (e) => {
+    e.preventDefault()
+    const {name, message} = state;
+    socket.send({name, message})
+    setState(prev => {return {...prev, message: '', name , refresh: prev.refresh+= 1 }})
+  }
+
+  const onTextChange = (value, inputName) => {
+    console.log('e.target.name: ', inputName)
+    setState(prev => { return {...prev, [inputName]: value}})
+  }
 
   useEffect(() => {
     const promiseOne = axios.get('/api/users');
@@ -137,6 +159,9 @@ export default function App(props) {
             }
         {state.view === "editform" &&
             <EditForm setState={setState} state={state} />
+            }
+        {state.view === "chatcard" &&
+            <ChatCard setState={setState} state={state} onMessageSubmit={onMessageSubmit} onTextChange={onTextChange} />
             }
         </main>
       <Footer />

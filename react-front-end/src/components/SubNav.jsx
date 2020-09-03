@@ -2,6 +2,7 @@ import React from 'react';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import ActivityList from './ActivityList';
+import MessageDashboard from './MessageDashboard';
 
 
 
@@ -63,7 +64,7 @@ export default function SubNav(props) {
         {value === 1 && <div><ActivityList setState={props.setState} state={props.state} /></div>}
         {value === 2 && <div><ActivityList setState={props.setState} state={props.state} /></div>}
         {value === 3 && <div><ActivityList setState={props.setState} state={props.state} /></div>}
-        {value === 4 && <div></div>}
+        {value === 4 && <div><MessageDashboard setState={props.setState} state={props.state} /></div>}
        
       </div>
     </div>
