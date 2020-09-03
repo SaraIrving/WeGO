@@ -33,7 +33,7 @@ export default function MatMultiValues(props) {
         id="tags-standard"
         options={props.options}
         getOptionLabel={(option) => option.name}
-        //defaultValue={[top100Films[0]]}
+        //defaultValue={[props.defaultValue]}
         onChange={handleChange}
         renderInput={(params) => (
           <TextField

@@ -15,39 +15,41 @@ export default function ParticipantsList(props) {
   for (let i of props.state.activityParticipants) {
     if (i.activity_id === props.activity_id) {
       if (i.status === 'pending') {
-        setLocalState({...localState, pending: true});
+        setLocalState(prev => { return {...prev, pending: true}});
       }
       if (i.status === 'accepted') {
-        setLocalState({...localState, accepted: true});
+        setLocalState(prev => { return {...prev, accepted: true}});
       }
     }
   }
-  },[])
+  },[props.state.refresh])
 
   return (
     <div>
-      {localState.accepted || localState.pending &&
+      {(localState.accepted || localState.pending) &&
             <div className="participants-list">
             {localState.accepted && <h3>Accepted Participants</h3>}
-            <div>
               <ul>
                 {props.state.activityParticipants.map(part => {
                   if (part.status === "accepted" && part.activity_id === props.activity_id) {
                     return (
-                      <li><Participant
+                      <Participant
                         name={props.state.users[part.user_id].name}
                         city={props.state.users[part.user_id].city}
                         avatar={props.state.users[part.user_id].avatar}
                         key={part.id}
                         status="accepted"
-                      /></li>
+                        statusChangeFunction={props.statusChangeFunction}
+                        activity_id={props.activity_id}
+                        user_id={part.user_id}
+                      />
                     )
                   }
                 })}
               </ul>
-            </div>
-            {localState.pending && <h3>Pending Participants</h3>}
             <div>
+            {localState.pending && <h3>Pending Participants</h3>}
+            </div>
               <ul>
                 {props.state.activityParticipants.map(part => {
                   if (part.status === "pending" && part.activity_id === props.activity_id) {
@@ -58,12 +60,15 @@ export default function ParticipantsList(props) {
                         avatar={props.state.users[part.user_id].avatar}
                         key={part.id}
                         status="pending"
+                        cancelFunction={props.cancelFunction}
+                        statusChangeFunction={props.statusChangeFunction}
+                        activity_id={props.activity_id}
+                        user_id={part.user_id}
                       />
                     )
                   }
                 })}
               </ul>
-            </div>
           </div>
       }
     </div>

@@ -1,3 +1,24 @@
+.hide {
+  display: none;
+}
+
+html {
+  font-size: 110.5%;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Lilita One", sans-serif !important;
+  font-weight: 500;
+}
+
+p, button, a, input, textarea {
+  font-family: "Roboto", Sans-Serif !important;
+}
+
+a {
+  cursor: pointer !important;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -7,7 +28,7 @@ section {
 }
 
 .navbar {
-  background-color: #f2f2f2;
+  background-color: #dff0eb;
 }
 .navbar > div {
   display: flex;
@@ -22,9 +43,11 @@ section {
 .footer {
   display: flex;
   justify-content: center;
-  padding: 4em 3em;
+  padding: 7em 3em;
   align-items: center;
-  background: #333333;
+  background-color: #4F6354 !important;
+  background: url(./images/footer-bg.png);
+  background-size: cover;
 }
 .footer h2 {
   font-size: 35px;
@@ -43,6 +66,13 @@ main > div > h2 {
   text-align: center;
 }
 
+main.activity-views {
+  background: url("./images/activities-bg4.png");
+  background-size: cover;
+  background-position: 50% -40%;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+}
 main.activity-views article {
   max-width: 900px;
   display: flex;
@@ -79,11 +109,13 @@ main.activity-views article > div:nth-child(1) > div:nth-child(2) li {
   padding: 2px 8px 4px 8px;
   line-height: 1em;
   margin-bottom: 0.7em;
-  font-size: 0.9em;
+  font-size: 0.75em;
+  color: #F7BD02;
+  font-weight: 600;
 }
 main.activity-views article > div:nth-child(1) > div:nth-child(2) h3 {
   margin-bottom: 18px;
-  color: #576D5C;
+  color: #F7BD02;
 }
 main.activity-views article > div:nth-child(2) {
   width: 55%;
@@ -108,9 +140,12 @@ main.activity-views article > div:nth-child(2) h2.request-sent {
   margin: 0px;
   padding: 10px 20px;
   font-size: 1em;
-  background: #F85466;
+  background: #F7BD02;
   color: #576D5C;
   border-radius: 0px 10px 0px 8px;
+}
+main.activity-views article > div:nth-child(2) h2:first-of-type {
+  color: #576D5C;
 }
 main.activity-views article.pending {
   background: #F9FACD;
@@ -122,11 +157,12 @@ div.participants-wrapper {
 
 div.participants-list {
   width: 100%;
-  background: #CCFAE4;
+  background: #dff0eb;
   padding: 2em 3em 2em 3em;
 }
 div.participants-list ul {
   padding-left: 0px;
+  list-style-type: none;
 }
 div.participants-list ul > div {
   display: flex;
@@ -135,7 +171,7 @@ div.participants-list ul > div {
 }
 div.participants-list ul > div > span {
   height: 2px;
-  background: #F85466;
+  background: #F7BD02;
   flex-grow: 0.85;
 }
 div.participants-list ul button {
@@ -144,9 +180,33 @@ div.participants-list ul button {
 
 .MuiTabs-root {
   margin-bottom: 3em;
+  position: relative;
 }
 .MuiTabs-root div > div {
   justify-content: center;
+}
+
+div.subnav-wrapper {
+  position: relative;
+  min-height: 370px;
+}
+div.subnav-wrapper > h2 {
+  color: #576D5C;
+  font-size: 3em;
+}
+
+div.subnav-wrapper:after {
+  content: "Nothing To Show Yet...";
+  display: block;
+  position: absolute;
+  bottom: 80px;
+  text-align: center;
+  width: 100%;
+  z-index: -1;
+  color: #576D5C;
+  font-weight: 400;
+  font-family: "Lilita One", sans-serif;
+  font-size: 1.3em;
 }
 
 div.avatar-wrapper {

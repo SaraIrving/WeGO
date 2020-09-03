@@ -26,7 +26,7 @@ module.exports = db => {
       SET status = $3
       WHERE activity_id = $1 AND user_id = $2
       `
-      , [Number(request.query.activity_id), Number(request.query.user_id), "null"]
+      , [Number(request.query.activity_id), Number(request.query.user_id), request.query.status]
     ).then(({ rows: activity_participants }) => {
       console.log("after the put!")
       response.json(activity_participants);

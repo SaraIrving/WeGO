@@ -5,6 +5,7 @@ import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
+import FormHelperText from '@material-ui/core/FormHelperText';
 import Select from '@material-ui/core/Select';
 import Chip from '@material-ui/core/Chip';
 
@@ -51,6 +52,8 @@ export default function MatMultiSelect(props) {
   const theme = useTheme();
   const [personName, setPersonName] = React.useState([]);
 
+
+
   const handleChange = (event) => {
     setPersonName(event.target.value);
     props.onChange(event);
@@ -79,19 +82,28 @@ export default function MatMultiSelect(props) {
       <FormControl className={classes.formControl}>
         <InputLabel id="demo-mutiple-chip-label">{props.inputLabel}</InputLabel>
         <Select
+          displayEmpty
+          //defaultValue={props.defaultValue}
           labelId={props.labelId}
           id={props.id}
           multiple
-          value={personName}
+          value={personName }
+          // value={props.defaultValue ? props.defaultValue : personName }
           onChange={handleChange}
           input={<Input id="select-multiple-chip" />}
-          renderValue={(selected) => (
+          renderValue={(selected) => {
+            if (selected.length === 0 && props.defaultValue) {
+            return <div className={classes.chips}>
+                      <Chip label={props.defaultValue} className={classes.chip} />
+                    </div>;
+            }
+            return (
             <div className={classes.chips}>
               {selected.map((value) => (
                 <Chip key={value} label={value} className={classes.chip} />
               ))}
             </div>
-          )}
+          )}}
           MenuProps={MenuProps}
         >
           {props.items.map((i) => (
@@ -100,6 +112,7 @@ export default function MatMultiSelect(props) {
             </MenuItem>
           ))}
         </Select>
+        
       </FormControl>
     </div>
   );

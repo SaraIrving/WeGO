@@ -66,14 +66,28 @@ const router = require("express").Router();
               response.json("it worked!");
             })
           }
-        
         })
-        
 
       })
       .catch(err => console.log(err));
 
 
+    });
+
+    router.delete("/activities", (request, response) => {
+      console.log("inside the activities DELETE back end");
+
+      db.query(
+        `
+        DELETE
+        FROM activities
+        WHERE id = $1
+        `
+        , [Number(request.query.activity_id)]
+      ).then(({ rows: activities }) => {
+        console.log("after the delete in activites DELETE!")
+        response.json(activities);
+      });
     })
 
   return router;

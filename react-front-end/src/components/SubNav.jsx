@@ -49,7 +49,7 @@ export default function SubNav(props) {
   };
 
   return (
-    <div >
+    <div className="subnav-wrapper">
      <h2>{subNavHeading}</h2>
       <Tabs value={value} onChange={handleChange} aria-label="simple tabs">
         <Tab label="Browse" id="simple-tab-0" aria-controls="simple-tabpanel-0" />
@@ -63,7 +63,7 @@ export default function SubNav(props) {
         {value === 1 && <div><ActivityList setState={props.setState} state={props.state} /></div>}
         {value === 2 && <div><ActivityList setState={props.setState} state={props.state} /></div>}
         {value === 3 && <div><ActivityList setState={props.setState} state={props.state} /></div>}
-        {value === 4 && <div>Messages here...</div>}
+        {value === 4 && <div></div>}
        
       </div>
     </div>

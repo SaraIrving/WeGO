@@ -12,7 +12,7 @@ import MatButton from './MatButton';
       <section className="navbar">
         {props.loggedIn === null &&
           <div>
-            <img alt="LOGO HER" src="../images/logo-dark.png" width="200px" />
+            <a onClick={() => props.setState(prev => {return {...prev, view: 'landing'}})}><img alt="LOGO HERE" src="../images/logo-dark.svg" width="140px" /></a>
             <div>
               <MatButton variant="text" onClick={() => props.setState({...props.state, view: 'landing'})} >HOME</MatButton>
               <MatButton variant="text" onClick={e => props.setState({...props.state, view: "login"})}>LOGIN</MatButton>
@@ -21,7 +21,7 @@ import MatButton from './MatButton';
           </div>}
         {props.loggedIn &&
         <div>
-          <img alt="LOGO HERE" src=""/>
+          <a onClick={() => props.setState(prev => {return {...prev, view: 'landing'}})}><img alt="LOGO HERE" src="../images/logo-dark.svg" width="140px" /></a>
           <div>
             <MatButton variant="text" onClick={() => props.setState({...props.state, view: 'landing'})} >HOME</MatButton>
             <MatButton startIcon="AddIcon" onClick={() => props.setState({...props.state, view: 'create'})}>NEW ACTIVITY</MatButton>

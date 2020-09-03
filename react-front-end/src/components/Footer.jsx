@@ -4,7 +4,7 @@ export default function Footer(props) {
 
   return (
     <section className="footer">
-      <h2>FOOTER</h2>
+      <img src="../images/logo-white.png" width="300px" />
     </section>
 
   )

@@ -1,13 +1,31 @@
 $dark: #333333
 $primary: #576D5C
-$secondary: #F85466
-$lightgreen: #CCFAE4
+$secondary: #F7BD02
+$lightgreen: #dff0eb
 $lightyellow: #F9FACD
 $light: #f2f2f2
+
+$fontfamily: 'Lilita One', sans-serif
 %flex-column
   display: flex
   justify-content: center
   flex-direction: column
+
+.hide
+  display: none
+
+html
+  font-size: 110.5%
+
+h1, h2, h3, h4, h5, h6
+  font-family: 'Lilita One', sans-serif !important
+  font-weight: 500
+p, button, a, input, textarea
+  font-family: 'Roboto', Sans-Serif !important
+
+a
+  cursor: pointer !important
+
 
 * 
   box-sizing: border-box
@@ -16,7 +34,7 @@ section
   background: $light
 
 .navbar
-  background-color: $light
+  background-color: $lightgreen
 
   > div
     display: flex
@@ -30,9 +48,11 @@ section
 .footer
   display: flex
   justify-content: center
-  padding: 4em 3em
+  padding: 7em 3em
   align-items: center
-  background: $dark
+  background-color: #4F6354 !important
+  background: url(./images/footer-bg.png)
+  background-size: cover
 
   h2
     font-size: 35px
@@ -50,6 +70,11 @@ main
     text-align: center
 
 main.activity-views 
+  background: url('./images/activities-bg4.png')
+  background-size: cover
+  background-position: 50% -40%
+  background-attachment: fixed
+  background-repeat: no-repeat
   article
     max-width: 900px
     display: flex
@@ -85,11 +110,13 @@ main.activity-views
           padding: 2px 8px 4px 8px
           line-height: 1em
           margin-bottom: .7em
-          font-size: .9em
+          font-size: .75em
+          color: $secondary
+          font-weight: 600
         
         h3
           margin-bottom: 18px
-          color: $primary
+          color: $secondary
 
     > div:nth-child(2)
       width: 55%
@@ -117,6 +144,8 @@ main.activity-views
         background: $secondary
         color: $primary
         border-radius: 0px 10px 0px 8px
+      h2:first-of-type
+        color: $primary
     
   article.pending
     background: $lightyellow
@@ -131,6 +160,8 @@ div.participants-list
   
   ul
     padding-left: 0px
+    list-style-type: none
+
 
     > div
       display: flex
@@ -147,8 +178,32 @@ div.participants-list
 
 .MuiTabs-root
   margin-bottom: 3em
+  position: relative
+
   div > div
     justify-content: center
+
+div.subnav-wrapper
+  position: relative
+  min-height: 370px
+
+  > h2 
+    color: $primary
+    font-size: 3em
+  
+div.subnav-wrapper:after
+  content: 'Nothing To Show Yet...'
+  display: block
+  position: absolute
+  bottom: 80px
+  text-align: center
+  width: 100%
+  z-index: -1
+  color: $primary
+  font-weight: 400
+  font-family: $fontfamily
+  font-size: 1.3em
+
 
 div.avatar-wrapper
   display: flex
@@ -180,3 +235,4 @@ div.landing-wrapper
   display: flex
   justify-content: center
   flex-direction: column
+

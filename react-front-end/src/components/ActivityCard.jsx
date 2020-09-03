@@ -91,21 +91,27 @@ export default function ActivityCard(props) {
     // refresh the state after the axios request, don't change the view since we could cancel from either browse or from pending and we would just want to stay where we are 
   };
 
-  const remove = () => {
-    // remove the activity 
-    
-    
+  const remove = (activityId) => {
+    // remove the activity from the database 
+
+    console.log("inside of the remove function front end")
+
+    axios.delete(`/api/activities?activity_id=${activityId}`)
+    .then(() => {
+      props.setState(prev => { return {...prev, refresh: prev.refresh += 1}})
+    })
+    .catch(err => console.log(err));
     
   };
 
-  const leave = (userId, activityId) => {
+  const statusChange = (userId, activityId, status) => {
     //used by the logged in user to remove themself from an activity where they are an accepted participant 
     // sets the user's status in the activity_participants table to null 
     //don't change the state since they could be in browse or in joined and we want them to stay where they are
 
     console.log("inside the leave function front end")
 
-    axios.put(`/api/activity_participants?user_id=${userId}&activity_id=${activityId}`)
+    axios.put(`/api/activity_participants?user_id=${userId}&activity_id=${activityId}&status=${status}`)
     .then(() => {
       props.setState(prev => { return {...prev, refresh: prev.refresh += 1}})
     })
@@ -116,8 +122,6 @@ export default function ActivityCard(props) {
   const viewChats = () => {
     
   };
-
-
 
   let hosted = props.hostId === props.state.loggedIn ? true : false;
   let pending = false;
@@ -138,6 +142,16 @@ export default function ActivityCard(props) {
   filterParticipants(props.state.loggedIn, props.id)
 
   const pickClass = classnames({'pending': props.pending});
+
+  const isHosted = () => {
+    for(let i of props.state.activities) {
+      if (props.state.loggedIn === i.user_id) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+}
   
   return (
     <div>
@@ -146,7 +160,7 @@ export default function ActivityCard(props) {
     <article className={pickClass}>
       <div>
         <div>
-          <img src={images[(tagName[0].name)] || '../images/park.jpeg'} width="100%"></img>
+          <img src={images[(tagName.length > 1 ? tagName[1].name : tagName[0].name)] || '../images/park.jpeg'} width="100%"></img>
         </div>
         <div>
           <h3>{playerMessage}</h3>
@@ -157,7 +171,7 @@ export default function ActivityCard(props) {
         </div>
       </div>
       <div>
-      {props.state.view === 'hosted' && <div><MatButton variant="contained">Edit</MatButton></div>}
+      {props.state.view === 'hosted' && <div><MatButton variant="contained" onClick={() => props.setState(prev => {return {...prev, refresh: props.id, view: 'editform'}})}>Edit</MatButton></div>}
       {props.pending === true && <h2 className="request-sent">REQUEST SENT!</h2>}
         <h2>{props.name}</h2>
         <h5>Skill Level: {props.skillTag}</h5>
@@ -175,19 +189,19 @@ export default function ActivityCard(props) {
         {joined && 
           <div>
             <MatButton variant="contained" color="primary" onClick={() => message()}>Message Host</MatButton>
-            <MatButton variant="contained" color="primary" onClick={() => leave(props.state.loggedIn, props.id)}>Leave</MatButton>
+            <MatButton variant="contained" color="secondary" onClick={() => statusChange(props.state.loggedIn, props.id, "null")}>Leave</MatButton>
           </div>
         }
         {hosted && 
           <div>
             <MatButton variant="contained" color="primary" onClick={() => viewChats()}>View Chats</MatButton>
-            <MatButton variant="contained" color="primary" onClick={() => remove()}>Delete</MatButton>
+            <MatButton variant="contained" color="secondary" onClick={() => remove(props.id)}>Delete</MatButton>
           </div>
         }
         {pending &&
           <div>
           <MatButton variant="contained" color="primary" onClick={() => message()}>Message Host</MatButton>
-          <MatButton variant="contained" color="primary" onClick={() => cancel(props.state.loggedIn, props.id)}>Cancel</MatButton>
+          <MatButton variant="contained" color="secondary" onClick={() => cancel(props.state.loggedIn, props.id)}>Cancel</MatButton>
           </div>
         }
       </div>
@@ -197,6 +211,7 @@ export default function ActivityCard(props) {
 
     {props.state.loggedIn === props.hostId && props.state.view === 'hosted' && !filled &&
     <article className={pickClass}>
+      {/* {isHosted() ? null : <h3>Looks like you dont have any hosted activities... <a onClick={() => props.setState(prev => {return {...prev, view: 'create'}})}>Yet?</a></h3>} */}
       <div>
         <div>
           <img src={images[(tagName[0].name)] || '../images/park.jpeg'} width="100%"></img>
@@ -210,7 +225,7 @@ export default function ActivityCard(props) {
         </div>
       </div>
       <div>
-      <div><MatButton variant="outlined">Edit</MatButton></div>
+      <div><MatButton variant="outlined" onClick={() => props.setState(prev => {return {...prev, refresh: props.id, view: 'editform'}})} >Edit</MatButton></div>
         <h2>{props.name}</h2>
         <h5>Skill Level: {props.skillTag}</h5>
         <h5>Frequency: {props.frequency}</h5>
@@ -220,17 +235,18 @@ export default function ActivityCard(props) {
         <p>{props.description}</p>
           <div>
             <MatButton variant="contained" color="primary" onClick={() => viewChats()}>View Chats</MatButton>
-            <MatButton variant="contained" color="primary" onClick={() => remove()}>Delete</MatButton>
+            <MatButton variant="contained" color="secondary" onClick={() => remove(props.id)}>Delete</MatButton>
           </div>
       </div>
         <div className="participants-wrapper">
-          <ParticipantsList state={props.state} setState={props.setState} activity_id={props.id} />
+          <ParticipantsList state={props.state} setState={props.setState} activity_id={props.id} cancelFunction={cancel} statusChangeFunction={statusChange}/>
         </div>
     </article>
     }
 
     {joined && props.state.view === 'joined' &&
     <article className={pickClass}>
+      {/* {isEmpty('accepted') ? null : <h3>It looks like you haven't joined any activities yet...</h3>} */}
       <div>
         <div>
           <img src={images[(tagName[0].name)] || '../images/park.jpeg'} width="100%"></img>
@@ -253,15 +269,16 @@ export default function ActivityCard(props) {
         <p>{props.description}</p>
           <div>
             <MatButton variant="contained" color="primary" onClick={() => message()}>Message Host</MatButton>
-            <MatButton variant="contained" color="primary" onClick={() => leave(props.state.loggedIn, props.id)}>Leave</MatButton>
+            <MatButton variant="contained" color="secondary" onClick={() => statusChange(props.state.loggedIn, props.id, "null")}>Leave</MatButton>
           </div>
       </div>
     </article>
     }
 
-
+    
     {pending && props.state.view === 'pending' &&
     <article className={pickClass}>
+      {/* {isEmpty('pending') && <h3>It looks like you don't have any pending activities yet...</h3>} */}
       <div>
         <div>
           <img src={images[(tagName[0].name)] || '../images/park.jpeg'} width="100%"></img>
@@ -285,7 +302,7 @@ export default function ActivityCard(props) {
         <p>{props.description}</p>
           <div>
             <MatButton variant="contained" color="primary" onClick={() => message()}>Message Host</MatButton>
-            <MatButton variant="contained" color="primary" onClick={() => cancel(props.state.loggedIn, props.id)}>Cancel</MatButton>
+            <MatButton variant="contained" color="secondary" onClick={() => cancel(props.state.loggedIn, props.id)}>Cancel</MatButton>
           </div>
       </div>
     </article>

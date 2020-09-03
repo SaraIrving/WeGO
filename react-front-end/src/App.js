@@ -8,6 +8,7 @@ import SubNav from './components/SubNav';
 import ActivityForm from './components/ActivityForm';
 import Landing from './components/Landing';
 import Signup from './components/Signup';
+import EditForm from './components/EditForm';
 import classNames from 'classnames';
 
 import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
@@ -33,12 +34,13 @@ const theme = createMuiTheme({
   palette: createPalette({
        primary: { main: '#576D5C' },//{main: '#651FFF'},
        accent: green,
-       secondary: { main: '#F85466' }
+       secondary: { main: '#F7BD02' } // #f85466
  }),
   typography: {
-    // Use the system font instead of the default Roboto font.
+    // Use the custom font instead of the default Roboto font.
     fontFamily: [
-      'Balsamiq Sans',
+      'Lilita One',
+      'Roboto',
       'sans-serif',
       '"Apple Color Emoji"',
       '"Segoe UI Emoji"',
@@ -132,6 +134,9 @@ export default function App(props) {
             }
         {state.view === "messages" &&
             <SubNav setState={setState} state={state} />
+            }
+        {state.view === "editform" &&
+            <EditForm setState={setState} state={state} />
             }
         </main>
       <Footer />
