@@ -54,10 +54,10 @@ const theme = createMuiTheme({
 export default function App(props) {
 
   const [state,setState] = useState({
-    loggedIn: 2,
+    loggedIn: null,
     activities: [],
     filters: [],
-    view: 'chatcard',
+    view: 'login',
     messages: [],
     tags: [],
     activityParticipants: [],
@@ -66,26 +66,26 @@ export default function App(props) {
     refresh: 1,
     message: '',
     name: '',
-    chat: []
+    chat: [],
+    currentActivityId: 0
   });
 
   useEffect(() => {
     socket.on('message', ({message}) => {
-      console.log('message received: ', message);
-      setState(prev => ({...prev, chat: [...prev.chat, {name: message.name, message: message.message }]}))
+      // setState(prev => ({...prev, chat: [...prev.chat, {name: message.name, message: message.message }]}))
+      setState(prev => ({...prev, refresh: prev.refresh += 1 }))
     })
-  },[])
+  }, [state.messages])
 
 
   const onMessageSubmit = (e) => {
     e.preventDefault()
-    const {name, message} = state;
-    socket.send({name, message})
+    const { name, message, loggedIn, currentActivityId } = state;
+    socket.send({name, message, loggedIn, currentActivityId})
     setState(prev => {return {...prev, message: '', name , refresh: prev.refresh+= 1 }})
   }
 
   const onTextChange = (value, inputName) => {
-    console.log('e.target.name: ', inputName)
     setState(prev => { return {...prev, [inputName]: value}})
   }
 
@@ -119,8 +119,8 @@ export default function App(props) {
   const login = function(username) {
     
     for (let i of state.users) {
-      if (username) {
-        setState(prev => { return {...prev, loggedIn: 2, view: 'browse', refresh: prev.refresh += 1 }});
+      if (Number(username) === i.id) {
+        setState(prev => { return {...prev, loggedIn: i.id, view: 'browse', refresh: prev.refresh += 1, name: prev.users[Number(i.id) - 1].name }});
       }
     }
   }

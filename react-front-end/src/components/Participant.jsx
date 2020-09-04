@@ -26,7 +26,7 @@ export default function Participant(props) {
       <div>
         {props.status === 'message' &&
         <div>
-          <MatButton variant="contained" color="primary">Open Chat</MatButton>
+          <MatButton variant="contained" color="primary" onClick={props.onClick}>Open Chat</MatButton>
           <MatNotificationDot label={props.newMessages} />
         </div>
         }

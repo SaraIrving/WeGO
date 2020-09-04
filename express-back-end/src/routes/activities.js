@@ -22,7 +22,7 @@ const router = require("express").Router();
         LEFT JOIN activity_participants ON activities.id = activity_participants.activity_id
         WHERE activity_participants.status = 'host'
         GROUP BY activities.id, activity_participants.user_id, activity_participants.activity_id, activity_participants.status
-        ORDER BY activities.location, activities.created_at
+        ORDER BY activities.id, activities.created_at
       `
       ).then(({ rows: activities }) => {
         response.json(activities);

@@ -96,6 +96,14 @@ VALUES (1, 1),
 (6, 1),
 (6, 31);
 
+INSERT INTO messages (activity_id, user_id, text)
+VALUES 
+(6, 5, 'Hey Im intersted in your cool activity'),
+(6, 2, 'cool deal!'),
+(6, 5, 'can i bring my dog with me?'),
+(6, 2, 'no!')
+
+
 
 
 

@@ -34,9 +34,9 @@ export default function ParticipantsList(props) {
                   if (part.status === "accepted" && part.activity_id === props.activity_id) {
                     return (
                       <Participant
-                        name={props.state.users[part.user_id].name}
-                        city={props.state.users[part.user_id].city}
-                        avatar={props.state.users[part.user_id].avatar}
+                        name={props.state.users[part.user_id - 1].name}
+                        city={props.state.users[part.user_id - 1].city}
+                        avatar={props.state.users[part.user_id - 1].avatar}
                         key={part.id}
                         status="accepted"
                         statusChangeFunction={props.statusChangeFunction}
@@ -55,9 +55,9 @@ export default function ParticipantsList(props) {
                   if (part.status === "pending" && part.activity_id === props.activity_id) {
                     return (
                       <Participant 
-                        name={props.state.users[part.user_id].name}
-                        city={props.state.users[part.user_id].city}
-                        avatar={props.state.users[part.user_id].avatar}
+                        name={props.state.users[part.user_id - 1].name}
+                        city={props.state.users[part.user_id - 1].city}
+                        avatar={props.state.users[part.user_id - 1].avatar}
                         key={part.id}
                         status="pending"
                         cancelFunction={props.cancelFunction}

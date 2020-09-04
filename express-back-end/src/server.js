@@ -14,6 +14,11 @@ const io = require('socket.io')(http);
 io.on('connection', socket => {
   socket.on('message', (message) => {
     console.log('message received on server: ', message)
+    db.query(`
+    INSERT INTO messages (activity_id, user_id, text)
+    VALUES ($1, $2, $3)
+    `, [Number(message.currentActivityId), Number(message.loggedIn), message.message] )
+
     io.emit('message', {message})
   })
 })

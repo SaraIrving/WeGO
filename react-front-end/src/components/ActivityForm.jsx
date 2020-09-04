@@ -54,7 +54,7 @@ export default function ActivityForm(props) {
       <form className="form activity-form" onSubmit={e => e.preventDefault()}>
         <MatInput 
           required={true}
-          onChange={event => setStateForm({...stateForm, activity_name: event.target.value, city: props.state.users[props.state.loggedIn].city})} 
+          onChange={event => setStateForm({...stateForm, activity_name: event.target.value, city: props.state.users[props.state.loggedIn - 1].city})} 
           label="activity_name" 
           value={stateForm.activity_name} variant="filled" 
           size="small" 

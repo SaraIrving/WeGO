@@ -38,9 +38,9 @@ export default function ActivityList(props) {
        return <ActivityCard
         pending={pending}
         name={activity.name}
-        city={props.state.users[activity.user_id].city}
-        hostName={props.state.users[activity.user_id].name}
-        avatar={props.state.users[activity.user_id].avatar}
+        city={props.state.users[activity.user_id - 1].city}
+        hostName={props.state.users[activity.user_id - 1].name}
+        avatar={props.state.users[activity.user_id - 1].avatar}
         numOfParticipants={activity.num_of_participants}
         timeframe={activity.timeframe}
         location={activity.location}

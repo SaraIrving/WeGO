@@ -70,7 +70,7 @@ export default function EditForm(props) {
       <form className="form activity-form" onSubmit={e => e.preventDefault()}>
         <MatInput 
           required={true}
-          onChange={event => setStateEdit({...stateEdit, activity_name: event.target.value, city: props.state.users[props.state.loggedIn].city})} 
+          onChange={event => setStateEdit({...stateEdit, activity_name: event.target.value, city: props.state.users[props.state.loggedIn - 1].city})} 
           label="activity_name" 
           value={stateEdit.activity_name} variant="filled" 
           size="small" 
@@ -127,6 +127,7 @@ export default function EditForm(props) {
           items={['Beginner', 'Intermediate', 'Advanced']} 
           inputLabel="Skill Level" 
           onChange={event => setStateEdit({...stateEdit, skill_level: event.target.value})}
+          defaultValue={[`${activityToEdit.skill_tag}`]}
           />
         <MatMultiValue 
           options={props.state.tags} 

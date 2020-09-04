@@ -71,7 +71,7 @@ export default function ActivityCard(props) {
   };
 
   const message = () => {
-    
+    props.setState(prev => ({...prev, view: 'chatcard', currentActivityId: props.id}));
   };
 
   const cancel = (userId, activityId) => {
