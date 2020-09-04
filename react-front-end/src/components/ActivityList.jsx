@@ -3,39 +3,29 @@ import ActivityCard from './ActivityCard';
 
 export default function ActivityList(props) {
 
-  // const [status, setStatus] = useState({
-  //   accepted: true,
-  //   pending: true
-  // })
-
-  // useEffect(() => {
-  //   const checkEmptys = () => {
-  //     for(let i of props.state.activityParticipants) {
-  //       if (props.state.loggedIn === i.user_id && i.status === 'pending') {
-  //         return setStatus(prev => {return {...prev, pending: false }})
-  //       }
-  //       if (props.state.loggedIn === i.user_id && i.status === 'accepted') {
-  //         return setStatus(prev => {return {...prev, accepted: false }})
-  //       }
-  //     }
-  //   }
-  //   checkEmptys();
-  // },[])
-
-  // if (!status.pending) {
-  //   return (<h3>Empty pending</h3>);
-  // } else if (!status.accepted) {
-  //   return (<h3>Empty joined</h3>);
-  // } else {
 
   return (<div>
      {props.state.activities.map(activity => {
+       const currentTagNames = props.state.activityTags.filter(tag => tag.activity_id === activity.id).map(tag => tag.name)
+         console.log('maybetagnames : ', currentTagNames); 
+          
+       if (props.state.filters.length !== 0) {
+        const found = props.state.filters.map(filter => filter.name).some(r => currentTagNames.indexOf(r) >= 0 )
+
+        if (found) {
+          console.log('match Found!')
+        } else {
+          return;
+        }
+       }
+
        let pending = false;
        for (let i of props.state.activityParticipants) {
          if (i.activity_id === activity.id && i.user_id === props.state.loggedIn && i.status === "pending") {
           pending = true;
          }
        return <ActivityCard
+        currentTagNames={currentTagNames}
         pending={pending}
         name={activity.name}
         city={props.state.users[activity.user_id - 1].city}
@@ -54,6 +44,7 @@ export default function ActivityList(props) {
         days={activity.days_available}
         frequency={activity.frequency}
         hostId={activity.user_id}
+        socket={props.socket}
        />
      }})}
     </div>

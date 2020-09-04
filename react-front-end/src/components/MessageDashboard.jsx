@@ -40,7 +40,7 @@ let activityMessages = [];
   return (
     <div>
       {activityMessages.length > 0 &&
-            <div className="participants-list">
+            <div className="messages-list">
               <ul>
                 {activityMessages.map(messageGroup => {
                   console.log('messageGroup ', messageGroup);
@@ -57,6 +57,7 @@ let activityMessages = [];
                               activity_id={messageGroup.id}
                               user_id={messageObject.user_id}
                               status="message"
+                              notifications={0}
                               onClick={() => props.setState(prev => ({...prev, view: 'chatcard', currentActivityId: messageGroup.id }))}
                             />
                             } else if (messageObject.host !== props.state.loggedIn && messageObject.user_id === props.state.loggedIn){

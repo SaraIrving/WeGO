@@ -3,7 +3,7 @@ import MatInput from './MatInput';
 import MatTextarea from './MatTextarea';
 import axios from 'axios';
 import MatButton from './MatButton';
-import MatMultiValue from './MatMultiValues';
+import MatMultiValues from './MatMultiValues';
 import MatMultiSelect from './MatMultiSelect';
 
 // At this moment, the value of refresh will be equal to the activity id of whatever activity you are editing
@@ -20,15 +20,17 @@ export default function EditForm(props) {
     }
 
   const [stateEdit, setStateEdit] = useState({
+    activity_id: props.state.refresh,
     activity_name: activityToEdit.name,
     description: activityToEdit.description,
     max_participants: activityToEdit.num_of_participants,
     city: activityToEdit.city,
     location: activityToEdit.location,
-    frequency: [`${activityToEdit.frequency}`],
-    timeframe: [`${activityToEdit.timeframe}`],
-    days: [`${activityToEdit.days_available}`],
-    skill_level: [`${activityToEdit.skill_tag}`],
+    // frequency: [`${activityToEdit.frequency}`],
+    frequency: activityToEdit.frequency.split(' '),
+    timeframe: activityToEdit.timeframe.split(' '),
+    days: activityToEdit.days_available.split(' '),
+    skill_level: activityToEdit.skill_tag.split(' '),
     tags: [],
     logged_in_user_id: props.state.loggedIn,
     activity_id: props.state.refresh
@@ -37,28 +39,17 @@ export default function EditForm(props) {
 
 
   const edit = function(stateEdit) {
-    console.log('inside create function');
+    console.log('inside edit function');
     // update Activity participants, activity tags, activities 
     // need to put activity in the DB first so we can use the activity id to update the activity tags page and the activity participants page
-    if (stateEdit.activity_name &&
-      stateEdit.description &&
-      stateEdit.max_participants &&
-      stateEdit.city &&
-      stateEdit.frequency &&
-      stateEdit.timeframe &&
-      stateEdit.dayEdit &&
-      stateEdit.skill_level &&
-      stateEdit.tags &&
-      stateEdit.logged_in_user_id 
-      ) {
+
       axios.put(`/api/activities?activity_id=${props.state.refresh}`, {stateEdit})
       .then(() => {
         // not sure why, but not getting a response back
       })
       .catch(err => console.log(err));
-    }
     setTimeout(() => {
-      props.setState(prev => { return {...prev, view: 'browse', refresh: prev.refresh += 1 }})
+      props.setState(prev => { return {...prev, view: 'hosted', refresh: prev.refresh += 1 }})
     }, 1000)    
   }
 
@@ -109,27 +100,27 @@ export default function EditForm(props) {
           items={['One Time', 'Weekly', 'Bi-Weekly', 'Monthly']} 
           inputLabel="Frequency" 
           onChange={event => setStateEdit({...stateEdit, frequency: event.target.value})}
-          defaultValue={[`${activityToEdit.frequency}`]}
+          // defaultValue={[`${activityToEdit.frequency}`]}
           />
         <MatMultiSelect 
           items={['Morning', 'Daytime', 'Evening']} 
           inputLabel="Timeframe" 
           onChange={event => setStateEdit({...stateEdit, timeframe: event.target.value})}
-          defaultValue={[`${activityToEdit.timeframe}`]}
+          // defaultValue={[`${activityToEdit.timeframe}`]}
           />
         <MatMultiSelect 
           items={['Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat', 'Sun']} 
           inputLabel="Days" 
           onChange={event => setStateEdit({...stateEdit, days: event.target.value})}
-          defaultValue={[`${activityToEdit.days_available}`]}
+          // defaultValue={[`${activityToEdit.days_available}`]}
           />
         <MatMultiSelect 
           items={['Beginner', 'Intermediate', 'Advanced']} 
           inputLabel="Skill Level" 
           onChange={event => setStateEdit({...stateEdit, skill_level: event.target.value})}
-          defaultValue={[`${activityToEdit.skill_tag}`]}
+          // defaultValue={[`${activityToEdit.skill_tag}`]}
           />
-        <MatMultiValue 
+        <MatMultiValues 
           options={props.state.tags} 
           label="Searchable Tags" 
           placeholder="Select Searchable Tags" 

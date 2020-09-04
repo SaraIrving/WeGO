@@ -26,6 +26,7 @@ export default function MatInput(props) {
     onChange={props.onChange}
     value={props.value}
     onBlur={props.onBlur}
+    type={props.type}
   />
   )
 };

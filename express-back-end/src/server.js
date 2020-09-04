@@ -13,13 +13,22 @@ const io = require('socket.io')(http);
 
 io.on('connection', socket => {
   socket.on('message', (message) => {
-    console.log('message received on server: ', message)
-    db.query(`
-    INSERT INTO messages (activity_id, user_id, text)
-    VALUES ($1, $2, $3)
-    `, [Number(message.currentActivityId), Number(message.loggedIn), message.message] )
+    if (message === 'update') {
+      console.log("socket got the 'update'!")
+      io.emit('')
+    } else if (message.request_type === 'ask') {
+      console.log("ask received by socket on the server = ", message)
+      io.emit('ask', message)
 
-    io.emit('message', {message})
+    } else {
+      console.log('message received on server: ', message)
+      db.query(`
+      INSERT INTO messages (activity_id, user_id, text)
+      VALUES ($1, $2, $3)
+      `, [Number(message.currentActivityId), Number(message.loggedIn), message.message] )
+  
+      io.emit('message', {message})
+    }
   })
 })
 

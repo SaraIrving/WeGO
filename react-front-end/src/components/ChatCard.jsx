@@ -61,10 +61,12 @@ export default function ChatCard(props) {
       <MatButton type="normal" startIcon="CloseIcon" onClick={() => props.setState(prev => ({...prev, view: 'messages'}))} />
       <h2>Chat Card Here</h2>
       <div>
+        <div>
           <h1>Chat Log</h1>
           {/* {renderChatHistory()} */}
           {renderChatHistory()}
         </div>
+      </div>
       <ul id="messages"></ul>
         <form action="" onSubmit={props.onMessageSubmit}>
           <h1>Messenger</h1>

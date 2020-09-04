@@ -1,5 +1,5 @@
 .hide {
-  display: none;
+  display: none !important;
 }
 
 html {
@@ -178,6 +178,33 @@ div.participants-list ul button {
   margin-left: 1em;
 }
 
+div.messages-list {
+  width: 100%;
+  background: #dff0eb;
+  padding: 2em 3em 2em 3em;
+}
+div.messages-list ul {
+  padding-left: 0px;
+  list-style-type: none;
+}
+div.messages-list ul > div {
+  display: flex;
+  flex-direction: column;
+}
+div.messages-list ul > div > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+div.messages-list ul > div > div > span {
+  height: 2px;
+  background: #F7BD02;
+  flex-grow: 0.85;
+}
+div.messages-list ul > div button {
+  margin-left: 1em;
+}
+
 .MuiTabs-root {
   margin-bottom: 3em;
   position: relative;
@@ -240,6 +267,36 @@ div.landing-wrapper {
   display: flex;
   justify-content: center;
   flex-direction: column;
+}
+
+.notifications {
+  margin-left: 1em;
+}
+
+.chat-wrapper {
+  min-width: 800px;
+  position: relative;
+  height: 500px;
+  overflow: scroll;
+}
+.chat-wrapper > button {
+  position: absolute;
+  top: 20px;
+  right: 10px;
+}
+
+.search-wrapper {
+  width: 100%;
+  padding: 2em 0 3em;
+  margin-bottom: 3em;
+  background: #dff0eb;
+  display: flex;
+  border-radius: 12px;
+  justify-content: center;
+}
+
+div.notification-menu {
+  display: inline-block;
 }
 
 /*# sourceMappingURL=main.css.map */

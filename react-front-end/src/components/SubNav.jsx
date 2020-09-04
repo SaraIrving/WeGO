@@ -1,10 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import ActivityList from './ActivityList';
+import MatMultiValues from './MatMultiValues'
 import MessageDashboard from './MessageDashboard';
-
-
 
 export default function SubNav(props) {
 
@@ -46,7 +45,6 @@ export default function SubNav(props) {
     } else if (newValue === 4) {
       props.setState({...props.state, view: 'messages'});
     }
-   
   };
 
   return (
@@ -60,12 +58,21 @@ export default function SubNav(props) {
         <Tab label="Messages" id="simple-tab-4" aria-controls="simple-tabpanel-4" />
       </Tabs>
       <div>
-        {value === 0 && <div><ActivityList setState={props.setState} state={props.state} /></div>}
-        {value === 1 && <div><ActivityList setState={props.setState} state={props.state} /></div>}
-        {value === 2 && <div><ActivityList setState={props.setState} state={props.state} /></div>}
-        {value === 3 && <div><ActivityList setState={props.setState} state={props.state} /></div>}
-        {value === 4 && <div><MessageDashboard setState={props.setState} state={props.state} /></div>}
-       
+        {value === 0 && 
+        <div>
+          <div className="search-wrapper">
+            <MatMultiValues 
+              options={props.state.tags} 
+              label="Search Activities" 
+              placeholder="What do you want to do?" 
+              onChange={(event, values) => props.setState(prev => ({...prev, filters: values }))}/>
+          </div>
+          <ActivityList setState={props.setState} state={props.state} socket={props.socket} />
+        </div>}
+        {value === 1 && <div><ActivityList setState={props.setState} state={props.state} socket={props.socket} /></div>}
+        {value === 2 && <div><ActivityList setState={props.setState} state={props.state} socket={props.socket} /></div>}
+        {value === 3 && <div><ActivityList setState={props.setState} state={props.state} socket={props.socket} /></div>}
+        {value === 4 && <div><MessageDashboard setState={props.setState} state={props.state} socket={props.socket} /></div>}       
       </div>
     </div>
     

@@ -172,11 +172,18 @@ Teck Stack
 
 ### Stretch stories
 
-- As a host, I get a notification for new join requests
-- Based on a users previous activities, there's a smart suggestion feature that shows me relavent activities I might be particularly interested in joining
-- As a user, my location is dynamicly inferred (geolocation)
-- As a online user, the app gives me relative timeframes based on timezones
-- As a user, I can get new message notifications
+- As a host, I get a notification for new join requests, button takes you to hosted and removes banner **** .75
+- As a user, I can get new message notifications ** .5
+- Finish Edit Form **** ~.75 ---
+- Search Bar MatMultiValues **** ~2 --- 
+- Based on a users previous activities, there's a smart suggestion feature that shows me relavent activities I might be particularly interested in joining *
+- As a user I can sign up *** ~1 --- 
+- Asterisk the password input ***** .05 ---
+- My location is dynamicly inferred on signup (geolocation) ** ~1
+- Make the images picker better  0 1 tags loop through them then loop through my object, and when they match - ignore outdoor ** .75 --- 
+- responsive ****
+- style landing page ** 1.5
+
 
 
 Users

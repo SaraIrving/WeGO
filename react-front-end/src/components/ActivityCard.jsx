@@ -65,12 +65,14 @@ export default function ActivityCard(props) {
     console.log("Inside the ask function front end")
     axios.post(`/api/activity_participants`, {user_id: props.state.loggedIn, activity_id: props.id})
     .then(() => {
+      props.socket.send({participant_id: props.state.loggedIn , activity_id: props.id, request_type: "ask"});
       props.setState(prev => { return {...prev, view: 'browse', refresh: prev.refresh += 1}})
     })
     .catch(err => console.log(err));
   };
 
   const message = () => {
+    props.socket.send('update');
     props.setState(prev => ({...prev, view: 'chatcard', currentActivityId: props.id}));
   };
 
@@ -84,6 +86,7 @@ export default function ActivityCard(props) {
 
     axios.delete(`/api/activity_participants?user_id=${userId}&activity_id=${activityId}`)
     .then(() => {
+      props.socket.send('update');
       props.setState(prev => { return {...prev, refresh: prev.refresh += 1}})
     })
     .catch(err => console.log(err));
@@ -98,6 +101,7 @@ export default function ActivityCard(props) {
 
     axios.delete(`/api/activities?activity_id=${activityId}`)
     .then(() => {
+      props.socket.send('update');
       props.setState(prev => { return {...prev, refresh: prev.refresh += 1}})
     })
     .catch(err => console.log(err));
@@ -113,6 +117,7 @@ export default function ActivityCard(props) {
 
     axios.put(`/api/activity_participants?user_id=${userId}&activity_id=${activityId}&status=${status}`)
     .then(() => {
+      props.socket.send('update');
       props.setState(prev => { return {...prev, refresh: prev.refresh += 1}})
     })
     .catch(err => console.log(err));
@@ -152,7 +157,16 @@ export default function ActivityCard(props) {
     }
   }
 }
-  
+  const findImage = () => {
+    for (let [keys, values] of Object.entries(images)) {
+      for (let i of props.currentTagNames) {
+        if (keys !== 'outdoor' && keys === i) {
+          return values
+        }
+      }
+    }
+  }
+
   return (
     <div>
 
@@ -160,7 +174,8 @@ export default function ActivityCard(props) {
     <article className={pickClass}>
       <div>
         <div>
-          <img src={images[(tagName.length > 1 ? tagName[1].name : tagName[0].name)] || '../images/park.jpeg'} width="100%"></img>
+          {/* <img src={images[(tagName.length > 1 ? tagName[1].name : tagName[0].name)] || '../images/park.jpeg'} width="100%"></img> */}
+          <img src={findImage() || '../images/park.jpeg'} width="100%"></img>
         </div>
         <div>
           <h3>{playerMessage}</h3>

@@ -1,6 +1,5 @@
 import React, { Fragment, Component, useState, useEffect } from 'react';
 import io from 'socket.io-client';
-import TextField from '@material-ui/core/TextField'
 import axios from 'axios';
 import './App.css';
 import NavBar from './components/Navbar';
@@ -12,19 +11,10 @@ import Landing from './components/Landing';
 import Signup from './components/Signup';
 import ChatCard from './components/ChatCard';
 import EditForm from './components/EditForm';
-import classNames from 'classnames';
 
 import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-// import { createPalette } from '@material-ui/core/styles';
 import createPalette from '@material-ui/core/styles/createPalette';
 import { green } from '@material-ui/core/colors';
-
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
 
 const socket = io.connect('http://localhost:8080', {resource: '/nodejs/socket.io'});
 // const socket = io.connect('http://localhost:3000')
@@ -67,7 +57,8 @@ export default function App(props) {
     message: '',
     name: '',
     chat: [],
-    currentActivityId: 0
+    currentActivityId: 0,
+    messageNotification: []
   });
 
   useEffect(() => {
@@ -76,6 +67,13 @@ export default function App(props) {
       setState(prev => ({...prev, refresh: prev.refresh += 1 }))
     })
   }, [state.messages])
+
+  useEffect(() => {
+    socket.on('ask', (message) => {
+      setState(prev => {return {...prev, refresh: prev.refresh += 1, messageNotification: [...prev.messageNotification, {activity_id: message.activity_id, participant_id: message.participant_id, request_type: message.request_type}]}})
+    })
+
+  }, [state.activity_participants])
 
 
   const onMessageSubmit = (e) => {
@@ -119,10 +117,21 @@ export default function App(props) {
   const login = function(username) {
     
     for (let i of state.users) {
-      if (Number(username) === i.id) {
+      console.log('firstname = ', i.name.split(' ')[0])
+      if (username.toLowerCase() === i.name.split(' ')[0].toLowerCase()) {
         setState(prev => { return {...prev, loggedIn: i.id, view: 'browse', refresh: prev.refresh += 1, name: prev.users[Number(i.id) - 1].name }});
       }
     }
+  }
+
+  const signup = function(stateForm) {
+    axios.post('/api/users', { stateForm })
+    .then((response) => {
+      console.log('response from signup', response.data[0].name);
+        setState(prev => ({...prev, loggedIn: response.data[0].id, view: 'browse', refresh: prev.refresh += 1, name: response.data[0].name }));
+      // console.log('signup response: ', response.data[0].name);
+      // setState(prev => ({...prev, refresh: prev.refresh += 1}))
+    })
   }
 
 
@@ -134,28 +143,28 @@ export default function App(props) {
             <Landing setState={setState} state={state} />
             }
         {state.view === "signup" &&
-            <Signup setState={setState} state={state} login={login} />
+            <Signup setState={setState} state={state} signup={signup} />
             }
         {state.view === "login" &&
             <Login setState={setState} state={state} login={login} />
             }
         {state.view === "browse" &&
-            <SubNav setState={setState} state={state} />
+            <SubNav setState={setState} state={state} socket={socket}/>
             }
         {state.view === "joined" &&
-            <SubNav setState={setState} state={state} />
+            <SubNav setState={setState} state={state} socket={socket}/>
             }
         {state.view === "hosted" &&
-            <SubNav setState={setState} state={state} />
+            <SubNav setState={setState} state={state} socket={socket}/>
             }
         {state.view === "pending" &&
-            <SubNav setState={setState} state={state} />
+            <SubNav setState={setState} state={state} socket={socket}/>
             }
         {state.view === "create" &&
             <ActivityForm setState={setState} state={state} />
             }
         {state.view === "messages" &&
-            <SubNav setState={setState} state={state} />
+            <SubNav setState={setState} state={state} socket={socket}/>
             }
         {state.view === "editform" &&
             <EditForm setState={setState} state={state} />
@@ -171,12 +180,12 @@ export default function App(props) {
 
 
 
-
-
-
-
-
-
+// import {
+//   BrowserRouter as Router,
+//   Switch,
+//   Route,
+//   Link
+// } from "react-router-dom";
 
 {/* <Fragment>
 <NavBar loggedIn={state.loggedIn} setState={setState} state={state}/>
@@ -191,39 +200,6 @@ export default function App(props) {
         <li>
           <Link to="/MatButton">MatButton</Link>
         </li>
-        <li>
-          <Link to="/MatInput">MatInput</Link>
-        </li>
-        <li>
-          <Link to="/MatTextarea">MatTextarea</Link>
-        </li>
-        <li>
-          <Link to="/MatDropdown">MatDropdown</Link>
-        </li>
-        <li>
-          <Link to="/MatMultiSelect">MatMultiSelect</Link>
-        </li>
-        <li>
-          <Link to="/MatNotificationDot">MatNotificationDot</Link>
-        </li>
-        <li>
-          <Link to="/MatTag">MatTag</Link>
-        </li>
-        <li>
-          <Link to="/MatMultiValues">MatMultiValues</Link>
-        </li>
-        <li>
-          <Link to="/ActivityCard">ActivityCard</Link>
-        </li>
-        <li>
-          <Link to="/ActivityList">ActivityList</Link>
-        </li>
-        <li>
-          <Link to="/SubNav">SubNav</Link>
-        </li>
-        <li>
-          <Link to="/ActivityForm">ActivityForm</Link>
-        </li>
       </ul>
     </nav>
 
@@ -235,37 +211,6 @@ export default function App(props) {
 //       </Route>
 //       <Route path="/MatInput">
 //         <MatInput required={true} label="Name" variant="filled"/>
-//       </Route>
-//       <Route path="/MatTextarea">
-//         <MatTextarea />
-//       </Route>
-//       <Route path="/MatDropdown">
-//         <MatDropdown label="Skill Level" field="Please Select Skill Level" options={['beginner', 'intermediate', 'advanced']} varient="filled"/>
-//       </Route>
-//       <Route path="/MatMultiSelect">
-//         <MatMultiSelect items={[1,2,3,4]} inputLabel="Numbers"/>
-//       </Route>
-//       <Route path="/MatNotificationDot">
-//         <MatNotificationDot new_messages="3"/>
-//       </Route>
-//       <Route path="/MatTag">
-//         <MatTag tag="Outdoor"/>
-//       </Route>
-//       <Route path="/MatMultiValues">
-//         <MatMultiValues setState={setState} state={state} options={["beginner", "intermediate", "advanced"]}/>
-//       </Route>
-//       <Route path="/ActivityCard">
-//         <ActivityCard setState={setState} state={state} />
-//       </Route>
-//       <Route path="/ActivityList">
-//         <ActivityList setState={setState} state={state} />
-//       </Route>
-//       <Route path="/SubNav">
-//         <SubNav setState={setState} state={state} />
-//       </Route>
-//       <Route path="/ActivityForm">
-//         <ActivityForm setState={setState} state={state} />
-//       </Route>
 //     </Switch>
 //   </div>
 // </Router>

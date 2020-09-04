@@ -3,6 +3,7 @@ import MatButton from './MatButton';
 import MatAvatar from './MatAvatar';
 import MatNotificationDot from './MatNotificationDot';
 import axios from 'axios';
+import classNames from 'classnames';
 
 export default function Participant(props) {
 
@@ -10,12 +11,6 @@ export default function Participant(props) {
     // allows host to change the status of a pending participant to accepted
 
   };
-
-
-  console.log('props = ', props)
-  console.log('props.cancelFunction = ', props.cancelFunction);
-
-
 
   return (
     <div>
@@ -27,7 +22,7 @@ export default function Participant(props) {
         {props.status === 'message' &&
         <div>
           <MatButton variant="contained" color="primary" onClick={props.onClick}>Open Chat</MatButton>
-          <MatNotificationDot label={props.newMessages} />
+          <MatNotificationDot className={`${props.notifications > 0 ? "notifications" : "hide"}`} label={props.newMessages} notifications={props.notifications}/>
         </div>
         }
         {props.status === 'accepted' && 

@@ -3,7 +3,7 @@ import MatInput from './MatInput';
 import MatTextarea from './MatTextarea';
 import axios from 'axios';
 import MatButton from './MatButton';
-import MatMultiValue from './MatMultiValues';
+import MatMultiValues from './MatMultiValues';
 import MatMultiSelect from './MatMultiSelect';
 
 export default function ActivityForm(props) {
@@ -37,7 +37,7 @@ export default function ActivityForm(props) {
       stateForm.tags &&
       stateForm.logged_in_user_id 
       ) {
-      axios.put(`/api/activities`, {stateForm})
+      axios.post(`/api/activities`, {stateForm})
       .then(() => {
         // not sure why, but not getting a response back
       })
@@ -80,7 +80,7 @@ export default function ActivityForm(props) {
           required={false}
           onChange={event => setStateForm({...stateForm, location: event.target.value})} 
           label="location" 
-          value={stateForm.max_participants} 
+          value={stateForm.location} 
           variant="filled" 
           size="small" f
           ullfullWidth={true}
@@ -105,8 +105,8 @@ export default function ActivityForm(props) {
           inputLabel="Skill Level" 
           onChange={event => setStateForm({...stateForm, skill_level: event.target.value})}
           />
-        <MatMultiValue 
-          options={props.state.tags} 
+        <MatMultiValues
+          options={props.state.tags}
           label="Searchable Tags" 
           placeholder="Select Searchable Tags" 
           onChange={(event, values) => setStateForm({...stateForm, tags: values})}

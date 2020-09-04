@@ -12,7 +12,7 @@ $fontfamily: 'Lilita One', sans-serif
   flex-direction: column
 
 .hide
-  display: none
+  display: none !important
 
 html
   font-size: 110.5%
@@ -75,6 +75,7 @@ main.activity-views
   background-position: 50% -40%
   background-attachment: fixed
   background-repeat: no-repeat
+
   article
     max-width: 900px
     display: flex
@@ -175,6 +176,31 @@ div.participants-list
     button
       margin-left: 1em
 
+div.messages-list
+  width: 100%
+  background: $lightgreen
+  padding: 2em 3em 2em 3em
+  
+  ul
+    padding-left: 0px
+    list-style-type: none
+
+
+    > div
+      display: flex
+      flex-direction: column
+
+      > div
+        display: flex
+        align-items: center
+        justify-content: space-between
+
+        > span
+          height: 2px
+          background: $secondary
+          flex-grow: .85
+      button
+        margin-left: 1em
 
 .MuiTabs-root
   margin-bottom: 3em
@@ -236,3 +262,28 @@ div.landing-wrapper
   justify-content: center
   flex-direction: column
 
+.notifications
+  margin-left: 1em
+
+.chat-wrapper
+  min-width: 800px
+  position: relative
+  height: 500px
+  overflow: scroll
+  > button
+    position: absolute
+    top: 20px
+    right: 10px
+
+
+.search-wrapper
+  width: 100%
+  padding: 2em 0 3em
+  margin-bottom: 3em
+  background: $lightgreen
+  display: flex
+  border-radius: 12px
+  justify-content: center
+
+div.notification-menu
+  display: inline-block

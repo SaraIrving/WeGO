@@ -12,6 +12,9 @@ import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
 import AddIcon from '@material-ui/icons/Add';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import NotificationsActiveIcon from '@material-ui/icons/NotificationsActive';
+
+// link to the Material UI Icon Library: https://material-ui.com/components/material-icons/
 
 export default function MatButton(props) {
 
@@ -23,7 +26,8 @@ export default function MatButton(props) {
     ArrowDropDownIcon,
     ArrowDropUpIcon,
     AddIcon,
-    CheckCircleIcon
+    CheckCircleIcon,
+    NotificationsActiveIcon
   ]
 
   // Conditionally set icon from parent props if startIcon or endIcon is set
@@ -48,6 +52,6 @@ export default function MatButton(props) {
   // color= primary, secondary
 
   return (
-  <Button onClick={props.onClick} size={props.size} endIcon={props.endIcon ? <EndIcon /> : false } startIcon={props.startIcon ? <StartIcon /> : false } variant={props.variant} color={props.color} disabled={props.disabled} disableElevation href={props.href} type={props.type}>{props.children}</Button>
+  <Button component={props.component} onClick={props.onClick} size={props.size} endIcon={props.endIcon ? <EndIcon /> : false } startIcon={props.startIcon ? <StartIcon /> : false } variant={props.variant} color={props.color} disabled={props.disabled} disableElevation href={props.href} type={props.type}>{props.children}</Button>
   )
 };

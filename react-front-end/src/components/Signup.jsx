@@ -4,17 +4,42 @@ import MatButton from './MatButton';
 
 export default function Signup(props) {
 
-  const [stateLogin, setStateLogin] = useState({
-    username: "",
+  const avatars = [
+    "https://www.spacercreative.com/wp-content/uploads/2020/09/001-running.png",
+    "https://www.spacercreative.com/wp-content/uploads/2020/09/003-tennis.png",
+    "https://www.spacercreative.com/wp-content/uploads/2020/09/004-soccer.png",
+    "https://www.spacercreative.com/wp-content/uploads/2020/09/005-campfire.png",
+    "https://www.spacercreative.com/wp-content/uploads/2020/09/006-football.png",
+    "https://www.spacercreative.com/wp-content/uploads/2020/09/007-tent.png",
+    "https://www.spacercreative.com/wp-content/uploads/2020/09/009-hot-air-balloon.png",
+    "https://www.spacercreative.com/wp-content/uploads/2020/09/010-bicycle.png",
+    "https://www.spacercreative.com/wp-content/uploads/2020/09/011-motorbike.png",
+    "https://www.spacercreative.com/wp-content/uploads/2020/09/012-kite.png",
+    "https://www.spacercreative.com/wp-content/uploads/2020/09/013-boat.png",
+    "https://www.spacercreative.com/wp-content/uploads/2020/09/014-golf.png",
+    "https://www.spacercreative.com/wp-content/uploads/2020/09/017-compass.png",
+    "https://www.spacercreative.com/wp-content/uploads/2020/09/030-backpack.png"
+  ];
+
+  const [stateSignup, setStateSignup] = useState({
+    name: "",
+    avatar: avatars[Math.floor(Math.random() * avatars.length)],
+    city: "",
+    email: "",
     password: ""
   });
 
 
   return (
-    <form onSubmit={e => e.preventDefault()}>
-      <MatInput required={true} onChange={event => setStateLogin({...stateLogin, username: event.target.value})} label="Username" value={stateLogin.username} variant="filled" size="small" fullfullWidth={true} />
-      <MatInput onChange={event => setStateLogin({...stateLogin, password: event.target.value})} label="Password" value={stateLogin.password} variant="filled" size="small" fullfullWidth={true} />
-      <MatButton variant="outlined" type="submit" onClick={() => props.login(stateLogin.username, stateLogin.password)}>SIGN UP</MatButton>
-    </form>
+    <div>
+      <h2>Sign Up</h2>
+      <form className="form" onSubmit={e => e.preventDefault()}>
+        <MatInput required={true} onChange={event => setStateSignup({...stateSignup, name: event.target.value})} label="Name" value={stateSignup.name} variant="filled" size="small" fullfullWidth={true} />
+        <MatInput required={true} onChange={event => setStateSignup({...stateSignup, city: event.target.value})} label="city" value={stateSignup.city} variant="filled" size="small" fullfullWidth={true} />
+        <MatInput required={true} onChange={event => setStateSignup({...stateSignup, email: event.target.value})} label="email" value={stateSignup.email} variant="filled" size="small" fullfullWidth={true} />
+        <MatInput type="password" onChange={event => setStateSignup({...stateSignup, password: event.target.value})} label="Password" value={stateSignup.password} variant="filled" size="small" fullfullWidth={true} />
+        <MatButton variant="outlined" type="submit" onClick={() => props.signup(stateSignup)}>SIGN UP</MatButton>
+      </form>
+    </div>
   )
 };

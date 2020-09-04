@@ -29,7 +29,7 @@ const router = require("express").Router();
       });
     });
 
-    router.put("/activities",(request, response) => {
+    router.post("/activities",(request, response) => {
       console.log('made it to server');
       console.log('1 req body: ', request.body.stateForm);
       db.query(
@@ -72,6 +72,42 @@ const router = require("express").Router();
       .catch(err => console.log(err));
 
 
+    });
+
+    router.put("/activities",(request, response) => {
+      console.log('made it to server');
+      console.log('1 req body: ', request.body.stateEdit);
+      db.query(
+        `UPDATE activities 
+        SET
+        name = $1,
+        num_of_participants = $2,
+        frequency = $3,
+        days_available = $4,
+        timeframe = $5,
+        location = $6,
+        skill_tag = $7,
+        description = $8
+        WHERE id = $9
+        `
+      ,[request.body.stateEdit.activity_name, Number(request.body.stateEdit.max_participants), request.body.stateEdit.frequency.join(', '), request.body.stateEdit.days.join(', '), request.body.stateEdit.timeframe.join(', '), request.body.stateEdit.location, request.body.stateEdit.skill_level.join(', '), request.body.stateEdit.description, Number(request.body.stateEdit.activity_id)])
+      .then(({ rows: activity }) => {
+        console.log('2 activity :', activity);
+        console.log('2 req body: ', request.body.stateEdit);
+        // console.log("in activities.js-activity.id = ", activity.id)
+        for (let tag of request.body.stateEdit.tags) {
+          db.query(
+            `
+            UPDATE activity_tags 
+            SET
+            tag_id = $2
+            WHERE activity_id = $1
+            `
+            , [Number(request.body.stateEdit.activity_id), Number(tag.id)])
+        }
+
+      })
+      .catch(err => console.log(err));
     });
 
     router.delete("/activities", (request, response) => {

@@ -1,12 +1,12 @@
 INSERT INTO users (name, avatar, city, password, email)
-VALUES ('Sylvia Palmer', 'https://i.imgur.com/LpaY82x.png', 'Calgary', '123', 'email@email.com'),
-('Tori Malcolm', 'https://i.imgur.com/Nmx0Qxo.png', 'Calgary', '123', 'email@email.com'),
-('Mildred Nazir', 'https://i.imgur.com/T2WwVfS.png', 'Calgary', '123', 'email@email.com'),
-('Cohana Roy', 'https://i.imgur.com/FK8V841.jpg', 'Calgary', '123', 'email@email.com'),
-('Sven Jones', 'https://i.imgur.com/twYrpay.jpg', 'Calgary', '123', 'email@email.com'),
-('Susan Reynolds', 'https://i.imgur.com/TdOAdde.jpg', 'Calgary', '123', 'email@email.com'),
-('Alec Quon', 'https://i.imgur.com/3tVgsra.jpg', 'Calgary', '123', 'email@email.com'),
-('Viktor Jain', 'https://i.imgur.com/iHq8K8Z.jpg', 'Calgary', '123', 'email@email.com');
+VALUES ('Sylvia Palmer', 'https://www.spacercreative.com/wp-content/uploads/2020/09/001-running.png', 'Calgary', '123', 'email@email.com'),
+('Tori Malcolm', 'https://www.spacercreative.com/wp-content/uploads/2020/09/017-compass.png', 'Calgary', '123', 'email@email.com'),
+('Mildred Nazir', 'https://www.spacercreative.com/wp-content/uploads/2020/09/029-fishing.png', 'Calgary', '123', 'email@email.com'),
+('Cohana Roy', 'https://www.spacercreative.com/wp-content/uploads/2020/09/030-backpack.png', 'Calgary', '123', 'email@email.com'),
+('Sven Jones', 'https://www.spacercreative.com/wp-content/uploads/2020/09/035-volleyball.png', 'Calgary', '123', 'email@email.com'),
+('Susan Reynolds', 'https://www.spacercreative.com/wp-content/uploads/2020/09/034-racket.png', 'Calgary', '123', 'email@email.com'),
+('Alec Quon', 'https://www.spacercreative.com/wp-content/uploads/2020/09/032-kayak.png', 'Calgary', '123', 'email@email.com'),
+('Viktor Jain', 'https://www.spacercreative.com/wp-content/uploads/2020/09/014-golf.png', 'Calgary', '123', 'email@email.com');
 
 INSERT INTO activities (name, num_of_participants, frequency, days_available, timeframe, location, skill_tag, description)
 VALUES ('Evening Spikeball', 4, 'weekly', 'thursday tuesday', 'evening', 'Stanley Park', 'advanced', 'Come join us on a weekly basis for some insanely intense spikeball in the park!'),
@@ -39,15 +39,15 @@ VALUES (1, 2,'null'),
 
 INSERT INTO tags (name)
 VALUES ('outdoor'),
- ('hiking'), 
- ('fishing'),
-('kayaking'),
-('racquet sports'),
+('hiking'), 
+('fishing'),
+('kayake'),
+('court'),
 ('spikeball'),
-('road biking'),
-('mountain biking'),
+('biking'),
+('tennis'),
 ('snowboarding'),
-('cross country skiing'),
+('ski'),
 ('online'),
 ('gaming'),
 ('language practice'),
@@ -73,7 +73,7 @@ VALUES ('outdoor'),
 ('summer'),
 ('court'),
 ('tennis'),
-('disc golf'),
+('frisbee'),
 ('advanced');
 
 INSERT INTO activity_tags (activity_id, tag_id)
