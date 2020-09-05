@@ -5,11 +5,10 @@ import MenuItem from '@material-ui/core/MenuItem';
 
 export default function MatNotificationMenu(props) {
 
-  console.log("props in MtNotificationMenu = ", props)
+  //console.log("props in MtNotificationMenu = ", props)
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClick = (event) => {
-    //when they click on the menu it, it should link them to the hosted activities page, and it should delete that messageNotification object from the state 
     setAnchorEl(event.currentTarget);
   };
 
@@ -25,6 +24,7 @@ export default function MatNotificationMenu(props) {
         newMessageNotification.push(i);
       }
     }
+    // props.setState(prev => {return {...prev, view: 'hosted', messageNotification: newMessageNotification}})
     props.setState(prev => {return {...prev, view: 'hosted', messageNotification: newMessageNotification}})
   };
 
@@ -34,6 +34,7 @@ export default function MatNotificationMenu(props) {
     // if the activity id of the messageNotification Object matches any of the id's of the hosted activities then create a MenuItem that says "New join request in your activity: activity Name (get this from the activity id)"
 
     let activitiesHosted = [];
+
     const findActivitiesHosted = () => {
       for (let each of props.state.activityParticipants) {
         if (props.state.loggedIn === each.user_id && each.status === 'host') {
@@ -63,14 +64,14 @@ export default function MatNotificationMenu(props) {
     // }
     // //createNotificationList(); 
     
-    console.log("activities hosted array in NotificationMenu = ", activitiesHosted)
+    //console.log("activities hosted array in NotificationMenu = ", activitiesHosted)
   
     const activities = () => {
     activitiesHosted.map(activity => {
-      console.log("messageNotification state in loos = ", props.state.messageNotification)
+      //console.log("messageNotification state in loos = ", props.state.messageNotification)
       return props.state.messageNotification.map(notification => {
         if (activity === notification.activity_id) {
-          console.log('the match was made')
+          //console.log('the match was made')
           return (<MenuItem onClick={handleClose2(activity, notification.participant_id)}>You have a new participant request in {props.state.activities[activity - 1].name}!</MenuItem>)
         }
       })
@@ -88,7 +89,7 @@ export default function MatNotificationMenu(props) {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        {activities()}
+        {e => activities()}
       </Menu>
     </div>
   );

@@ -62,10 +62,11 @@ export default function ActivityCard(props) {
   const ask = () => {
     // adds the user to the activity_participants table with a status of pending
     // in the request body pass along: logged in users id, and the id of the activity they are asking to join
-    console.log("Inside the ask function front end")
+    // console.log("Inside the ask function front end")
     axios.post(`/api/activity_participants`, {user_id: props.state.loggedIn, activity_id: props.id})
     .then(() => {
-      props.socket.send({participant_id: props.state.loggedIn , activity_id: props.id, request_type: "ask"});
+      props.socket.send('update');
+      // props.socket.send({participant_id: props.state.loggedIn , activity_id: props.id, request_type: "ask"});
       props.setState(prev => { return {...prev, view: 'browse', refresh: prev.refresh += 1}})
     })
     .catch(err => console.log(err));

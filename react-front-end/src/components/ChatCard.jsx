@@ -35,7 +35,6 @@ export default function ChatCard(props) {
           // if ((message.activity_id === props.state.currentActivityId && message.host === props.state.loggedIn) || (message.activity_id === props.state.currentActivityId && message.user_id === props.state.loggedIn)) {
           if (message.activity_id === props.state.currentActivityId) {
 
-            console.log('in renderChatHistory')
             return (
               <div key={index}>
                 <h5>{props.state.users[Number(message.user_id) - 1].name}: <span>{message.text}</span></h5>
@@ -54,8 +53,7 @@ export default function ChatCard(props) {
     //     </div>
     //   )
     // })
-  
-  console.log('ChatCard rendered, props.state: ', props.state)
+
   return (
     <section className="chat-wrapper">
       <MatButton type="normal" startIcon="CloseIcon" onClick={() => props.setState(prev => ({...prev, view: 'messages'}))} />

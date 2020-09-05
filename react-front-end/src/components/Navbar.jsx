@@ -27,7 +27,7 @@ import MatNotificationMenu from './MatNotificationMenu';
             <MatButton variant="text" onClick={() => props.setState({...props.state, view: 'landing'})} >HOME</MatButton>
             <MatButton startIcon="AddIcon" onClick={() => props.setState({...props.state, view: 'create'})}>NEW ACTIVITY</MatButton>
             <MatButton variant="text" onClick={() => props.setState({...props.state, view: 'browse'})} >ACTIVITIES</MatButton>
-            <MatNotificationMenu state={props.state} setState={props.setState}></MatNotificationMenu>
+            {/* <MatNotificationMenu state={props.state} setState={props.setState}></MatNotificationMenu> */}
             <MatButton variant="text" disabled>Hi {props.state.name}!</MatButton>
             <MatButton variant="outlined" onClick={e => logout()}>LOGOUT</MatButton>
           </div>

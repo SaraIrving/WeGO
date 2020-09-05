@@ -61,21 +61,7 @@ export default function App(props) {
     messageNotification: []
   });
 
-  useEffect(() => {
-    socket.on('message', ({message}) => {
-      // setState(prev => ({...prev, chat: [...prev.chat, {name: message.name, message: message.message }]}))
-      setState(prev => ({...prev, refresh: prev.refresh += 1 }))
-    })
-  }, [state.messages])
-
-  useEffect(() => {
-    socket.on('ask', (message) => {
-      setState(prev => {return {...prev, refresh: prev.refresh += 1, messageNotification: [...prev.messageNotification, {activity_id: message.activity_id, participant_id: message.participant_id, request_type: message.request_type}]}})
-    })
-
-  }, [state.activity_participants])
-
-
+  // state.messages, state.activity_participants
   const onMessageSubmit = (e) => {
     e.preventDefault()
     const { name, message, loggedIn, currentActivityId } = state;
@@ -117,7 +103,6 @@ export default function App(props) {
   const login = function(username) {
     
     for (let i of state.users) {
-      console.log('firstname = ', i.name.split(' ')[0])
       if (username.toLowerCase() === i.name.split(' ')[0].toLowerCase()) {
         setState(prev => { return {...prev, loggedIn: i.id, view: 'browse', refresh: prev.refresh += 1, name: prev.users[Number(i.id) - 1].name }});
       }
@@ -133,6 +118,35 @@ export default function App(props) {
       // setState(prev => ({...prev, refresh: prev.refresh += 1}))
     })
   }
+
+
+  // useEffect(() => {
+  //   socket.on('message', (message) => {
+  //     console.log('message in App.js = ', message);
+  //     if (message === 'update') {
+  //       setState(prev => ({...prev, refresh: prev.refresh += 1 }))
+  //     } else if (message.request_type === 'ask') {
+  //       console.log('whats our state?', state);
+  //       console.log('whats state.users[0]', state.users[0]);
+  //       // console.log('whats state.users[0].name', state.users[0].name); 
+  //       // console.log('long bit: ', state.users[state.activites[message.activity_id - 1].user_id - 1].id)
+  //       // if (message.participant_id === state.users[state.activites[message.activity_id - 1].user_id - 1].id) {
+  //         // setState(prev => ({...prev, messageNotification: [...prev.messageNotification, {activity_id: message.activity_id, participant_id: message.participant_id, request_type: message.request_type}] }))
+  //       // }
+  //     } else {
+  //       setState(prev => ({...prev, refresh: prev.refresh += 1 }))
+  //     }
+  //     // setState(prev => ({...prev, chat: [...prev.chat, {name: message.name, message: message.message }]}))
+  //   })
+  // }, [state.activity_participants, state.messageNotification, state.messages])
+
+  useEffect(() => {
+    socket.on('message', (message) => {
+      console.log('message in App.js = ', message);
+        setState(prev => ({...prev, refresh: prev.refresh += 1 }))
+      // setState(prev => ({...prev, chat: [...prev.chat, {name: message.name, message: message.message }]}))
+    })
+  })
 
 
   return(
