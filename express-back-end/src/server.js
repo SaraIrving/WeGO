@@ -18,13 +18,13 @@ io.on('connection', socket => {
       io.emit('message', message)
     } else if ((typeof message) === 'object' && message.request_type === 'ask') {
       io.emit('message', message);
-    } else {
+    } else if ((typeof message) === 'object' && message.request_type === 'newMessage') {
       console.log('message received on server: ', message)
       db.query(`
       INSERT INTO messages (activity_id, user_id, text)
       VALUES ($1, $2, $3)
       `, [Number(message.currentActivityId), Number(message.loggedIn), message.message] )
-      io.emit('message', {message})
+      io.emit('message', message)
     }
   })
 })

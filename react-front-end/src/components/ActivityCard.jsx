@@ -125,7 +125,7 @@ export default function ActivityCard(props) {
   };
 
   const viewChats = () => {
-    
+    props.setState(prev => { return {...prev, view: 'messages'}})
   };
 
   let hosted = props.hostId === props.state.loggedIn ? true : false;

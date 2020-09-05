@@ -65,7 +65,8 @@ export default function App(props) {
   const onMessageSubmit = (e) => {
     e.preventDefault()
     const { name, message, loggedIn, currentActivityId } = state;
-    socket.send({name, message, loggedIn, currentActivityId})
+    socket.send({name, message, loggedIn, currentActivityId, request_type: "newMessage"})
+    // socket.send({participant_id: props.state.loggedIn , activity_id: props.id, request_type: "newMessage"});
     setState(prev => {return {...prev, message: '', name , refresh: prev.refresh+= 1 }})
   }
 
@@ -121,43 +122,38 @@ export default function App(props) {
 
 
   useEffect(() => {
-    console.log('whats our state? beginning of useEffect', state);
+    // console.log('whats our state? beginning of useEffect', state);
     setState(prev => ({...prev, refresh: prev.refresh += 1 }))
     socket.on('message', (message) => {
-      console.log('message in App.js = ', message);
+      // console.log('message in App.js = ', message);
       if (message === 'update') {
+        
         setState(prev => ({...prev, refresh: prev.refresh += 1 }))
-      } else if (message.request_type === 'ask') {
-          
+      } 
+      if (message.request_type === 'ask') {
+       
             setState(prev => {
-              console.log('whats our state? before', prev);
-              // console.log('participant', message.participant_id)
-              // console.log('host id: ', prev.users[prev.activities[message.activity_id - 1].user_id - 1].id)
-              // console.log(prev.loggedIn === prev.users[prev.activities[message.activity_id - 1].user_id - 1].id)
               if (prev.loggedIn === prev.users[prev.activities[message.activity_id - 1].user_id - 1].id) {
-              // console.log('whats our state? after user check: ', prev);
-              // return {...prev, refresh: prev.refresh += 1, messageNotification: [...prev.messageNotification, {activity_id: message.activity_id, participant_id: message.participant_id, request_type: message.request_type}] }
                 return { ...prev, refresh: prev.refresh += 1, messageNotification: [...prev.messageNotification, {activity_id: message.activity_id, participant_id: message.participant_id, request_type: message.request_type}] }
               }
               return prev
             })
           
-      } else {
-        setState(prev => ({...prev, refresh: prev.refresh += 1 }))
       }
-      // setState(prev => ({...prev, chat: [...prev.chat, {name: message.name, message: message.message }]}))
+      if (message.request_type === 'newMessage') {
+        
+        setState(prev => {
+          if (prev.loggedIn === prev.users[prev.activities[message.currentActivityId - 1].user_id - 1].id) {
+            console.log("inside the IF, will state update?")
+            return { ...prev, refresh: prev.refresh += 1, messageNotification: [...prev.messageNotification, {activity_id: message.currentActivityId, participant_id: message.loggedIn, request_type: message.request_type}] }
+          }
+          return prev
+        })
+      
+      } 
     })
   }, [])
 
-  // state.activity_participants, state.messageNotification, state.messages
-
-  // useEffect(() => {
-  //   socket.on('message', (message) => {
-  //     console.log('message in App.js = ', message);
-  //       setState(prev => ({...prev, refresh: prev.refresh += 1 }))
-  //     // setState(prev => ({...prev, chat: [...prev.chat, {name: message.name, message: message.message }]}))
-  //   })
-  // },[])
 
 
   return(

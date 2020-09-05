@@ -50,7 +50,7 @@ let activityMessages = [];
                   console.log('messageGroup ', messageGroup);
                     return (
                       <div>
-                        <h2>{props.state.activities[Number(messageGroup.id) - 1].name}</h2>
+                          <h2>{props.state.activities[Number(messageGroup.id) - 1].name}</h2>
                           {messageGroup.messages.map(messageObject => {
                             if (messageObject.host === props.state.loggedIn && messageObject.user_id !== props.state.loggedIn) {
                               return <Participant
