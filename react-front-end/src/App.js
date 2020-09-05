@@ -43,7 +43,7 @@ const theme = createMuiTheme({
 
 export default function App(props) {
 
-  const [state,setState] = useState({
+  const [state, setState] = useState({
     loggedIn: null,
     activities: [],
     filters: [],
@@ -120,33 +120,42 @@ export default function App(props) {
   }
 
 
+  useEffect(() => {
+    console.log('whats our state? beginning of useEffect', state);
+    setState(prev => ({...prev, refresh: prev.refresh += 1 }))
+    socket.on('message', (message) => {
+      console.log('message in App.js = ', message);
+      if (message === 'update') {
+        setState(prev => ({...prev, refresh: prev.refresh += 1 }))
+      } else if (message.request_type === 'ask') {
+        setState(prev => {
+          console.log('whats our state?', prev);
+          return {...prev, refresh: prev.refresh += 1, messageNotification: [...prev.messageNotification, {activity_id: message.activity_id, participant_id: message.participant_id, request_type: message.request_type}] }
+        })
+
+ 
+        // console.log('whats state.users[0]', state.users[0]); // totally fine
+        // console.log('whats state.users[0].name', state.users[0].name); // totally not fine 
+        // console.log('long bit: ', state.users[state.activites[message.activity_id - 1].user_id - 1].id)
+        // if (message.participant_id === state.users[state.activites[message.activity_id - 1].user_id - 1].id) {
+          // setState(prev => ({...prev, messageNotification: [...prev.messageNotification, {activity_id: message.activity_id, participant_id: message.participant_id, request_type: message.request_type}] }))
+        // }
+      } else {
+        setState(prev => ({...prev, refresh: prev.refresh += 1 }))
+      }
+      // setState(prev => ({...prev, chat: [...prev.chat, {name: message.name, message: message.message }]}))
+    })
+  }, [])
+
+  // state.activity_participants, state.messageNotification, state.messages
+
   // useEffect(() => {
   //   socket.on('message', (message) => {
   //     console.log('message in App.js = ', message);
-  //     if (message === 'update') {
   //       setState(prev => ({...prev, refresh: prev.refresh += 1 }))
-  //     } else if (message.request_type === 'ask') {
-  //       console.log('whats our state?', state);
-  //       console.log('whats state.users[0]', state.users[0]);
-  //       // console.log('whats state.users[0].name', state.users[0].name); 
-  //       // console.log('long bit: ', state.users[state.activites[message.activity_id - 1].user_id - 1].id)
-  //       // if (message.participant_id === state.users[state.activites[message.activity_id - 1].user_id - 1].id) {
-  //         // setState(prev => ({...prev, messageNotification: [...prev.messageNotification, {activity_id: message.activity_id, participant_id: message.participant_id, request_type: message.request_type}] }))
-  //       // }
-  //     } else {
-  //       setState(prev => ({...prev, refresh: prev.refresh += 1 }))
-  //     }
   //     // setState(prev => ({...prev, chat: [...prev.chat, {name: message.name, message: message.message }]}))
   //   })
-  // }, [state.activity_participants, state.messageNotification, state.messages])
-
-  useEffect(() => {
-    socket.on('message', (message) => {
-      console.log('message in App.js = ', message);
-        setState(prev => ({...prev, refresh: prev.refresh += 1 }))
-      // setState(prev => ({...prev, chat: [...prev.chat, {name: message.name, message: message.message }]}))
-    })
-  })
+  // },[])
 
 
   return(

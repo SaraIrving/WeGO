@@ -15,7 +15,9 @@ io.on('connection', socket => {
   socket.on('message', (message) => {
     if (message === 'update') {
       console.log("in the socket IF")
-      io.emit('')
+      io.emit('message', message)
+    } else if ((typeof message) === 'object' && message.request_type === 'ask') {
+      io.emit('message', message);
     } else {
       console.log('message received on server: ', message)
       db.query(`

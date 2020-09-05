@@ -14,21 +14,25 @@ let activityMessages = [];
   // useEffect(() => {
     // axios call to retrieve all messages for current user grouped by activitiy, then we can
 
+    // Stores all messages relating to the loggedIn user, in form: [{id:activityId, messages: [{messages-info},{messages-info},{messages-info}]}]
     for (let i of props.state.messages) {
+      
       if (i.user_id === props.state.loggedIn || i.host === props.state.loggedIn) {
+        // console.log('first IF in the loop = ');
+        // console.log("i.user_id === props.state.loggedIn  = ", i.user_id === props.state.loggedIn )
+        // console.log("i.host === props.state.loggedIn = ", i.host === props.state.loggedIn)
+        // console.log("activity in question = ", i.activity_id)
         if(activityMessages.length !== 0) {
           for (let j of activityMessages) {
-            if (j.id !== i.activity_id) {
+            if (!activityMessages.map(obj => obj.id).includes(i.activity_id)) {
               activityMessages.push({ id: i.activity_id, messages: [i] })
-            } 
+            }
           }
         } else {
           activityMessages.push({ id: i.activity_id, messages: [i] })
         }
       }
     }
- 
-      
     
     // create an array of objects based on the response, [{activity: name, messages: {message: message-info-here}}]
     // can send onClick to set refresh state as activity ID to pass in both activity ID and user ID to ChatCard
