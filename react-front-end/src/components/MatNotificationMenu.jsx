@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import MatButton from './MatButton';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -6,7 +6,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 export default function MatNotificationMenu(props) {
 
   //console.log("props in MtNotificationMenu = ", props)
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [localState, setLocalState] = useState(0)
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -42,7 +43,6 @@ export default function MatNotificationMenu(props) {
         }
       }
     }
-    //findActivitiesHosted();
     
 
     //let notificationList = [];
@@ -65,9 +65,11 @@ export default function MatNotificationMenu(props) {
     // //createNotificationList(); 
     
     //console.log("activities hosted array in NotificationMenu = ", activitiesHosted)
-  
-    const activities = () => {
+
+  const activities = () => {
+    console.log('activity function is running')
     activitiesHosted.map(activity => {
+      console.log('activitesHosted is getting mapped')
       //console.log("messageNotification state in loos = ", props.state.messageNotification)
       return props.state.messageNotification.map(notification => {
         if (activity === notification.activity_id) {
@@ -77,9 +79,17 @@ export default function MatNotificationMenu(props) {
       })
     })
   }
+
+  useEffect(() => {
+
+    setLocalState(prev => prev += 1);
+      
+  },[props.state.messageNotification])
+
    
   return (
     <div className="notification-menu">
+      {/* {isRelevant && } */}
       {findActivitiesHosted()}
       <MatButton startIcon="NotificationsActiveIcon" aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}></MatButton>
       <Menu
@@ -89,7 +99,7 @@ export default function MatNotificationMenu(props) {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        {e => activities()}
+        {activities()}
       </Menu>
     </div>
   );

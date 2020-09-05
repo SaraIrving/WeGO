@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import MatButton from './MatButton';
-import MatNotificationMenu from './MatNotificationMenu';
-
+// import MatNotificationMenu from './MatNotificationMenu';
+import MatBanner from './MatBanner';
 
   export default function NavBar(props) {
 
@@ -27,10 +27,10 @@ import MatNotificationMenu from './MatNotificationMenu';
             <MatButton variant="text" onClick={() => props.setState({...props.state, view: 'landing'})} >HOME</MatButton>
             <MatButton startIcon="AddIcon" onClick={() => props.setState({...props.state, view: 'create'})}>NEW ACTIVITY</MatButton>
             <MatButton variant="text" onClick={() => props.setState({...props.state, view: 'browse'})} >ACTIVITIES</MatButton>
-            {/* <MatNotificationMenu state={props.state} setState={props.setState}></MatNotificationMenu> */}
             <MatButton variant="text" disabled>Hi {props.state.name}!</MatButton>
             <MatButton variant="outlined" onClick={e => logout()}>LOGOUT</MatButton>
           </div>
+          <MatBanner state={props.state} setState={props.setState}></MatBanner>
         </div>}
   
       </section>

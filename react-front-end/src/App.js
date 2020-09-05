@@ -128,18 +128,20 @@ export default function App(props) {
       if (message === 'update') {
         setState(prev => ({...prev, refresh: prev.refresh += 1 }))
       } else if (message.request_type === 'ask') {
-        setState(prev => {
-          console.log('whats our state?', prev);
-          return {...prev, refresh: prev.refresh += 1, messageNotification: [...prev.messageNotification, {activity_id: message.activity_id, participant_id: message.participant_id, request_type: message.request_type}] }
-        })
-
- 
-        // console.log('whats state.users[0]', state.users[0]); // totally fine
-        // console.log('whats state.users[0].name', state.users[0].name); // totally not fine 
-        // console.log('long bit: ', state.users[state.activites[message.activity_id - 1].user_id - 1].id)
-        // if (message.participant_id === state.users[state.activites[message.activity_id - 1].user_id - 1].id) {
-          // setState(prev => ({...prev, messageNotification: [...prev.messageNotification, {activity_id: message.activity_id, participant_id: message.participant_id, request_type: message.request_type}] }))
-        // }
+          
+            setState(prev => {
+              console.log('whats our state? before', prev);
+              // console.log('participant', message.participant_id)
+              // console.log('host id: ', prev.users[prev.activities[message.activity_id - 1].user_id - 1].id)
+              // console.log(prev.loggedIn === prev.users[prev.activities[message.activity_id - 1].user_id - 1].id)
+              if (prev.loggedIn === prev.users[prev.activities[message.activity_id - 1].user_id - 1].id) {
+              // console.log('whats our state? after user check: ', prev);
+              // return {...prev, refresh: prev.refresh += 1, messageNotification: [...prev.messageNotification, {activity_id: message.activity_id, participant_id: message.participant_id, request_type: message.request_type}] }
+                return { ...prev, refresh: prev.refresh += 1, messageNotification: [...prev.messageNotification, {activity_id: message.activity_id, participant_id: message.participant_id, request_type: message.request_type}] }
+              }
+              return prev
+            })
+          
       } else {
         setState(prev => ({...prev, refresh: prev.refresh += 1 }))
       }
