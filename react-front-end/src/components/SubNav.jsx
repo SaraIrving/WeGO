@@ -3,7 +3,10 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import ActivityList from './ActivityList';
 import MatMultiValues from './MatMultiValues'
+import MatMultiSelect from './MatMultiSelect'
 import MessageDashboard from './MessageDashboard';
+import axios from 'axios';
+
 
 export default function SubNav(props) {
 
@@ -47,6 +50,20 @@ export default function SubNav(props) {
     }
   };
 
+  const changeCity = (e) => {
+    axios.get(`/api/activitiesSorted?city=${e.target.value}`)
+    .then((response) => {
+      props.setState(prev => ({...prev, activitiesSorted: response}));
+    })
+  }
+
+  const cityArray = [];
+  for (let i of props.state.users) {
+    if (!cityArray.includes(i.city)) {
+      cityArray.push(i.city)
+    }
+  }
+
   return (
     <div className="subnav-wrapper">
      <h2>{subNavHeading}</h2>
@@ -66,6 +83,7 @@ export default function SubNav(props) {
               label="Search Activities" 
               placeholder="What do you want to do?" 
               onChange={(event, values) => props.setState(prev => ({...prev, filters: values }))}/>
+            <MatMultiSelect inputLabel="Change City" items={cityArray} onChange={(e) => changeCity(e)}/>
           </div>
           <ActivityList setState={props.setState} state={props.state} socket={props.socket} />
         </div>}

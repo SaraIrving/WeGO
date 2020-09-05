@@ -1,3 +1,4 @@
+  
 import React, { Fragment, Component, useState, useEffect } from 'react';
 import io from 'socket.io-client';
 import axios from 'axios';
@@ -233,7 +234,6 @@ export default function App(props) {
         </li>
       </ul>
     </nav>
-
     {/* A <Switch> looks through its children <Route>s and
         renders the first one that matches the current URL. */}
 //     <Switch>
@@ -247,6 +247,3 @@ export default function App(props) {
 // </Router>
 // <Footer />
 // </Fragment> */}
-
-
-

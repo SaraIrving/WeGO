@@ -100,7 +100,48 @@ App.get('/api/activity_tag_fetch', (req, res) => {
 });
 
 
-// App.use("/api", ap_count(db,activity_id));
+App.get('/api/activitiesSorted', (req, res) => {
+  db.query(
+    `
+    SELECT
+      activities.id,
+      activities.name,
+      activities.num_of_participants, 
+      activities.frequency, 
+      activities.days_available, 
+      activities.timeframe,
+      activities.location, 
+      activities.skill_tag,
+      activities.created_at,
+      activities.description,
+      activity_participants.user_id,
+      activity_participants.status,
+      users.city
+    FROM activities
+    LEFT JOIN activity_participants ON activities.id = activity_participants.activity_id
+    JOIN users ON activity_participants.user_id = users.id
+    WHERE activity_participants.status = 'host' AND users.city = $1
+    GROUP BY activities.id, users.city, activity_participants.user_id, activity_participants.activity_id, activity_participants.status
+    ORDER BY activities.created_at DESC
+  `
+  ,[req.query.city]).then(({ rows: activities }) => {
+    res.json(activities);
+  });
+  // db.query(
+  //   `
+  //   SELECT
+  //     tags.name
+  //   FROM tags
+  //   LEFT JOIN activity_tags ON tags.id = activity_tags.tag_id
+  //   WHERE activity_tags.activity_id = $1
+  // `
+  // ,[Number(req.query.city)])
+  // .then(({ rows: tags }) => {
+  //   res.json(tags);
+  // });
+});
+
+
 App.use("/api", activity_participants(db));
 App.use("/api", activities(db));
 App.use("/api", users(db));
@@ -114,7 +155,5 @@ http.listen(PORT, () => {
   // eslint-disable-next-line no-console
   console.log(`Express seems to be listening on port ${PORT} so that's pretty good 👍`);
 });
-// App.listen(PORT, () => {
-//   // eslint-disable-next-line no-console
-//   console.log(`Express seems to be listening on port ${PORT} so that's pretty good 👍`);
-// });
+
+

@@ -172,19 +172,30 @@ Teck Stack
 
 ### Stretch stories
 
-- As a host, I get a notification for new join requests, button takes you to hosted and removes banner **** .75
-- As a user, I can get new message notifications ** .5
+- As a host, I get a notification for new join requests, button takes you to hosted and removes banner **** .75 actual time ~ 10hrs ---
+- As a user, I can get new message notifications ** .5 --- 
 - Finish Edit Form **** ~.75 ---
 - Search Bar MatMultiValues **** ~2 --- 
 - Based on a users previous activities, there's a smart suggestion feature that shows me relavent activities I might be particularly interested in joining *
 - As a user I can sign up *** ~1 --- 
 - Asterisk the password input ***** .05 ---
-- My location is dynamicly inferred on signup (geolocation) ** ~1
+- My location is dynamicly inferred on signup (geolocation) ** ~ 1
 - Make the images picker better  0 1 tags loop through them then loop through my object, and when they match - ignore outdoor ** .75 --- 
-- responsive ****
+
+
+- responsive **** ~ 3 - 4
 - style landing page ** 1.5
 
+- could make it super pretty **** ~ chat, create form, spruce up login page ~ 5 - 8
+- animations ** ~ 1 - 2
+- clean commented code **** ~ 1 - 3
+- heroku ** ~ 2 - 4
+- prepare presentation - 1 day
 
+
+issues:
+- When we start chat, we have a memory leak? or hundreds of state-refreshed
+- users
 
 Users
   - PK:id

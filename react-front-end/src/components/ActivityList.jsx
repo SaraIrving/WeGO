@@ -3,7 +3,6 @@ import ActivityCard from './ActivityCard';
 
 export default function ActivityList(props) {
 
-
   return (<div>
      {props.state.activities.map(activity => {
        const currentTagNames = props.state.activityTags.filter(tag => tag.activity_id === activity.id).map(tag => tag.name)
