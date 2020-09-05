@@ -46,7 +46,6 @@ export default function ActivityCard(props) {
     court: '../images/tennis.jpeg',
     hiking: '../images/hiking.jpeg',
     badminton: '../images/badminton.jpeg',
-    frisbee: '../images/frisbee.jpeg',
     golf: '../images/golf.jpeg',
     biking: '../images/biking.jpeg',
     gaming: '../images/gaming.jpeg',

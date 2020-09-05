@@ -25,15 +25,15 @@ export default function Participant(props) {
           <MatNotificationDot className={`${props.notifications > 0 ? "notifications" : "hide"}`} label={props.newMessages} notifications={props.notifications}/>
         </div>
         }
-        {props.status === 'accepted' && 
+        {props.status === 'accepted' &&
         <div>
-          <MatButton variant="contained" color="primary">Open Chat</MatButton>
+          <MatButton variant="contained" color="primary" onClick={() => props.setState(prev => ({...prev, view: 'chatcard', currentActivityId: props.activity_id }))}>Open Chat</MatButton>
           <MatButton variant="contained" color="secondary" onClick={() => props.statusChangeFunction(props.user_id, props.activity_id, "null")}>Remove</MatButton>
         </div>
         }
         {props.status === 'pending' &&
         <div>
-          <MatButton variant="contained" color="primary">Open Chat</MatButton>
+          <MatButton variant="contained" color="primary" onClick={() => props.setState(prev => ({...prev, view: 'chatcard', currentActivityId: props.activity_id }))} >Open Chat</MatButton>
           <MatButton variant="contained" color="secondary" onClick={() => props.statusChangeFunction(props.user_id, props.activity_id, "accepted")}>Accept</MatButton>
           <MatButton variant="contained" color="secondary" onClick={() => props.cancelFunction(props.user_id, props.activity_id)}>Deny</MatButton>
         </div>

@@ -42,6 +42,8 @@ export default function ParticipantsList(props) {
                         statusChangeFunction={props.statusChangeFunction}
                         activity_id={props.activity_id}
                         user_id={part.user_id}
+                        state={props.state}
+                        setState={props.setState}
                       />
                     )
                   }
@@ -64,6 +66,8 @@ export default function ParticipantsList(props) {
                         statusChangeFunction={props.statusChangeFunction}
                         activity_id={props.activity_id}
                         user_id={part.user_id}
+                        state={props.state}
+                        setState={props.setState}
                       />
                     )
                   }
