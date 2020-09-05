@@ -61,8 +61,10 @@ let activityMessages = [];
                               activity_id={messageGroup.id}
                               user_id={messageObject.user_id}
                               status="message"
+                              state={props.state}
+                              setState={props.setState}
                               notifications={0}
-                              onClick={() => props.setState(prev => ({...prev, view: 'chatcard', currentActivityId: messageGroup.id }))}
+                              onClick={() => props.setState(prev => ({...prev, view: 'chatcard', currentActivityId: messageGroup.id, messageNotification: [] }))}
                             />
                             } else if (messageObject.host !== props.state.loggedIn && messageObject.user_id === props.state.loggedIn){
                               return <Participant
@@ -73,7 +75,9 @@ let activityMessages = [];
                               activity_id={messageGroup.id}
                               user_id={messageObject.user_id}
                               status="message"
-                              onClick={() => props.setState(prev => ({...prev, view: 'chatcard', currentActivityId: messageGroup.id }))}
+                              state={props.state}
+                              setState={props.setState}
+                              onClick={() => props.setState(prev => ({...prev, view: 'chatcard', currentActivityId: messageGroup.id, messageNotification: [] }))}
                             /> 
                             }
                           })}

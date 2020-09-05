@@ -12,6 +12,7 @@ export default function Participant(props) {
 
   };
 
+
   return (
     <div>
       <div>
@@ -22,7 +23,8 @@ export default function Participant(props) {
         {props.status === 'message' &&
         <div>
           <MatButton variant="contained" color="primary" onClick={props.onClick}>Open Chat</MatButton>
-          <MatNotificationDot className={`${props.notifications > 0 ? "notifications" : "hide"}`} label={props.newMessages} notifications={props.notifications}/>
+          {props.state.messageNotification.length > 0 && props.state.messageNotification[0].activity_id === props.activity_id &&
+            <MatNotificationDot label={props.newMessages} notifications={props.notifications}>1</MatNotificationDot>}
         </div>
         }
         {props.status === 'accepted' &&

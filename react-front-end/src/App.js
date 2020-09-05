@@ -143,11 +143,21 @@ export default function App(props) {
       if (message.request_type === 'newMessage') {
         
         setState(prev => {
-          if (prev.loggedIn === prev.users[prev.activities[message.currentActivityId - 1].user_id - 1].id) {
-            console.log("inside the IF, will state update?")
-            return { ...prev, refresh: prev.refresh += 1, messageNotification: [...prev.messageNotification, {activity_id: message.currentActivityId, participant_id: message.loggedIn, request_type: message.request_type}] }
+          if (prev.view !== 'chatcard' || (prev.view === 'chatcard' && message.currentActivityId !== prev.currentActivityId)) {
+            // if you are the host and the message isn't from you
+            console.log("first half of the condition = ", (prev.loggedIn === prev.users[prev.activities[message.currentActivityId - 1].user_id - 1].id))
+            console.log("second half of the condidtion = ", (prev.loggedIn !== message.loggedIn))
+            if ((prev.loggedIn === prev.users[prev.activities[message.currentActivityId - 1].user_id - 1].id) && (prev.loggedIn !== message.loggedIn)) {
+              console.log("you are the host and the message isn't from you")
+              return { ...prev, refresh: prev.refresh += 1, messageNotification: [...prev.messageNotification, {activity_id: message.currentActivityId, participant_id: message.loggedIn, request_type: message.request_type}] }
+              //if you're not the host and the message is from the host
+            }
+            if ((prev.loggedIn !== prev.users[prev.activities[message.currentActivityId - 1].user_id - 1].id) && (prev.users[prev.activities[message.currentActivityId - 1].user_id - 1].id === message.loggedIn)) {
+              console.log('youre not the host and the message is from the host')
+              return { ...prev, refresh: prev.refresh += 1, messageNotification: [...prev.messageNotification, {activity_id: message.currentActivityId, participant_id: message.loggedIn, request_type: message.request_type}] }
+            }
           }
-          return prev
+          return { ...prev, refresh: prev.refresh += 1}
         })
       
       } 

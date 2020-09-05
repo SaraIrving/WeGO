@@ -39,6 +39,7 @@ export default function MatBanner(props) {
       
   // },[props.state.messageNotification])
 
+
    
   return (
     <div className="notification-menu">
@@ -51,7 +52,7 @@ export default function MatBanner(props) {
       {(props.state.messageNotification.length > 0 && props.state.messageNotification[0].request_type === 'newMessage') &&
       <div>
       <h5>You have a new chat notification</h5>
-      <MatButton startIcon="NotificationsActiveIcon" aria-controls="simple-menu" aria-haspopup="true" onClick={() => props.setState(prev => ({...prev, view: 'messages', messageNotification: [] }))}>View Now</MatButton>
+      <MatButton startIcon="NotificationsActiveIcon" aria-controls="simple-menu" aria-haspopup="true" onClick={() => props.setState(prev => ({...prev, view: 'messages' }))}>View Now</MatButton>
       </div>
       }
     </div>
