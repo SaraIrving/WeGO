@@ -88,14 +88,17 @@ export default function ActivityForm(props) {
         <MatMultiSelect 
           items={['One Time', 'Weekly', 'Bi-Weekly', 'Monthly']} 
           inputLabel="Frequency" 
+          multiple
           onChange={event => setStateForm({...stateForm, frequency: event.target.value})}
           />
         <MatMultiSelect 
+          multiple
           items={['Morning', 'Daytime', 'Evening']} 
           inputLabel="Timeframe" 
           onChange={event => setStateForm({...stateForm, timeframe: event.target.value})}
           />
         <MatMultiSelect 
+          multiple
           items={['Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat', 'Sun']} 
           inputLabel="Days" 
           onChange={event => setStateForm({...stateForm, days: event.target.value})}
@@ -103,6 +106,7 @@ export default function ActivityForm(props) {
         <MatMultiSelect 
           items={['Beginner', 'Intermediate', 'Advanced']} 
           inputLabel="Skill Level" 
+          multiple
           onChange={event => setStateForm({...stateForm, skill_level: event.target.value})}
           />
         <MatMultiValues

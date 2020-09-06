@@ -4,7 +4,7 @@ import ActivityCard from './ActivityCard';
 export default function ActivityList(props) {
 
   return (<div>
-     {props.state.activities.map(activity => {
+     {props.state.activitiesSorted.map(activity => {
        const currentTagNames = props.state.activityTags.filter(tag => tag.activity_id === activity.id).map(tag => tag.name)
           
        if (props.state.filters.length !== 0) {
@@ -14,7 +14,7 @@ export default function ActivityList(props) {
         } else {
           return;
         }
-       }
+      }
 
        let pending = false;
        for (let i of props.state.activityParticipants) {

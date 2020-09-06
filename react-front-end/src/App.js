@@ -13,6 +13,8 @@ import Signup from './components/Signup';
 import ChatCard from './components/ChatCard';
 import EditForm from './components/EditForm';
 
+import { geolocated } from "react-geolocated";
+
 import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import createPalette from '@material-ui/core/styles/createPalette';
 import { green } from '@material-ui/core/colors';
@@ -106,7 +108,10 @@ export default function App(props) {
     
     for (let i of state.users) {
       if (username.toLowerCase() === i.name.split(' ')[0].toLowerCase()) {
-        setState(prev => { return {...prev, loggedIn: i.id, view: 'browse', refresh: prev.refresh += 1, name: prev.users[Number(i.id) - 1].name }});
+        axios.get(`/api/activitiesSorted?city=${i.city}`)
+        .then((response) => {
+          setState(prev => { return {...prev, activitiesSorted: response.data, loggedIn: i.id, view: 'browse', refresh: prev.refresh += 1, name: prev.users[Number(i.id) - 1].name }});
+        })
       }
     }
   }
@@ -114,10 +119,11 @@ export default function App(props) {
   const signup = function(stateForm) {
     axios.post('/api/users', { stateForm })
     .then((response) => {
-      console.log('response from signup', response.data[0].name);
-        setState(prev => ({...prev, loggedIn: response.data[0].id, view: 'browse', refresh: prev.refresh += 1, name: response.data[0].name }));
-      // console.log('signup response: ', response.data[0].name);
-      // setState(prev => ({...prev, refresh: prev.refresh += 1}))
+      const city = response.data[0].city
+      axios.get(`/api/activitiesSorted?city=${city[0].toUpperCase() + city.substring(1)}`)
+      .then((response2) => {
+        setState(prev => ({...prev, activitiesSorted: response2.data, loggedIn: response.data[0].id, view: 'browse', refresh: prev.refresh += 1, name: response.data[0].name }));
+      })
     })
   }
 

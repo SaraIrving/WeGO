@@ -99,24 +99,28 @@ export default function EditForm(props) {
         <MatMultiSelect 
           items={['One Time', 'Weekly', 'Bi-Weekly', 'Monthly']} 
           inputLabel="Frequency" 
+          multiple
           onChange={event => setStateEdit({...stateEdit, frequency: event.target.value})}
           // defaultValue={[`${activityToEdit.frequency}`]}
           />
         <MatMultiSelect 
           items={['Morning', 'Daytime', 'Evening']} 
           inputLabel="Timeframe" 
+          multiple
           onChange={event => setStateEdit({...stateEdit, timeframe: event.target.value})}
           // defaultValue={[`${activityToEdit.timeframe}`]}
           />
         <MatMultiSelect 
           items={['Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat', 'Sun']} 
           inputLabel="Days" 
+          multiple
           onChange={event => setStateEdit({...stateEdit, days: event.target.value})}
           // defaultValue={[`${activityToEdit.days_available}`]}
           />
         <MatMultiSelect 
           items={['Beginner', 'Intermediate', 'Advanced']} 
           inputLabel="Skill Level" 
+          multiple
           onChange={event => setStateEdit({...stateEdit, skill_level: event.target.value})}
           // defaultValue={[`${activityToEdit.skill_tag}`]}
           />

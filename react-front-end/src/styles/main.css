@@ -293,6 +293,7 @@ div.landing-wrapper {
   display: flex;
   border-radius: 12px;
   justify-content: center;
+  align-items: center;
 }
 
 div.notification-menu {

@@ -57,7 +57,6 @@ export default function MatMultiSelect(props) {
   const handleChange = (event) => {
     setPersonName(event.target.value);
     props.onChange(event);
-
   };
   
   // const handleChangeMultiple = (event) => {
@@ -86,24 +85,29 @@ export default function MatMultiSelect(props) {
           //defaultValue={props.defaultValue}
           labelId={props.labelId}
           id={props.id}
-          multiple
+          multiple={props.multiple}
           value={personName }
           // value={props.defaultValue ? props.defaultValue : personName }
           onChange={handleChange}
           input={<Input id="select-multiple-chip" />}
           renderValue={(selected) => {
-            if (selected.length === 0 && props.defaultValue) {
-            return <div className={classes.chips}>
-                      <Chip label={props.defaultValue} className={classes.chip} />
-                    </div>;
+            // if (selected.length === 0 && props.defaultValue) {
+            // return <div className={classes.chips}>
+            //           <Chip label={props.defaultValue} className={classes.chip} />
+            //         </div>;
+            // }
+            if (typeof selected === 'object') {
+              return (
+                <div className={classes.chips}>
+                  {selected.map((value) => (
+                    <Chip key={value} label={value} className={classes.chip} />
+                  ))}
+                </div>
+              )
+            } else {
+              return selected;
             }
-            return (
-            <div className={classes.chips}>
-              {selected.map((value) => (
-                <Chip key={value} label={value} className={classes.chip} />
-              ))}
-            </div>
-          )}}
+          }}
           MenuProps={MenuProps}
         >
           {props.items.map((i) => (

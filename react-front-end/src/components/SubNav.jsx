@@ -53,14 +53,14 @@ export default function SubNav(props) {
   const changeCity = (e) => {
     axios.get(`/api/activitiesSorted?city=${e.target.value}`)
     .then((response) => {
-      props.setState(prev => ({...prev, activitiesSorted: response}));
+      props.setState(prev => ({...prev, activitiesSorted: response.data}));
     })
   }
 
   const cityArray = [];
   for (let i of props.state.users) {
-    if (!cityArray.includes(i.city)) {
-      cityArray.push(i.city)
+    if (!cityArray.includes(i.city[0].toUpperCase() + i.city.substring(1))) {
+      cityArray.push(i.city[0].toUpperCase() + i.city.substring(1))
     }
   }
 
@@ -80,7 +80,7 @@ export default function SubNav(props) {
           <div className="search-wrapper">
             <MatMultiValues 
               options={props.state.tags} 
-              label="Search Activities" 
+              label="Search Activities"
               placeholder="What do you want to do?" 
               onChange={(event, values) => props.setState(prev => ({...prev, filters: values }))}/>
             <MatMultiSelect inputLabel="Change City" items={cityArray} onChange={(e) => changeCity(e)}/>
