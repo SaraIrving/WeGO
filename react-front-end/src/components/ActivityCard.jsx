@@ -222,8 +222,6 @@ export default function ActivityCard(props) {
       </div>
     </article>
     }
-
-
     {props.state.loggedIn === props.hostId && props.state.view === 'hosted' && !filled &&
     <article className={pickClass}>
       {/* {isHosted() ? null : <h3>Looks like you dont have any hosted activities... <a onClick={() => props.setState(prev => {return {...prev, view: 'create'}})}>Yet?</a></h3>} */}
@@ -258,7 +256,6 @@ export default function ActivityCard(props) {
         </div>
     </article>
     }
-
     {joined && props.state.view === 'joined' &&
     <article className={pickClass}>
       {/* {isEmpty('accepted') ? null : <h3>It looks like you haven't joined any activities yet...</h3>} */}
@@ -289,7 +286,6 @@ export default function ActivityCard(props) {
       </div>
     </article>
     }
-
     
     {pending && props.state.view === 'pending' &&
     <article className={pickClass}>

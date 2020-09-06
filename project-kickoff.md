@@ -193,6 +193,7 @@ Teck Stack
 - style landing page ** 1.5
 - could make it super pretty **** ~ chat, create form, spruce up login page ~ 5 - 8
 - animations ** ~ 1 - 2
+- bugs 
 - clean commented code **** ~ 1 - 3
 - heroku ** ~ 2 - 4
 - prepare presentation - 1 day
