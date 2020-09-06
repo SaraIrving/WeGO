@@ -67,6 +67,7 @@ export default function App(props) {
   const onMessageSubmit = (e) => {
     e.preventDefault()
     const { name, message, loggedIn, currentActivityId } = state;
+    let recipient = state.loggedIn === state.users[state.activities[state.currentActivityId - 1] -1] ? otherperson : state.users[state.activities[state.currentActivityId - 1] -1]
     socket.send({name, message, loggedIn, currentActivityId, request_type: "newMessage"})
     // socket.send({participant_id: props.state.loggedIn , activity_id: props.id, request_type: "newMessage"});
     setState(prev => {return {...prev, message: '', name , refresh: prev.refresh+= 1 }})
