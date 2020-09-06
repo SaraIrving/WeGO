@@ -11,8 +11,8 @@ import Chip from '@material-ui/core/Chip';
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
-    margin: theme.spacing(1),
-    minWidth: 120,
+    margin: theme.spacing(0),
+    minWidth: 220,
     maxWidth: 300,
   },
   chips: {
@@ -84,6 +84,7 @@ export default function MatMultiSelect(props) {
           displayEmpty
           //defaultValue={props.defaultValue}
           labelId={props.labelId}
+          fullWidth={props.fullWidth}
           id={props.id}
           multiple={props.multiple}
           value={personName }

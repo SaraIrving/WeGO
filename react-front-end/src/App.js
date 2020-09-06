@@ -83,10 +83,11 @@ export default function App(props) {
     const promiseFour = axios.get('/api/activity_tags');
     const promiseFive = axios.get('/api/tags');
     const promiseSix = axios.get('/api/messages');
+    const promiseSeven = state.loggedIn ? axios.get(`/api/activitiesSorted?city=${state.users[state.loggedIn - 1].city}`) : axios.get('/api/activities')
 
-    Promise.all([promiseOne, promiseTwo, promiseThree, promiseFour, promiseFive, promiseSix])
+    Promise.all([promiseOne, promiseTwo, promiseThree, promiseFour, promiseFive, promiseSix, promiseSeven])
     .then((arrayOfValues) => {
-      let [usersData, activitiesData, activityParticipantsData, activityTagsData, tagsData, messagesData] = arrayOfValues;
+      let [usersData, activitiesData, activityParticipantsData, activityTagsData, tagsData, messagesData, activitiesSortedData] = arrayOfValues;
       setState((prev) => {
         console.log('axios call');
         return ({...prev, users: usersData.data,
@@ -94,7 +95,8 @@ export default function App(props) {
         activityParticipants: activityParticipantsData.data,
         activityTags: activityTagsData.data,
         tags: tagsData.data,
-        messages: messagesData.data
+        messages: messagesData.data,
+        activitiesSorted: activitiesSortedData.data
         })
       })
     })
@@ -228,7 +230,7 @@ export default function App(props) {
             <SubNav setState={setState} state={state} socket={socket}/>
             }
         {state.view === "create" &&
-            <ActivityForm setState={setState} state={state} />
+            <ActivityForm setState={setState} state={state} socket={socket} />
             }
         {state.view === "messages" &&
             <SubNav setState={setState} state={state} socket={socket}/>

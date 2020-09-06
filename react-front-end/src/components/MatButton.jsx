@@ -2,12 +2,11 @@ import React from 'react';
 import { Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import DeleteIcon from '@material-ui/icons/Delete';
-import CloudUploadIcon from '@material-ui/icons/CloudUpload';
-import KeyboardVoiceIcon from '@material-ui/icons/KeyboardVoice';
 import Icon from '@material-ui/core/Icon';
 import SaveIcon from '@material-ui/icons/Save';
 import CancelIcon from '@material-ui/icons/Cancel';
 import CloseIcon from '@material-ui/icons/Close';
+import SendIcon from '@material-ui/icons/Send';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
 import AddIcon from '@material-ui/icons/Add';
@@ -27,7 +26,8 @@ export default function MatButton(props) {
     ArrowDropUpIcon,
     AddIcon,
     CheckCircleIcon,
-    NotificationsActiveIcon
+    NotificationsActiveIcon,
+    SendIcon
   ]
 
   // Conditionally set icon from parent props if startIcon or endIcon is set
@@ -50,8 +50,7 @@ export default function MatButton(props) {
 
   // variant= outlined, contained
   // color= primary, secondary
-
   return (
-  <Button component={props.component} onClick={props.onClick} size={props.size} endIcon={props.endIcon ? <EndIcon /> : false } startIcon={props.startIcon ? <StartIcon /> : false } variant={props.variant} color={props.color} disabled={props.disabled} disableElevation href={props.href} type={props.type}>{props.children}</Button>
+  <Button fullWidth={props.fullWidth} component={props.component} onClick={props.onClick} size={props.size} endIcon={props.endIcon ? <EndIcon /> : false } startIcon={props.startIcon ? <StartIcon /> : false } variant={props.variant} color={props.color} disabled={props.disabled} disableElevation href={props.href} type={props.type}>{props.children}</Button>
   )
 };

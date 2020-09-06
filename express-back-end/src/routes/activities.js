@@ -62,8 +62,9 @@ const router = require("express").Router();
               RETURNING *;`
               , [Number(activity_participants[0].activity_id), Number(tag.id)]
             )
-            .then((response) => {
-              response.json("it worked!");
+            .then(({ rows: activity_tags}) => {
+              console.log('response: ', activity_tags)
+              response.json(activity);
             })
           }
         })

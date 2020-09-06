@@ -38,27 +38,30 @@ export default function ActivityForm(props) {
       stateForm.logged_in_user_id 
       ) {
       axios.post(`/api/activities`, {stateForm})
-      .then(() => {
+      .then((res) => {
+        // console.log('res after new post: ', res.data);
+        props.socket.send('update');
+        props.setState(prev => { return {...prev, view: 'browse', refresh: prev.refresh += 1 }})
         // not sure why, but not getting a response back
       })
       .catch(err => console.log(err));
     }
-    setTimeout(() => {
-      props.setState(prev => { return {...prev, view: 'browse', refresh: prev.refresh += 1 }})
-    }, 1000)    
+    // setTimeout(() => {
+    //   props.setState(prev => { return {...prev, view: 'browse', refresh: prev.refresh += 1 }})
+    // }, 1000)    
   }
 
   return (
     <div>
       <h2>CREATE AN ACTIVITY</h2>
       <form className="form activity-form" onSubmit={e => e.preventDefault()}>
-        <MatInput 
+        <MatInput
           required={true}
           onChange={event => setStateForm({...stateForm, activity_name: event.target.value, city: props.state.users[props.state.loggedIn - 1].city})} 
           label="activity_name" 
           value={stateForm.activity_name} variant="filled" 
           size="small" 
-          fullfullWidth={true} 
+          fullWidth
           />
         <MatTextarea 
           required={true}
@@ -66,7 +69,10 @@ export default function ActivityForm(props) {
           label="description" 
           value={stateForm.description} 
           variant="filled" size="small" 
-          fullfullWidth={true} multiline
+          fullWidth
+          multiline
+          rows={3}
+
           />
         <MatInput 
           required={true} 
@@ -74,7 +80,7 @@ export default function ActivityForm(props) {
           label="max_participants"
           value={stateForm.max_participants}
           variant="filled" size="small"
-          fullfullWidth={true}
+          //fullWidth
           />
         <MatInput 
           required={false}
@@ -82,19 +88,20 @@ export default function ActivityForm(props) {
           label="location" 
           value={stateForm.location} 
           variant="filled" 
-          size="small" f
-          ullfullWidth={true}
+          size="small" 
+          fullWidth
           />
         <MatMultiSelect 
           items={['One Time', 'Weekly', 'Bi-Weekly', 'Monthly']} 
           inputLabel="Frequency" 
           multiple
+          fullWidth
           onChange={event => setStateForm({...stateForm, frequency: event.target.value})}
           />
         <MatMultiSelect 
           multiple
           items={['Morning', 'Daytime', 'Evening']} 
-          inputLabel="Timeframe" 
+          inputLabel="Timeframe"
           onChange={event => setStateForm({...stateForm, timeframe: event.target.value})}
           />
         <MatMultiSelect 

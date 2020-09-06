@@ -2,6 +2,9 @@ import React, { useEffect } from 'react';
 import TextField from '@material-ui/core/TextField';
 import MatButton from './MatButton';
 import MatInput from './MatInput';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
+
 
 export default function ChatCard(props) {
 
@@ -54,27 +57,37 @@ export default function ChatCard(props) {
     //   )
     // })
 
+    useEffect(() => {
+      let chatWindow = document.getElementById('chat-window');
+      let xH = chatWindow.scrollHeight; 
+      chatWindow.scrollTo(0, xH);
+    })
+    
+
   return (
     <section className="chat-wrapper">
-      <MatButton type="normal" startIcon="CloseIcon" onClick={() => props.setState(prev => ({...prev, view: 'messages'}))} />
-      <h2>Chat Card Here</h2>
+      {/* <MatButton type="normal" startIcon="CloseIcon" onClick={() => props.setState(prev => ({...prev, view: 'messages'}))} /> */}
+      <IconButton onClick={() => props.setState(prev => ({...prev, view: 'messages'}))}><CloseIcon /></IconButton>
+      <h2>{props.state.activities[props.state.currentActivityId - 1].name}</h2>
       <div>
-        <div>
-          <h1>Chat Log</h1>
+        <div className="chatlog" id="chat-window">
           {/* {renderChatHistory()} */}
           {renderChatHistory()}
         </div>
       </div>
       <ul id="messages"></ul>
         <form action="" onSubmit={props.onMessageSubmit}>
-          <h1>Messenger</h1>
           {/* <div>
           <MatInput name="name" onChange={e => props.onTextChange(e.target.value,'name')} value={props.state.name} label="name" />
           </div> */}
-          <div>
-          <MatInput name="message" onChange={e => props.onTextChange(e.target.value,'message')} value={props.state.message} label="message" />
+          <div className="message-input-wrapper">
+            <div>
+              <MatInput multiline rows={2} fullWidth name="message" variant="filled" onChange={e => props.onTextChange(e.target.value,'message')} value={props.state.message} label="message" />
+            </div>
+            <div>
+              <MatButton endIcon="SendIcon" type="submit" variant="contained" color="primary">Send Message</MatButton>
+            </div>
           </div>
-          <MatButton type="submit" variant="contained">Send Message</MatButton>
         </form>
     </section>
 
