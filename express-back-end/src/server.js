@@ -24,6 +24,7 @@ io.on('connection', socket => {
       INSERT INTO messages (activity_id, user_id, text)
       VALUES ($1, $2, $3)
       `, [Number(message.currentActivityId), Number(message.loggedIn), message.message] )
+      // `, [Number(message.currentActivityId), Number(message.loggedIn), message.message] )
       io.emit('message', message)
     }
   })

@@ -30,7 +30,7 @@ import MatBanner from './MatBanner';
             <MatButton variant="text" disabled>Hi {props.state.name}!</MatButton>
             <MatButton variant="outlined" onClick={e => logout()}>LOGOUT</MatButton>
           </div>
-          <MatBanner state={props.state} setState={props.setState}></MatBanner>
+          {props.state.messageNotification.length > 0 && <MatBanner className="" state={props.state} setState={props.setState}></MatBanner>}
         </div>}
   
       </section>

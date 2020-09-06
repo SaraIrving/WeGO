@@ -5,6 +5,10 @@
 - Buddy Finder App
 - name: WeGo
 
+## Tech Choices
+- https://www.ipify.org/ --- find the IP address of the person loggin in 
+- https://ipstack.com/ --- find the city based on the IP address (get 10 call on free key, may need to update in future based on usage, used in axios request in teh login function )
+
 <!-- - They have the form: As a ___, I want to _, because ____.
 - eg. As a user, I want to be able to save posts, because I want to review them later.
 - User stories can also be negated: \s a __, I shoul
@@ -172,14 +176,14 @@ Teck Stack
 
 ### Stretch stories
 
-- As a host, I get a notification for new join requests, button takes you to hosted and removes banner **** .75
-- As a user, I can get new message notifications ** .5
+- As a host, I get a notification for new join requests, button takes you to hosted and removes banner **** .75 --- 10 hrs 
+- As a user, I can get new message notifications ** .5 --- 2-3 hrs?
 - Finish Edit Form **** ~.75 ---
 - Search Bar MatMultiValues **** ~2 --- 
 - Based on a users previous activities, there's a smart suggestion feature that shows me relavent activities I might be particularly interested in joining *
 - As a user I can sign up *** ~1 --- 
 - Asterisk the password input ***** .05 ---
-- My location is dynamicly inferred on signup (geolocation) ** ~1
+- My location is dynamicly inferred on signup (geolocation) ** ~1 ---
 - Make the images picker better  0 1 tags loop through them then loop through my object, and when they match - ignore outdoor ** .75 --- 
 - responsive ****
 - style landing page ** 1.5

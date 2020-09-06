@@ -52,7 +52,7 @@ let activityMessages = [];
                       <div>
                           <h2>{props.state.activities[Number(messageGroup.id) - 1].name}</h2>
                           {messageGroup.messages.map(messageObject => {
-                            if (messageObject.host === props.state.loggedIn && messageObject.user_id !== props.state.loggedIn) {
+                            if (messageObject.host === props.state.loggedIn && messageObject.user_id !== props.state.loggedIn) { // you are the host and not the message sender
                               return <Participant
                               name={props.state.users[messageObject.user_id - 1].name}
                               city={props.state.users[messageObject.user_id - 1].city}
@@ -66,7 +66,7 @@ let activityMessages = [];
                               notifications={0}
                               onClick={() => props.setState(prev => ({...prev, view: 'chatcard', currentActivityId: messageGroup.id, messageNotification: [] }))}
                             />
-                            } else if (messageObject.host !== props.state.loggedIn && messageObject.user_id === props.state.loggedIn){
+                            } else if (messageObject.host !== props.state.loggedIn && messageObject.user_id === props.state.loggedIn){ // you're not the host and you are the one who sent the message
                               return <Participant
                               name={props.state.users[messageObject.host - 1].name}
                               city={props.state.users[messageObject.host - 1].city}
@@ -79,7 +79,7 @@ let activityMessages = [];
                               setState={props.setState}
                               onClick={() => props.setState(prev => ({...prev, view: 'chatcard', currentActivityId: messageGroup.id, messageNotification: [] }))}
                             /> 
-                            }
+                            } // possibly need more scenarios ie: i am the host and i did send the message 
                           })}
                       </div>
                     )
