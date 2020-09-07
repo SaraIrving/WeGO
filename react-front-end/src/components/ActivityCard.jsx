@@ -50,13 +50,17 @@ export default function ActivityCard(props) {
     golf: '../images/golf.jpeg',
     biking: '../images/biking.jpeg',
     gaming: '../images/gaming.jpeg',
-    pinpong: '../images/pingpong.jpeg',
-    pool: '../images/pool.jpeg',
+    'ping pong': '../images/pingpong.jpeg',
+    billiards: '../images/pool.jpg',
     park: '../images/park.jpeg',
     recreation: '../images/park.jpeg',
     outdoor:'../images/park.jpeg',
-    kayake: '../images/kayaking.jpeg',
-    ski: '../images/skiiing.jpeg'
+    kayak: '../images/kayaking.jpeg',
+    ski: '../images/skiing.jpeg',
+    snowboarding: '../images/snowboarding.jpeg',
+    volleyball: '../images/volleyball.jpeg',
+    'bocce ball': '../images/bocce.jpeg',
+    spalunking: '../images/spalunking.jpeg'
   }
 
   const ask = () => {
@@ -170,12 +174,31 @@ export default function ActivityCard(props) {
   const findImage = () => {
     for (let [keys, values] of Object.entries(images)) {
       for (let i of props.currentTagNames) {
-        if (keys !== 'outdoor' && keys === i) {
+        if ((keys !== 'outdoor' && keys !== 'recreation') && keys === i) {
           return values
         }
       }
     }
   }
+  const filters = [
+    'monday', 
+    'tuesday', 
+    'wednesday', 
+    'thursday', 
+    'friday', 
+    'saturday', 
+    'sunday',
+    'morning', 
+    'daytime', 
+    'evening',
+    'beginner', 
+    'intermediate', 
+    'advanced',
+    'one time', 
+    'weekly', 
+    'bi-weekly', 
+    'monthly'
+  ]
 
   return (
     <Fade bottom>
@@ -190,7 +213,7 @@ export default function ActivityCard(props) {
         <div>
           <h3>{playerMessage}</h3>
           <ul>
-            {tagName.map(tag => <li key={tagName.indexOf(tag)}>{tag.name}</li>)}
+            {tagName.map(tag => !filters.includes(tag.name) ? <li key={tagName.indexOf(tag)}>{tag.name}</li> : null)}
           </ul>
           <MatAvatar name={props.hostName} avatar={props.avatar} city={props.city} />
         </div>
@@ -242,7 +265,7 @@ export default function ActivityCard(props) {
         <div>
           <h3>{playerMessage}</h3>
           <ul>
-            {tagName.map(tag => <li key={tagName.indexOf(tag)}>{tag.name}</li>)}
+            {tagName.map(tag => !filters.includes(tag.name) ? <li key={tagName.indexOf(tag)}>{tag.name}</li> : null)}
           </ul>
           <MatAvatar name={props.hostName} avatar={props.avatar} city={props.city} />
         </div>
@@ -276,7 +299,7 @@ export default function ActivityCard(props) {
         <div> 
           <h3>{playerMessage}</h3>
           <ul>
-            {tagName.map(tag => <li key={tagName.indexOf(tag)}>{tag.name}</li>)}
+            {tagName.map(tag => !filters.includes(tag.name) ? <li key={tagName.indexOf(tag)}>{tag.name}</li> : null)}
           </ul>
           <MatAvatar name={props.hostName} avatar={props.avatar} city={props.city} />
         </div>
@@ -307,7 +330,7 @@ export default function ActivityCard(props) {
         <div>
          <h3>{playerMessage}</h3>
           <ul>
-            {tagName.map(tag => <li key={tagName.indexOf(tag)}>{tag.name}</li>)}
+            {tagName.map(tag => !filters.includes(tag.name) ? <li key={tagName.indexOf(tag)}>{tag.name}</li> : null)}
           </ul>
           <MatAvatar name={props.hostName} avatar={props.avatar} city={props.city} />
         </div>

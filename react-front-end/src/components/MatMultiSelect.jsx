@@ -87,6 +87,7 @@ export default function MatMultiSelect(props) {
           fullWidth={props.fullWidth}
           id={props.id}
           multiple={props.multiple}
+          items={props.items}
           value={personName }
           // value={props.defaultValue ? props.defaultValue : personName }
           onChange={handleChange}

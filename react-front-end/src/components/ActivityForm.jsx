@@ -119,8 +119,8 @@ export default function ActivityForm(props) {
         <MatMultiValues
           options={props.state.tags}
           label="Searchable Tags" 
-          placeholder="Select Searchable Tags" 
-          onChange={(event, values) => setStateForm({...stateForm, tags: values})}
+          placeholder="Select Searchable Tags"
+          onChange={(event, values) => setStateForm({...stateForm, tags: values })} // COULD REVISIT, AND ALLOW NEW ACTIVITY POSTS TO PLOP ALL RELAENT INFO INTO TAGS (CURRENTLY NOT DOING THAT)
           />
         <MatButton 
           variant="outlined" 

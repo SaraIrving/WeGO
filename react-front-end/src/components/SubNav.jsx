@@ -64,6 +64,7 @@ export default function SubNav(props) {
       cityArray.push(i.city[0].toUpperCase() + i.city.substring(1))
     }
   }
+  console.log('cityArray', cityArray);
 
   return (
     <div className="subnav-wrapper">
