@@ -21,9 +21,9 @@ io.on('connection', socket => {
     } else if ((typeof message) === 'object' && message.request_type === 'newMessage') {
       console.log('message received on server: ', message)
       db.query(`
-      INSERT INTO messages (activity_id, user_id, text)
-      VALUES ($1, $2, $3)
-      `, [Number(message.currentActivityId), Number(message.loggedIn), message.message] )
+      INSERT INTO messages (activity_id, sender_id, receiver_id, text)
+      VALUES ($1, $2, $3, $4)
+      `, [Number(message.currentActivityId), Number(message.loggedIn), Number(message.currentChatRecipient), message.message] )
       // `, [Number(message.currentActivityId), Number(message.loggedIn), message.message] )
       io.emit('message', message)
     }

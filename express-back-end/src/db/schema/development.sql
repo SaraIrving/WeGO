@@ -115,12 +115,14 @@ VALUES (1, 1),
 (8, 7),
 (9, 9);
 
-INSERT INTO messages (activity_id, user_id, text)
+INSERT INTO messages (activity_id, sender_id, receiver_id, text)
 VALUES 
-(6, 5, 'Hey Im intersted in your cool activity'),
-(6, 2, 'cool deal!'),
-(6, 5, 'can i bring my dog with me?'),
-(6, 2, 'no!')
+(6, 5, 2, 'Hey Im intersted in your cool activity'),
+(6, 2, 5, 'cool deal!'),
+(6, 5, 2, 'can i bring my dog with me?'),
+(6, 2, 5, 'no!'),
+(6, 4, 2, 'from cohona to tori in spalunk'),
+(6, 2, 4, 'from tori to cohona in spalunk');
 
 
 

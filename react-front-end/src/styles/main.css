@@ -20,6 +20,10 @@ a {
   transition: all 200ms ease;
 }
 
+.MuiFilledInput-root {
+  background-color: #dff0eb !important;
+}
+
 button:not(.MuiAutocomplete-clearIndicator):not(.MuiAutocomplete-popupIndicator):not(.MuiIconButton-root) {
   padding-left: 1em !important;
   padding-right: 1em !important;
@@ -67,6 +71,7 @@ section {
 .navbar {
   background-color: #dff0eb;
   position: relative;
+  border-top: solid 4px #F7BD02;
 }
 .navbar > .main-nav {
   display: flex;
@@ -84,6 +89,9 @@ section {
 }
 .navbar > .main-nav div button {
   margin-left: 1em;
+}
+.navbar > .main-nav div button:active {
+  color: #F7BD02;
 }
 
 .footer {
@@ -402,6 +410,13 @@ div.signup-instead-wrapper {
   flex-direction: column;
   text-align: center;
   align-items: center;
+  font-size: 0.8em;
+  color: #576D5C;
+  margin-top: 1em;
+}
+div.signup-instead-wrapper button {
+  margin-top: -6px;
+  font-size: 0.8em;
 }
 
 /*# sourceMappingURL=main.css.map */

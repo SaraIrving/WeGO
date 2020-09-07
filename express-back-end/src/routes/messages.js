@@ -5,7 +5,8 @@ module.exports = db => {
     db.query(
       `
       SELECT
-        messages.user_id,
+        messages.sender_id,
+        messages.receiver_id,
         messages.activity_id,
         messages.text,
         activity_participants.user_id as host

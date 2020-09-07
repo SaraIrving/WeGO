@@ -40,7 +40,8 @@ CREATE TABLE activities (
 CREATE TABLE messages (
   id SERIAL PRIMARY KEY NOT NULL,
   activity_id INTEGER REFERENCES activities(id) ON DELETE CASCADE,
-  user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+  sender_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+  receiver_id INTEGER NOT NULL,
   text TEXT NOT NULL,
   created_at TIMESTAMPTZ default NOW()
 );

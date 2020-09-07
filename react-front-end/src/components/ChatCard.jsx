@@ -36,15 +36,33 @@ export default function ChatCard(props) {
 
       const renderChatHistory = () => {
         return props.state.messages.map((message, index) => {
-          // if ((message.activity_id === props.state.currentActivityId && message.host === props.state.loggedIn) || (message.activity_id === props.state.currentActivityId && message.user_id === props.state.loggedIn)) {
-          if (message.activity_id === props.state.currentActivityId) {
-
-            return (
-              <div key={index}>
-                <h5 className={props.state.users[Number(message.user_id) - 1].id === props.state.loggedIn ? 'my-message' : 'their-message'}>{props.state.users[Number(message.user_id) - 1].name}: <span>{message.text}</span></h5>
-              </div>
-              )
+          // if ((message.activity_id === props.state.currentActivityId && message.host === props.state.loggedIn) || (message.activity_id === props.state.currentActivityId && message.user_id === props.state.currentChatRecipient)) { // We are the host: if it's the host show, or if it's not the host but it's the user
+          // if ((message.activity_id === props.state.currentActivityId && message.host === props.state.currentChatRecipient || message.user_id === props.state.loggedIn) || (message.activity_id === props.state.currentActivityId && message.user_id === props.state.currentChatRecipient || message.user_id === props.state.loggedIn)) {
+            if (message.activity_id === props.state.currentActivityId) {
+              let messageSender = message.sender_id;
+              let chatRecipient = props.state.currentChatRecipient;
+              let loggedIn = props.state.loggedIn;
+              let host = message.host
+              let receiver = message.receiver_id;
+              console.log('messageSender', messageSender);
+              console.log('chatRecipient', chatRecipient);
+              console.log('loggedIn', loggedIn);
+              console.log('host', host);
+              console.log('receiver = ', receiver);
+              // are we the host? 
+              // are we the 
+              // I am the host of the activity and i wrote the message to the chatRecipent and i only want to see messages I sent to that specific participant 
+              // I am a participant and i wrote the message to the host
+              // if (((host === loggedIn && messageSender === chatRecipient) || (host === loggedIn && messageSender === loggedIn)) || ((host !== loggedIn && messageSender === host) || (host !== loggedIn && messageSender === loggedIn))) {
+                if((loggedIn === messageSender && chatRecipient === receiver) || (loggedIn === receiver && chatRecipient === messageSender)) {
+                return(
+                <div key={index}>
+                  <h5 className={props.state.users[Number(message.sender_id) - 1].id === props.state.loggedIn ? 'my-message' : 'their-message'}>{props.state.users[Number(message.sender_id) - 1].name}: <span>{message.text}</span></h5>
+                </div>
+                )
+              }
             }
+
           })
         }
 

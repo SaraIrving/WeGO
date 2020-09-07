@@ -4,6 +4,7 @@ import MatButton from './MatButton';
 import ParticipantsList from './ParticipantsList';
 import axios from 'axios';
 import classnames from 'classnames';
+import Fade from 'react-reveal/Fade';
 
 export default function ActivityCard(props) {
   // Set number of players message based on props.currentPlayers and props.numoOfParticipants
@@ -73,7 +74,7 @@ export default function ActivityCard(props) {
 
   const message = () => {
     props.socket.send('update');
-    props.setState(prev => ({...prev, view: 'chatcard', currentActivityId: props.id}));
+    props.setState(prev => ({...prev, view: 'chatcard', currentActivityId: props.id, currentChatRecipient: prev.users[prev.activities[props.id - 1].user_id - 1].id }));
   };
 
   const cancel = (userId, activityId) => {
@@ -149,14 +150,11 @@ export default function ActivityCard(props) {
   }
   filterParticipants(props.state.loggedIn, props.id)
 
-  
-
   for (let i of props.state.activityParticipants) {
     if (i.activity_id === props.id && i.user_id === props.state.loggedIn && i.status === "pending") {
       props.setPending(true)
     }
   }
-
 
   // const pickClass = classnames({'pending': props.pending}); // SEEMING SPOTTY AT BEST?
 
@@ -180,8 +178,8 @@ export default function ActivityCard(props) {
   }
 
   return (
+    <Fade bottom>
     <div>
-
     {props.state.view === 'browse' && !filled &&
     <article className={pending ? 'pending' : ''}>
       <div>
@@ -198,7 +196,7 @@ export default function ActivityCard(props) {
         </div>
       </div>
       <div>
-      {props.state.view === 'hosted' && <div><MatButton variant="contained" onClick={() => props.setState(prev => {return {...prev, refresh: props.id, view: 'editform'}})}>Edit</MatButton></div>}
+      {props.state.view === 'hosted' && <div><MatButton size="small" variant="contained" onClick={() => props.setState(prev => {return {...prev, refresh: props.id, view: 'editform'}})}>Edit</MatButton></div>}
       {pending && <h2 className="request-sent">REQUEST SENT!</h2>}
         <h2>{props.name}</h2>
         <h5>Skill Level: {props.skillTag}</h5>
@@ -250,7 +248,7 @@ export default function ActivityCard(props) {
         </div>
       </div>
       <div>
-      <div><MatButton variant="outlined" onClick={() => props.setState(prev => {return {...prev, refresh: props.id, view: 'editform'}})} >Edit</MatButton></div>
+      <div><MatButton size="small" variant="outlined" onClick={() => props.setState(prev => {return {...prev, refresh: props.id, view: 'editform'}})} >Edit</MatButton></div>
         <h2>{props.name}</h2>
         <h5>Skill Level: {props.skillTag}</h5>
         <h5>Frequency: {props.frequency}</h5>
@@ -331,5 +329,6 @@ export default function ActivityCard(props) {
     </article>
     }
   </div>
+  </Fade>
   )
 };

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import MatInput from './MatInput';
 import MatButton from './MatButton';
+import Fade from 'react-reveal/Fade';
 
 export default function Signup(props) {
 
@@ -32,13 +33,15 @@ export default function Signup(props) {
 
   return (
     <div>
-      <h2>Sign Up</h2>
+      <Fade top>
+        <h2>Sign Up</h2>
+      </Fade>
       <form className="form" onSubmit={e => e.preventDefault()}>
         <MatInput required={true} onChange={event => setStateSignup({...stateSignup, name: event.target.value})} label="Name" value={stateSignup.name} variant="filled" size="small" fullfullWidth={true} />
         <MatInput required={true} onChange={event => setStateSignup({...stateSignup, city: event.target.value})} label="city" value={stateSignup.city} variant="filled" size="small" fullfullWidth={true} />
         <MatInput required={true} onChange={event => setStateSignup({...stateSignup, email: event.target.value})} label="email" value={stateSignup.email} variant="filled" size="small" fullfullWidth={true} />
         <MatInput type="password" onChange={event => setStateSignup({...stateSignup, password: event.target.value})} label="Password" value={stateSignup.password} variant="filled" size="small" fullfullWidth={true} />
-        <MatButton variant="outlined" type="submit" onClick={() => props.signup(stateSignup)}>SIGN UP</MatButton>
+        <MatButton variant="contained" color="primary" type="submit" onClick={() => props.signup(stateSignup)}>SIGN UP</MatButton>
       </form>
     </div>
   )
