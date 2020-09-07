@@ -60,7 +60,8 @@ export default function ActivityCard(props) {
     snowboarding: '../images/snowboarding.jpeg',
     volleyball: '../images/volleyball.jpeg',
     'bocce ball': '../images/bocce.jpeg',
-    spalunking: '../images/spalunking.jpeg'
+    spalunking: '../images/spalunking.jpeg',
+    'language practice': '../images/globe.jpeg'
   }
 
   const ask = () => {

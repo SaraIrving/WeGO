@@ -77,6 +77,7 @@ export default function App(props) {
     setState(prev => { return {...prev, [inputName]: value}})
   }
 
+
   useEffect(() => {
     const promiseOne = axios.get('/api/users');
     const promiseTwo = axios.get('/api/activities');
@@ -84,11 +85,12 @@ export default function App(props) {
     const promiseFour = axios.get('/api/activity_tags');
     const promiseFive = axios.get('/api/tags');
     const promiseSix = axios.get('/api/messages');
-    const promiseSeven = (state.loggedIn && state.users[state.loggedIn - 1] !== undefined) ? axios.get(`/api/activitiesSorted?city=${state.users[state.loggedIn - 1].city}`) : axios.get('/api/activities')
+    // const promiseSeven = (state.loggedIn && state.users[state.loggedIn - 1] !== undefined) ? axios.get(`/api/activitiesSorted?city=${state.users[state.loggedIn - 1].city}`) : axios.get('/api/activities')
+    // const promiseSeven = state.loggedIn ? axios.get(`/api/activitiesSorted?city=${state.users[state.loggedIn - 1].city}`) : axios.get('/api/activities')
 
-    Promise.all([promiseOne, promiseTwo, promiseThree, promiseFour, promiseFive, promiseSix, promiseSeven])
+    Promise.all([promiseOne, promiseTwo, promiseThree, promiseFour, promiseFive, promiseSix])
     .then((arrayOfValues) => {
-      let [usersData, activitiesData, activityParticipantsData, activityTagsData, tagsData, messagesData, activitiesSortedData] = arrayOfValues;
+      let [usersData, activitiesData, activityParticipantsData, activityTagsData, tagsData, messagesData] = arrayOfValues;
       setState((prev) => {
         console.log('axios call');
         return ({...prev, users: usersData.data,
@@ -96,8 +98,7 @@ export default function App(props) {
         activityParticipants: activityParticipantsData.data,
         activityTags: activityTagsData.data,
         tags: tagsData.data,
-        messages: messagesData.data,
-        activitiesSorted: activitiesSortedData.data
+        messages: messagesData.data
         })
       })
     })
@@ -106,11 +107,14 @@ export default function App(props) {
     })
   }, [state.refresh]);
 
+
+
 // NOT GEO LOGIN
   const login = function(username) {
     
     for (let i of state.users) {
-      if (username.toLowerCase() === i.name.split(' ')[0].toLowerCase()) {
+      // if (username.toLowerCase() === i.name.split(' ')[0].toLowerCase()) {
+      if (username.toLowerCase() === i.email) {
         axios.get(`/api/activitiesSorted?city=${i.city}`)
         .then((response) => {
           setState(prev => { return {...prev, activitiesSorted: response.data, loggedIn: i.id, view: 'browse', refresh: prev.refresh += 1, name: prev.users[Number(i.id) - 1].name }});

@@ -63,7 +63,8 @@ export default function EditForm(props) {
           required={true}
           onChange={event => setStateEdit({...stateEdit, activity_name: event.target.value, city: props.state.users[props.state.loggedIn - 1].city})} 
           label="activity_name" 
-          value={stateEdit.activity_name} variant="filled" 
+          //value={stateEdit.activity_name} 
+          variant="filled" 
           size="small" 
           fullfullWidth={true} 
           defaultValue={activityToEdit.name}
@@ -72,17 +73,20 @@ export default function EditForm(props) {
           required={true}
           onChange={event => setStateEdit({...stateEdit, description: event.target.value})} 
           label="description" 
-          value={stateEdit.description} 
-          variant="filled" size="small" 
-          fullfullWidth={true} multiline
+          //value={stateEdit.description} 
+          variant="filled" 
+          size="small" 
+          fullfullWidth={true} 
+          multiline
           defaultValue={activityToEdit.description}
           />
         <MatInput 
           required={true} 
           onChange={event => setStateEdit({...stateEdit, max_participants: event.target.value})} 
           label="max_participants"
-          value={stateEdit.max_participants}
-          variant="filled" size="small"
+          //value={stateEdit.max_participants}
+          variant="filled" 
+          size="small"
           fullfullWidth={true}
           defaultValue={activityToEdit.num_of_participants}
           />
@@ -90,10 +94,10 @@ export default function EditForm(props) {
           required={false}
           onChange={event => setStateEdit({...stateEdit, location: event.target.value})} 
           label="location" 
-          value={stateEdit.location} 
+          //value={stateEdit.location} 
           variant="filled" 
-          size="small" f
-          ullfullWidth={true}
+          size="small" 
+          fullfullWidth={true}
           defaultValue={activityToEdit.location}
           />
         <MatMultiSelect 

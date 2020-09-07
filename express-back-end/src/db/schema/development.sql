@@ -18,22 +18,24 @@ VALUES ('Sally Palmer', 'https://www.spacercreative.com/wp-content/uploads/2020/
 
 INSERT INTO activities (name, num_of_participants, frequency, days_available, timeframe, location, skill_tag, description)
 VALUES ('Evening Spikeball', 4, 'weekly', 'thursday tuesday', 'evening', 'Stanley Park', 'advanced', 'Come join us on a weekly basis for some insanely intense spikeball in the park!'),
-('Bocce Ball', 6, 'weekly', 'wednesday', 'morning', 'My backyard', 'intermediate', 'Master the art and balance of bocce with a great team from lower mainland'),
-('Really Bad Tennis', 2, 'bi-weekly', 'thursday sunday', 'evening', 'Parker Elementary School', 'beginner', 'Ready for some embarrasingly bad tennis? come make a fool of yourself with others pretending we know what were even doing'),
-('Frolfingly Fun', 3, 'monthly', 'saturday', 'daytime', 'Somewhere killer', 'beginner', 'I know we all live to frolf!'),
-('Hike to no mans land', 6, 'monthly', 'saturday', 'daytime', 'Changes regularily', 'intermediate', 'Need a change of scenery? Get out of the city and look around!'),
-('Spalunking yo', 8, 'monthly', 'sunday', 'morning', 'Rocky Mountains', 'advanced', 'Come climb into the middle of the Earth with us!'),
-('Hike with your dog', 6, 'weekly', 'monday', 'morning', 'North Shore ', 'beginner', 'Walk your dog and walk yourself.'),
-('Bike to the beach', 4, 'weekly', 'friday', 'evening', 'Jericho Beach', 'beginner', 'Join us at Jericho Beach, we will hang out and then head off on a group ride to a new destination every week!'),
-('After work snowboarding', 3, 'bi-weekly', 'thursday', 'evening', 'Cypress Mountain', 'intermediate', 'Get in some runs during the week and watch the sunset from the hill with your new pals!'),
-('Frisbee in the Park', 7, 'weekly', 'monday', 'evening', 'Hawrelak Park', 'beginner', 'Come and join us on Monday evenings for some frisbee games and some laughs, all skill levels welcome, kid and dog friendly.'),
-('Jasper Ski Trip', 3, 'monthly', 'saturday sunday', 'morning daytime', 'Marmot Basin', 'advanced', 'Join me for a weekend trip up to Jasper, I am looking for some other folks who want to cruise some Black Diamonds and hunt for powder!'),
-('Mixed Doubles Badminton', 12, 'weekly', 'monday wednesday saturday', 'evening', 'Geo Tao Badminton Center', 'intermediate', 'Looking for more mixed doubles badminton players, skill level is intermediate, we play for a few hours in the evening.'),
-('Billiards at the Rack', 4, 'bi-weekly', 'wednesday sunday', 'evening', 'The Rack on Whyte Ave', 'intermediate', 'Want to practice your pool skills with some friendly faces? We meet at The Rack eveny Wed and Sun evening and are always looking for new players to compete against.'),
-('Looking for Advanced Ping Pong Partner', 2, 'bi-weekly weekly', 'thursday wednesday', 'daytime morning', 'My place', 'advanced', 'I have a table, but need another decent player to challenge to some friendly and competitive bi-weekly games.'),
-('Competitive Spikeball', 20, 'weekly', 'wednesday', 'evening', 'Sherwood Park', 'intermediate advanced', 'Join our awesome summer spikeball league that plays weekly in Sherwood Park. Skill level is between intermediate to advanced. Losers buy a round after at OJs!'),
-('Tennis at Templeton School Courts', 2, 'weekly', 'thursday', 'evening', 'Templeton School, East Van', 'intermediate', 'I would like to find a partner to play tennis with each week, I have two years of experience and ideally my partner would be at a similar level.'),
-('Volleyball at Kits Beach', 3, 'weekly', 'saturday', 'daytime', 'Kits Beach', 'intermediate', 'I played on a team last season and it was the best! This year I want to put together another rad crew of people who are intersted in playing seriously while still having fun.');
+('Bocce Ball', 6, 'weekly', 'wednesday', 'morning', 'My backyard', 'intermediate', 'Master the art and balance of bocce with a great team from the lower mainland'),
+('Really Bad Tennis', 2, 'bi-weekly', 'thursday sunday', 'evening', 'Parker Elementary School', 'beginner', 'Ready for some embarrasingly bad tennis? Come make a fool of yourself with others pretending we know what were even doing.'),
+('Frolfingly Fun', 3, 'monthly', 'saturday', 'daytime', 'Somewhere killer', 'beginner', 'I know we all live to frolf! Come join us at a place TBD to frolf it up casual like.'),
+('Hike to no mans land', 6, 'monthly', 'saturday', 'daytime', 'Changes regularily', 'intermediate', 'Need a change of scenery? Get out of the city and look around! We head out of town one Saturday a month and would love you to come along!'),
+('Spalunking yo', 8, 'monthly', 'sunday', 'morning', 'Rocky Mountains', 'advanced', 'Come climb into the middle of the Earth with us! Cave will be determined at a later date. Not suitable for beginners, should have experience and proper safety gear.'),
+('Hike with your dog', 14, 'weekly', 'monday', 'morning', 'North Shore ', 'beginner', 'Join a friendly group of fellow dog owners and socially walk your dog and yourself.'),
+('Bike to the beach', 4, 'weekly', 'friday', 'evening', 'Jericho Beach', 'beginner', 'Join us at Jericho Beach, we will hang out and then head off on a group ride to a new destination every week! Remember to bring your bike lights.'),
+('After work snowboarding', 3, 'bi-weekly', 'thursday', 'evening', 'Cypress Mountain', 'intermediate', 'Get in some runs during the week and watch the sunset from the hill with your new pals! I have a gear rack on my car if you want to bring your own board.'),
+('Frisbee in the Park', 7, 'weekly', 'monday', 'evening', 'Hawrelak Park', 'beginner', 'Come and join us on Monday evenings for some frisbee games and some laughs. All skill levels welcome, kid and dog friendly.'),
+('Jasper Ski Trip', 3, 'monthly', 'saturday sunday', 'morning daytime', 'Marmot Basin', 'advanced', 'Join me for a weekend trip up to Jasper, I am looking for some other folks who want to cruise some Black Diamonds and hunt for powder! Shoot me a message to talk about organizing driving and accomodation.'),
+('Mixed Doubles Badminton', 12, 'weekly', 'monday wednesday saturday', 'evening', 'Geo Tao Badminton Center', 'intermediate', 'Looking for more mixed doubles badminton players, skill level is intermediate, we play for a few hours in the evening each week on multiple days.'),
+('Billiards at the Rack', 4, 'bi-weekly', 'wednesday sunday', 'evening', 'The Rack on Whyte Ave', 'intermediate', 'Want to practice your pool skills with some friendly faces? We meet at The Rack every Wed and Sun evening and are always looking for new players to compete against.'),
+('Looking for Advanced Ping Pong Partner', 2, 'bi-weekly weekly', 'thursday wednesday', 'daytime morning', 'My place', 'advanced', 'I have a table, but need another decent player to challenge to some friendly and competitive bi-weekly games. DM me for more information.'),
+('Competitive Spikeball', 20, 'weekly', 'wednesday', 'evening', 'Sherwood Park', 'intermediate advanced', 'Join our awesome summer spikeball league that plays weekly in Sherwood Park. Skill level is between intermediate to advanced. Losers buy a round afterwards at OJs!'),
+('Singles Tennis at Templeton School Courts', 2, 'weekly', 'thursday', 'evening', 'Templeton School, East Van', 'intermediate', 'I would like to find a partner to play tennis with each week, I have two years of experience and ideally my partner would be at a similar level.'),
+('Volleyball at Kits Beach', 3, 'weekly', 'saturday', 'daytime', 'Kits Beach', 'intermediate', 'I played on a team last season and it was the best! This year I want to put together another rad crew of people who are intersted in playing seriously while still having fun.'),
+('Looking for more Call Of Duty Mobile players', 4, 'weekly', 'friday tuesday', 'evening', 'online', 'advanced', 'Looking for more battle royale classic buddies, want to play squads with proper coordination. DM for more info.'),
+('Spanish language practice', 2, 'weekly', 'tuesday', 'evening', 'From your home!', 'intermediate', 'I would like to find someone to practice my spoken Spanish with. We could use Zoom to meet up for a chat each week and keep our skill sharp! Message me to figure out timing.');
 
 
 INSERT INTO activity_participants (activity_id, user_id, status)
@@ -77,7 +79,10 @@ VALUES (1, 2,'null'),
 (15, 15, 'host'),
 (16, 8, 'host'),
 (16, 10, 'pending'),
-(17, 10, 'host');
+(17, 10, 'host'),
+(18, 2, 'host'),
+(18, 12, 'pending'),
+(19, 4, 'host');
 
 
 
@@ -243,7 +248,20 @@ VALUES (1,15),
 (17, 30),
 (17, 42),
 (17, 31),
-(17, 1);
+(17, 1),
+(18, 15),
+(18, 20),
+(18, 23),
+(18, 28),
+(18, 11),
+(18, 37),
+(18, 12),
+(19, 15),
+(19, 20),
+(19, 28),
+(19, 30),
+(19, 11),
+(19, 13);
 
 
 INSERT INTO messages (activity_id, sender_id, receiver_id, text)
