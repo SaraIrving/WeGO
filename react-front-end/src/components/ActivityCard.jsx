@@ -4,7 +4,7 @@ import MatButton from './MatButton';
 import ParticipantsList from './ParticipantsList';
 import axios from 'axios';
 import classnames from 'classnames';
-import Fade from 'react-reveal/Fade';
+import Slide from 'react-reveal/Slide';
 
 export default function ActivityCard(props) {
   // Set number of players message based on props.currentPlayers and props.numoOfParticipants
@@ -70,7 +70,7 @@ export default function ActivityCard(props) {
     // console.log("Inside the ask function front end")
     axios.post(`/api/activity_participants`, {user_id: props.state.loggedIn, activity_id: props.id})
     .then(() => {
-      props.socket.send('update');
+      // props.socket.send('update');
       props.socket.send({participant_id: props.state.loggedIn , activity_id: props.id, request_type: "ask"});
       props.setState(prev => ({...prev, view: 'browse', refresh: prev.refresh += 1}))
     })
@@ -202,7 +202,7 @@ export default function ActivityCard(props) {
   ]
 
   return (
-    <Fade bottom>
+    <Slide bottom>
     <div>
     {props.state.view === 'browse' && !filled &&
     <article className={pending ? 'pending' : ''}>
@@ -353,6 +353,6 @@ export default function ActivityCard(props) {
     </article>
     }
   </div>
-  </Fade>
+  </Slide>
   )
 };

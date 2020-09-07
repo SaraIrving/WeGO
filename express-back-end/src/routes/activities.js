@@ -64,7 +64,7 @@ const router = require("express").Router();
             )
             .then(({ rows: activity_tags}) => {
               console.log('response: ', activity_tags)
-              response.json(activity);
+              response.json(activity[0]);
             })
           }
         })

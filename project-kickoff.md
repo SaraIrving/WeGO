@@ -183,20 +183,25 @@ Teck Stack
 - Based on a users previous activities, there's a smart suggestion feature that shows me relavent activities I might be particularly interested in joining *
 - As a user I can sign up *** ~1 --- 
 - Asterisk the password input ***** .05 ---
-- My location is dynamicly inferred on signup (geolocation) ** ~1 ---
+- My location is dynamicly inferred on sign in (geolocation) ** ~1 ---
 - Make the images picker better  0 1 tags loop through them then loop through my object, and when they match - ignore outdoor ** .75 --- 
 - responsive ****
 - style landing page ** 1.5
 
-
+- Beef up seed data ~ 2 **** 
+  - Edmonton
+- good QA, check and fix bugs ~ .75 - 4hrs
 - responsive **** ~ 3 - 4
 - style landing page ** 1.5
 - could make it super pretty **** ~ chat, create form, spruce up login page ~ 5 - 8
-- animations ** ~ 1 - 2
-- bugs 
+- animations ** ~ .75
 - clean commented code **** ~ 1 - 3
 - heroku ** ~ 2 - 4
 - prepare presentation - 1 day
+
+tuesday evening, would be nice to start presentation branstorming -- 
+
+- Signup
 
 
 

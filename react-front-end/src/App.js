@@ -85,12 +85,12 @@ export default function App(props) {
     const promiseFour = axios.get('/api/activity_tags');
     const promiseFive = axios.get('/api/tags');
     const promiseSix = axios.get('/api/messages');
-    // const promiseSeven = (state.loggedIn && state.users[state.loggedIn - 1] !== undefined) ? axios.get(`/api/activitiesSorted?city=${state.users[state.loggedIn - 1].city}`) : axios.get('/api/activities')
+    const promiseSeven = (state.loggedIn && state.users[state.loggedIn - 1] !== undefined) ? axios.get(`/api/activitiesSorted?city=${state.users[state.loggedIn - 1].city}`) : axios.get('/api/activities')
     // const promiseSeven = state.loggedIn ? axios.get(`/api/activitiesSorted?city=${state.users[state.loggedIn - 1].city}`) : axios.get('/api/activities')
 
-    Promise.all([promiseOne, promiseTwo, promiseThree, promiseFour, promiseFive, promiseSix])
+    Promise.all([promiseOne, promiseTwo, promiseThree, promiseFour, promiseFive, promiseSix, promiseSeven])
     .then((arrayOfValues) => {
-      let [usersData, activitiesData, activityParticipantsData, activityTagsData, tagsData, messagesData] = arrayOfValues;
+      let [usersData, activitiesData, activityParticipantsData, activityTagsData, tagsData, messagesData, activitiesSortedData ] = arrayOfValues;
       setState((prev) => {
         console.log('axios call');
         return ({...prev, users: usersData.data,
@@ -98,7 +98,8 @@ export default function App(props) {
         activityParticipants: activityParticipantsData.data,
         activityTags: activityTagsData.data,
         tags: tagsData.data,
-        messages: messagesData.data
+        messages: messagesData.data,
+        activitiesSorted: activitiesSortedData.data
         })
       })
     })
@@ -188,15 +189,15 @@ export default function App(props) {
         setState(prev => {
           if (prev.view !== 'chatcard' || (prev.view === 'chatcard' && message.currentActivityId !== prev.currentActivityId)) {
             // if you are the host and the message isn't from you
-            console.log("first half of the condition = ", (prev.loggedIn === prev.users[prev.activities[message.currentActivityId - 1].user_id - 1].id))
-            console.log("second half of the condidtion = ", (prev.loggedIn !== message.loggedIn))
+            // console.log("first half of the condition = ", (prev.loggedIn === prev.users[prev.activities[message.currentActivityId - 1].user_id - 1].id))
+            // console.log("second half of the condidtion = ", (prev.loggedIn !== message.loggedIn))
             if ((prev.loggedIn === prev.users[prev.activities[message.currentActivityId - 1].user_id - 1].id) && (prev.loggedIn !== message.loggedIn)) {
-              console.log("you are the host and the message isn't from you")
+              // console.log("you are the host and the message isn't from you")
               return { ...prev, refresh: prev.refresh += 1, messageNotification: [...prev.messageNotification, {activity_id: message.currentActivityId, participant_id: message.loggedIn, request_type: message.request_type}] }
               //if you're not the host and the message is from the host
             }
             if ((prev.loggedIn !== prev.users[prev.activities[message.currentActivityId - 1].user_id - 1].id) && (prev.users[prev.activities[message.currentActivityId - 1].user_id - 1].id === message.loggedIn)) {
-              console.log('youre not the host and the message is from the host')
+              // console.log('youre not the host and the message is from the host')
               return { ...prev, refresh: prev.refresh += 1, messageNotification: [...prev.messageNotification, {activity_id: message.currentActivityId, participant_id: message.loggedIn, request_type: message.request_type}] }
             }
           }
