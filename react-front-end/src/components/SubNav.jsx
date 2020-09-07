@@ -6,6 +6,7 @@ import MatMultiValues from './MatMultiValues'
 import MatMultiSelect from './MatMultiSelect'
 import MessageDashboard from './MessageDashboard';
 import axios from 'axios';
+import Fade from 'react-reveal/Fade';
 
 
 export default function SubNav(props) {
@@ -66,7 +67,9 @@ export default function SubNav(props) {
 
   return (
     <div className="subnav-wrapper">
-     <h2>{subNavHeading}</h2>
+    <Fade bottom>
+      <h2>{subNavHeading}</h2>
+    </Fade>
       <Tabs value={value} onChange={handleChange} aria-label="simple tabs">
         <Tab label="Browse" id="simple-tab-0" aria-controls="simple-tabpanel-0" />
         <Tab label="Hosted" id="simple-tab-1" aria-controls="simple-tabpanel-1" />

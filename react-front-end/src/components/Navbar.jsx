@@ -1,5 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, Fragment } from 'react';
 import MatButton from './MatButton';
+import Slide from 'react-reveal/Slide';
 // import MatNotificationMenu from './MatNotificationMenu';
 import MatBanner from './MatBanner';
 
@@ -10,9 +11,11 @@ import MatBanner from './MatBanner';
     }
 
     return (
+      <Fragment>
       <section className="navbar">
+      {props.state.messageNotification.length > 0 && <Slide top><MatBanner className="" state={props.state} setState={props.setState}></MatBanner></Slide>}
         {props.loggedIn === null &&
-          <div>
+          <div className="main-nav">
             <a onClick={() => props.setState(prev => {return {...prev, view: 'landing'}})}><img alt="LOGO HERE" src="../images/logo-dark.svg" width="140px" /></a>
             <div>
               <MatButton variant="text" onClick={() => props.setState({...props.state, view: 'landing'})} >HOME</MatButton>
@@ -21,7 +24,7 @@ import MatBanner from './MatBanner';
             </div>
           </div>}
         {props.loggedIn &&
-        <div>
+        <div className="main-nav">
           <a onClick={() => props.setState(prev => {return {...prev, view: 'landing'}})}><img alt="LOGO HERE" src="../images/logo-dark.svg" width="140px" /></a>
           <div>
             <MatButton variant="text" onClick={() => props.setState({...props.state, view: 'landing'})} >HOME</MatButton>
@@ -30,10 +33,10 @@ import MatBanner from './MatBanner';
             <MatButton variant="text" disabled>Hi {props.state.name}!</MatButton>
             <MatButton variant="outlined" onClick={e => logout()}>LOGOUT</MatButton>
           </div>
-          {props.state.messageNotification.length > 0 && <MatBanner className="" state={props.state} setState={props.setState}></MatBanner>}
-        </div>}
-  
+        </div>
+        }
       </section>
+      </Fragment>
     )
 }
 

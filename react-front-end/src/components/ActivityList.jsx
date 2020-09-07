@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import ActivityCard from './ActivityCard';
 
 export default function ActivityList(props) {
+  // const [pending, setPending] = useState(false);
+  const [pending, setPending] = useState(false)
 
   return (<div>
      {props.state.activitiesSorted.map(activity => {
@@ -16,14 +18,17 @@ export default function ActivityList(props) {
         }
       }
 
-       let pending = false;
+      //  let pending = false;
        for (let i of props.state.activityParticipants) {
          if (i.activity_id === activity.id && i.user_id === props.state.loggedIn && i.status === "pending") {
-          pending = true;
+          // pending = true;
+            setPending(prev => true)
          }
+
        return <ActivityCard
         currentTagNames={currentTagNames}
         pending={pending}
+        setPending={setPending}
         name={activity.name}
         city={props.state.users[activity.user_id - 1].city}
         hostName={props.state.users[activity.user_id - 1].name}

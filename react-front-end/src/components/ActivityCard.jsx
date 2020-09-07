@@ -64,9 +64,9 @@ export default function ActivityCard(props) {
     // console.log("Inside the ask function front end")
     axios.post(`/api/activity_participants`, {user_id: props.state.loggedIn, activity_id: props.id})
     .then(() => {
-      // props.socket.send('update');
+      props.socket.send('update');
       props.socket.send({participant_id: props.state.loggedIn , activity_id: props.id, request_type: "ask"});
-      props.setState(prev => { return {...prev, view: 'browse', refresh: prev.refresh += 1}})
+      props.setState(prev => ({...prev, view: 'browse', refresh: prev.refresh += 1}))
     })
     .catch(err => console.log(err));
   };
@@ -128,6 +128,8 @@ export default function ActivityCard(props) {
     props.setState(prev => { return {...prev, view: 'messages'}})
   };
 
+  // const [pending, setPending] = useState(false);
+
   let hosted = props.hostId === props.state.loggedIn ? true : false;
   let pending = false;
   let joined = false;
@@ -137,6 +139,7 @@ export default function ActivityCard(props) {
       if (activityId === i.activity_id && userId === i.user_id) {
         if (i.status === 'pending') {
           pending = true;
+          // setPending(prev => true)
         }
         if (i.status === 'accepted') {
           joined = true;
@@ -146,7 +149,16 @@ export default function ActivityCard(props) {
   }
   filterParticipants(props.state.loggedIn, props.id)
 
-  const pickClass = classnames({'pending': props.pending});
+  
+
+  for (let i of props.state.activityParticipants) {
+    if (i.activity_id === props.id && i.user_id === props.state.loggedIn && i.status === "pending") {
+      props.setPending(true)
+    }
+  }
+
+
+  // const pickClass = classnames({'pending': props.pending}); // SEEMING SPOTTY AT BEST?
 
   const isHosted = () => {
     for(let i of props.state.activities) {
@@ -171,7 +183,7 @@ export default function ActivityCard(props) {
     <div>
 
     {props.state.view === 'browse' && !filled &&
-    <article className={pickClass}>
+    <article className={pending ? 'pending' : ''}>
       <div>
         <div>
           {/* <img src={images[(tagName.length > 1 ? tagName[1].name : tagName[0].name)] || '../images/park.jpeg'} width="100%"></img> */}
@@ -187,7 +199,7 @@ export default function ActivityCard(props) {
       </div>
       <div>
       {props.state.view === 'hosted' && <div><MatButton variant="contained" onClick={() => props.setState(prev => {return {...prev, refresh: props.id, view: 'editform'}})}>Edit</MatButton></div>}
-      {props.pending === true && <h2 className="request-sent">REQUEST SENT!</h2>}
+      {pending && <h2 className="request-sent">REQUEST SENT!</h2>}
         <h2>{props.name}</h2>
         <h5>Skill Level: {props.skillTag}</h5>
         <h5>Frequency: {props.frequency}</h5>
@@ -223,7 +235,7 @@ export default function ActivityCard(props) {
     </article>
     }
     {props.state.loggedIn === props.hostId && props.state.view === 'hosted' && !filled &&
-    <article className={pickClass}>
+    <article className={props.pending ? 'pending' : ''}>
       {/* {isHosted() ? null : <h3>Looks like you dont have any hosted activities... <a onClick={() => props.setState(prev => {return {...prev, view: 'create'}})}>Yet?</a></h3>} */}
       <div>
         <div>
@@ -257,7 +269,7 @@ export default function ActivityCard(props) {
     </article>
     }
     {joined && props.state.view === 'joined' &&
-    <article className={pickClass}>
+    <article className={props.pending ? 'pending' : ''}>
       {/* {isEmpty('accepted') ? null : <h3>It looks like you haven't joined any activities yet...</h3>} */}
       <div>
         <div>
@@ -288,7 +300,7 @@ export default function ActivityCard(props) {
     }
     
     {pending && props.state.view === 'pending' &&
-    <article className={pickClass}>
+    <article className={'pending'}>
       {/* {isEmpty('pending') && <h3>It looks like you don't have any pending activities yet...</h3>} */}
       <div>
         <div>

@@ -26,10 +26,17 @@ p, button, a, input, textarea
 
 a
   cursor: pointer !important
+  transition: all 200ms ease
 
 button:not(.MuiAutocomplete-clearIndicator):not(.MuiAutocomplete-popupIndicator):not(.MuiIconButton-root)
   padding-left: 1em !important
   padding-right: 1em !important
+
+button 
+  transition: all 200ms ease !important
+
+button:hover
+  transform: translateY(-2px)
 
 * 
   box-sizing: border-box
@@ -37,14 +44,45 @@ button:not(.MuiAutocomplete-clearIndicator):not(.MuiAutocomplete-popupIndicator)
 section
   background: $light
 
+.MuiChip-root
+  background: $secondary !important
+
+.notification-menu
+    position: sticky
+    z-index: 4
+    width: 100%
+    padding: 0px
+
+
+    > div
+      display: flex
+      align-items: center
+      justify-content: center
+      background: $secondary
+      height: 40px
+      color: $primary
+
+      button
+        transform: scale(.9)
+        color: $primary
+
 .navbar
   background-color: $lightgreen
+  position: relative
 
-  > div
+  > .main-nav
     display: flex
     justify-content: space-between
     padding: 15px 3em
     align-items: center
+
+    > a:first-of-type
+      display: flex
+      align-items: center
+      transition: all 200ms ease
+    
+    > a:first-of-type:hover
+      transform: translateY(-2px)
 
     div button
       margin-left: 1em
@@ -284,14 +322,30 @@ div.landing-wrapper
   .chatlog
     height: 200px
     overflow: scroll
-    background: #ffffff
+    background: rgba(255,255,255,.0)
     border-radius: 10px
-    padding: .5em 1.5em
+    padding: .5em 1.5em .5em 0
     margin-bottom: 2em
 
+    > div
+      margin: 8px 0
+
     h5
-      margin: 1em 0
+      margin: 0em 0
+      padding: .75em 1em
+
+    h5.my-message
       color: $primary
+      text-align: right
+      background: #dff0eb
+      border-radius: 5px
+      border-right: solid 5px $primary
+
+    h5.their-message
+      color: #666666
+      background: rgba(0,0,0,.03)
+      border-radius: 5px
+      border-left: solid 5px #666666
 
   > button
     position: absolute

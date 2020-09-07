@@ -4,6 +4,7 @@ import MatButton from './MatButton';
 import MatInput from './MatInput';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
+import { geoPropTypes } from 'react-geolocated';
 
 
 export default function ChatCard(props) {
@@ -40,7 +41,7 @@ export default function ChatCard(props) {
 
             return (
               <div key={index}>
-                <h5>{props.state.users[Number(message.user_id) - 1].name}: <span>{message.text}</span></h5>
+                <h5 className={props.state.users[Number(message.user_id) - 1].id === props.state.loggedIn ? 'my-message' : 'their-message'}>{props.state.users[Number(message.user_id) - 1].name}: <span>{message.text}</span></h5>
               </div>
               )
             }
@@ -68,7 +69,7 @@ export default function ChatCard(props) {
     <section className="chat-wrapper">
       {/* <MatButton type="normal" startIcon="CloseIcon" onClick={() => props.setState(prev => ({...prev, view: 'messages'}))} /> */}
       <IconButton onClick={() => props.setState(prev => ({...prev, view: 'messages'}))}><CloseIcon /></IconButton>
-      <h2>{props.state.activities[props.state.currentActivityId - 1].name}</h2>
+      <div><h2>{props.state.activities[props.state.currentActivityId - 1].name}</h2><h3>Host: {props.state.users[props.state.activities[props.state.currentActivityId - 1].user_id - 1].name}</h3></div>
       <div>
         <div className="chatlog" id="chat-window">
           {/* {renderChatHistory()} */}
@@ -82,7 +83,7 @@ export default function ChatCard(props) {
           </div> */}
           <div className="message-input-wrapper">
             <div>
-              <MatInput multiline rows={2} fullWidth name="message" variant="filled" onChange={e => props.onTextChange(e.target.value,'message')} value={props.state.message} label="message" />
+              <MatInput fullWidth name="message" variant="filled" onChange={e => props.onTextChange(e.target.value,'message')} value={props.state.message} label="message" />
             </div>
             <div>
               <MatButton endIcon="SendIcon" type="submit" variant="contained" color="primary">Send Message</MatButton>

@@ -83,7 +83,7 @@ export default function App(props) {
     const promiseFour = axios.get('/api/activity_tags');
     const promiseFive = axios.get('/api/tags');
     const promiseSix = axios.get('/api/messages');
-    const promiseSeven = state.loggedIn ? axios.get(`/api/activitiesSorted?city=${state.users[state.loggedIn - 1].city}`) : axios.get('/api/activities')
+    const promiseSeven = (state.loggedIn && state.users[state.loggedIn - 1] !== undefined) ? axios.get(`/api/activitiesSorted?city=${state.users[state.loggedIn - 1].city}`) : axios.get('/api/activities')
 
     Promise.all([promiseOne, promiseTwo, promiseThree, promiseFour, promiseFive, promiseSix, promiseSeven])
     .then((arrayOfValues) => {
