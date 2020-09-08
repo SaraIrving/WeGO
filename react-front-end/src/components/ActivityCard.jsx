@@ -70,9 +70,9 @@ export default function ActivityCard(props) {
     // console.log("Inside the ask function front end")
     axios.post(`/api/activity_participants`, {user_id: props.state.loggedIn, activity_id: props.id})
     .then(() => {
-      // props.socket.send('update');
       props.socket.send({participant_id: props.state.loggedIn , activity_id: props.id, request_type: "ask"});
       props.setState(prev => ({...prev, view: 'browse', refresh: prev.refresh += 1}))
+      props.socket.send('update');
     })
     .catch(err => console.log(err));
   };
@@ -158,6 +158,7 @@ export default function ActivityCard(props) {
   for (let i of props.state.activityParticipants) {
     if (i.activity_id === props.id && i.user_id === props.state.loggedIn && i.status === "pending") {
       props.setPending(true)
+      // props.socket.send('update');
     }
   }
 
@@ -256,7 +257,7 @@ export default function ActivityCard(props) {
       </div>
     </article>
     }
-    {props.state.loggedIn === props.hostId && props.state.view === 'hosted' && !filled &&
+    {props.state.loggedIn === props.hostId && props.state.view === 'hosted' &&
     <article className={props.pending ? 'pending' : ''}>
       {/* {isHosted() ? null : <h3>Looks like you dont have any hosted activities... <a onClick={() => props.setState(prev => {return {...prev, view: 'create'}})}>Yet?</a></h3>} */}
       <div>

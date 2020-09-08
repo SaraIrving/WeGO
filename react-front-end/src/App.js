@@ -177,6 +177,7 @@ export default function App(props) {
             setState(prev => { return {...prev, activitiesSorted: sortedActivities.data, loggedIn: newUser.data[0].id, view: 'browse', name: newUser.data[0].name }});
             axios.get('/api/users')
             .then((users) => {
+              socket.send('update');
               setState(prev => { return {...prev, users: users.data}});
             })
           })
@@ -209,7 +210,6 @@ export default function App(props) {
         setState(prev => ({...prev, refresh: prev.refresh += 1 }))
       } 
       if (message.request_type === 'ask') {
-       
             setState(prev => {
               if (prev.loggedIn === prev.users[prev.activities[message.activity_id - 1].user_id - 1].id) {
                 return { ...prev, refresh: prev.refresh += 1, messageNotification: [...prev.messageNotification, {activity_id: message.activity_id, participant_id: message.participant_id, request_type: message.request_type}] }

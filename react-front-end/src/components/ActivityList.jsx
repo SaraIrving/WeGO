@@ -20,7 +20,7 @@ export default function ActivityList(props) {
 
       //  let pending = false;
        for (let i of props.state.activityParticipants) {
-         if (i.activity_id === activity.id && i.user_id === props.state.loggedIn && i.status === "pending") {
+         if (i.activity_id === activity.id && i.user_id === props.state.loggedIn && i.status === "pending") { // This might be buggy? currently socket not updating if other user is in hosted view
           // pending = true;
             setPending(prev => true)
          }
