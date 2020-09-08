@@ -91,44 +91,65 @@ export default function ActivityForm(props) {
           size="small" 
           fullWidth
           />
-        <MatMultiSelect 
-          items={['One Time', 'Weekly', 'Bi-Weekly', 'Monthly']} 
-          inputLabel="Frequency" 
-          multiple
-          fullWidth
-          onChange={event => setStateForm({...stateForm, frequency: event.target.value})}
-          />
-        <MatMultiSelect 
-          multiple
-          items={['Morning', 'Daytime', 'Evening']} 
-          inputLabel="Timeframe"
-          onChange={event => setStateForm({...stateForm, timeframe: event.target.value})}
-          />
-        <MatMultiSelect 
-          multiple
-          items={['Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat', 'Sun']} 
-          inputLabel="Days" 
-          onChange={event => setStateForm({...stateForm, days: event.target.value})}
-          />
-        <MatMultiSelect 
-          items={['Beginner', 'Intermediate', 'Advanced']} 
-          inputLabel="Skill Level" 
-          multiple
-          onChange={event => setStateForm({...stateForm, skill_level: event.target.value})}
-          />
+        <div className="form-selects">
+          <div>
+            <MatMultiSelect 
+              items={['One Time', 'Weekly', 'Bi-Weekly', 'Monthly']} 
+              inputLabel="Frequency" 
+              multiple
+              fullWidth
+              onChange={event => setStateForm({...stateForm, frequency: event.target.value})}
+            />
+            <MatMultiSelect 
+              multiple
+              items={['Morning', 'Daytime', 'Evening']} 
+              inputLabel="Timeframe"
+              onChange={event => setStateForm({...stateForm, timeframe: event.target.value})}
+            />
+          </div>
+          <div>
+            <MatMultiSelect 
+              multiple
+              items={['Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat', 'Sun']} 
+              inputLabel="Days" 
+              onChange={event => setStateForm({...stateForm, days: event.target.value})}
+            />
+            <MatMultiSelect 
+              items={['Beginner', 'Intermediate', 'Advanced']} 
+              inputLabel="Skill Level" 
+              multiple
+              onChange={event => setStateForm({...stateForm, skill_level: event.target.value})}
+            />
+          </div>
+        </div>        
         <MatMultiValues
           options={props.state.tags}
           label="Searchable Tags" 
           placeholder="Select Searchable Tags"
           onChange={(event, values) => setStateForm({...stateForm, tags: values })} // COULD REVISIT, AND ALLOW NEW ACTIVITY POSTS TO PLOP ALL RELAENT INFO INTO TAGS (CURRENTLY NOT DOING THAT)
           />
-        <MatButton 
-          variant="outlined" 
-          type="submit"
-          onClick={() => create(stateForm)}
-          >
-          CREATE
-          </MatButton>
+        <div className="form-button-wrapper">
+          <div>
+            <MatButton 
+              variant="outlined"
+              color="secondary"
+              onClick={() => props.setState(prev => ({...prev, view: 'browse'}))}
+              >
+              CANCEL
+            </MatButton>
+          </div>
+          <div>
+            <MatButton 
+              variant="contained" 
+              type="submit"
+              color="primary"
+              onClick={() => create(stateForm)}
+              >
+              CREATE
+            </MatButton>
+          </div>
+        </div>
+
       </form>
     </div>
   )

@@ -44,7 +44,6 @@ export default function ActivityCard(props) {
   const images = {
     spikeball: '../images/spikeball.png',
     tennis: '../images/tennis.jpeg',
-    court: '../images/tennis.jpeg',
     hiking: '../images/hiking.jpeg',
     badminton: '../images/badminton.jpeg',
     golf: '../images/golf.jpeg',
@@ -61,7 +60,8 @@ export default function ActivityCard(props) {
     volleyball: '../images/volleyball.jpeg',
     'bocce ball': '../images/bocce.jpeg',
     spalunking: '../images/spalunking.jpeg',
-    'language practice': '../images/globe.jpeg'
+    'language practice': '../images/globe.jpeg',
+    frisbee: '../images/frisbee.jpeg'
   }
 
   const ask = () => {

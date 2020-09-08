@@ -187,7 +187,7 @@ export default function App(props) {
       if (message.request_type === 'newMessage') {
         
         setState(prev => {
-          if (prev.view !== 'chatcard' || (prev.view === 'chatcard' && message.currentActivityId !== prev.currentActivityId)) {
+          if ((prev.view !== 'chatcard' || (prev.view === 'chatcard' && message.currentActivityId !== prev.currentActivityId)) && (prev.loggedIn === message.loggedIn || prev.loggedIn === message.currentChatRecipient)) {
             // if you are the host and the message isn't from you
             // console.log("first half of the condition = ", (prev.loggedIn === prev.users[prev.activities[message.currentActivityId - 1].user_id - 1].id))
             // console.log("second half of the condidtion = ", (prev.loggedIn !== message.loggedIn))

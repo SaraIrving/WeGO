@@ -124,6 +124,9 @@ main.activity-views
   background-attachment: fixed
   background-repeat: no-repeat
 
+  form
+    max-width: 1000px
+
   article
     max-width: 900px
     display: flex
@@ -304,9 +307,28 @@ form.form
   flex-direction: column
   margin-top: 2em
 
-
   .MuiFormControl-root
     margin-bottom: 1em
+
+.form-selects
+  display: flex
+
+  justify-content: space-between
+
+  > div
+    width: 47%
+
+  .MuiFormControl-root
+    max-width: 300px
+    min-width: 100%
+
+.form-button-wrapper
+  display: flex
+  justify-content: flex-end
+  padding-top: 1em
+
+  button
+    margin-left: 1em
 
 div.landing-wrapper
   display: flex

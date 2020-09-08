@@ -127,6 +127,9 @@ main.activity-views {
   background-attachment: fixed;
   background-repeat: no-repeat;
 }
+main.activity-views form {
+  max-width: 1000px;
+}
 main.activity-views article {
   max-width: 900px;
   display: flex;
@@ -319,6 +322,27 @@ form.form {
 }
 form.form .MuiFormControl-root {
   margin-bottom: 1em;
+}
+
+.form-selects {
+  display: flex;
+  justify-content: space-between;
+}
+.form-selects > div {
+  width: 47%;
+}
+.form-selects .MuiFormControl-root {
+  max-width: 300px;
+  min-width: 100%;
+}
+
+.form-button-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 1em;
+}
+.form-button-wrapper button {
+  margin-left: 1em;
 }
 
 div.landing-wrapper {

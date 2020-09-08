@@ -100,47 +100,72 @@ export default function EditForm(props) {
           fullfullWidth={true}
           defaultValue={activityToEdit.location}
           />
-        <MatMultiSelect 
-          items={['One Time', 'Weekly', 'Bi-Weekly', 'Monthly']} 
-          inputLabel="Frequency" 
-          multiple
-          onChange={event => setStateEdit({...stateEdit, frequency: event.target.value})}
-          // defaultValue={[`${activityToEdit.frequency}`]}
-          />
-        <MatMultiSelect 
-          items={['Morning', 'Daytime', 'Evening']} 
-          inputLabel="Timeframe" 
-          multiple
-          onChange={event => setStateEdit({...stateEdit, timeframe: event.target.value})}
-          // defaultValue={[`${activityToEdit.timeframe}`]}
-          />
-        <MatMultiSelect 
-          items={['Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat', 'Sun']} 
-          inputLabel="Days" 
-          multiple
-          onChange={event => setStateEdit({...stateEdit, days: event.target.value})}
-          // defaultValue={[`${activityToEdit.days_available}`]}
-          />
-        <MatMultiSelect 
-          items={['Beginner', 'Intermediate', 'Advanced']} 
-          inputLabel="Skill Level" 
-          multiple
-          onChange={event => setStateEdit({...stateEdit, skill_level: event.target.value})}
-          // defaultValue={[`${activityToEdit.skill_tag}`]}
-          />
+        <div className="form-selects">
+          <div>
+            <MatMultiSelect 
+              items={['One Time', 'Weekly', 'Bi-Weekly', 'Monthly']} 
+              inputLabel="Frequency" 
+              multiple
+              fullWidth
+              onChange={event => setStateEdit({...stateEdit, frequency: event.target.value})}
+              // defaultValue={[`${activityToEdit.frequency}`]}
+            />
+
+            <MatMultiSelect 
+              items={['Morning', 'Daytime', 'Evening']} 
+              inputLabel="Timeframe" 
+              multiple
+              fullWidth
+              onChange={event => setStateEdit({...stateEdit, timeframe: event.target.value})}
+              // defaultValue={[`${activityToEdit.timeframe}`]}
+            />
+            </div>
+            <div>
+              <MatMultiSelect 
+                items={['Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat', 'Sun']} 
+                inputLabel="Days" 
+                multiple
+                fullWidth
+                onChange={event => setStateEdit({...stateEdit, days: event.target.value})}
+                // defaultValue={[`${activityToEdit.days_available}`]}
+                />
+              <MatMultiSelect 
+                items={['Beginner', 'Intermediate', 'Advanced']} 
+                inputLabel="Skill Level" 
+                multiple
+                fullWidth
+                onChange={event => setStateEdit({...stateEdit, skill_level: event.target.value})}
+                // defaultValue={[`${activityToEdit.skill_tag}`]}
+                />
+            </div>
+          </div>
         <MatMultiValues 
           options={props.state.tags} 
           label="Searchable Tags" 
           placeholder="Select Searchable Tags" 
           onChange={(event, values) => setStateEdit({...stateEdit, tags: values})}
           />
-        <MatButton 
-          variant="outlined"
-          type="submit"
-          onClick={() => edit(stateEdit)}
-          >
-          EDIT
-          </MatButton>
+          <div className="form-button-wrapper">
+            <div>
+              <MatButton 
+                variant="outlined"
+                color="secondary"
+                onClick={() => props.setState(prev => ({...prev, view: 'hosted'}))}
+                >
+                CANCEL
+              </MatButton>
+            </div>
+            <div>
+              <MatButton 
+                  variant="contained"
+                  type="submit"
+                  color="primary"
+                  onClick={() => edit(stateEdit)}
+                  >
+                  EDIT
+                </MatButton>
+            </div>
+          </div>
       </form>
     </div>
   )
