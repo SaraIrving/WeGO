@@ -19,7 +19,7 @@ module.exports = db => {
   });
 
   router.put("/activity_participants", (request, response) => {
-    console.log("made it to the activity_p LEAVE PUT in backend");
+    console.log("made it to the activity_p  PUT in backend");
     db.query(
       `
       UPDATE activity_participants

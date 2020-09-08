@@ -5,7 +5,8 @@ import { Chip } from '@material-ui/core';
 
 export default function MatNotificationDot(props) {
   return (
-    <Chip 
+    <Chip
+      className="notification-dot"
       label={props.children}
       className={props.className}
     />

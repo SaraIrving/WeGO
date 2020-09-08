@@ -48,7 +48,7 @@ export default function App(props) {
     loggedIn: null,
     activities: [],
     filters: [],
-    view: 'login',
+    view: 'landing',
     messages: [],
     tags: [],
     activityParticipants: [],

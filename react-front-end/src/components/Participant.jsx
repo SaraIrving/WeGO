@@ -30,14 +30,14 @@ export default function Participant(props) {
         {props.status === 'accepted' &&
         <div>
           <MatButton variant="contained" color="primary" onClick={() => props.setState(prev => ({...prev, view: 'chatcard', currentChatRecipient: props.user_id, currentActivityId: props.activity_id, messageNotification: [] }))}>Open Chat</MatButton>
-          <MatButton variant="contained" color="secondary" onClick={() => props.statusChangeFunction(props.sender_id, props.activity_id, "null")}>Remove</MatButton>
+          <MatButton variant="contained" color="secondary" onClick={() => props.statusChangeFunction(props.user_id, props.activity_id, "null")}>Remove</MatButton>
         </div>
         }
         {props.status === 'pending' &&
         <div>
           <MatButton variant="contained" color="primary" onClick={() => props.setState(prev => ({...prev, view: 'chatcard', currentChatRecipient: props.user_id, currentActivityId: props.activity_id, messageNotification: [] }))} >Open Chat</MatButton>
-          <MatButton variant="contained" color="secondary" onClick={() => props.statusChangeFunction(props.sender_id, props.activity_id, "accepted")}>Accept</MatButton>
-          <MatButton variant="contained" color="secondary" onClick={() => props.cancelFunction(props.sender_id, props.activity_id)}>Deny</MatButton>
+          <MatButton variant="contained" color="secondary" onClick={() => props.statusChangeFunction(props.user_id, props.activity_id, "accepted")}>Accept</MatButton>
+          <MatButton variant="contained" color="secondary" onClick={() => props.cancelFunction(props.user_id, props.activity_id)}>Deny</MatButton>
         </div>
         } 
       </div>

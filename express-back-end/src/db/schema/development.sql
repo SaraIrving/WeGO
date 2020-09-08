@@ -8,12 +8,12 @@ VALUES ('Sally Palmer', 'https://www.spacercreative.com/wp-content/uploads/2020/
 ('Alec Quon', 'https://www.spacercreative.com/wp-content/uploads/2020/09/032-kayak.png', 'Calgary', '123', 'alec@gmail.com'),
 ('Hannah Owens', 'https://www.spacercreative.com/wp-content/uploads/2020/09/014-golf.png', 'Vancouver', '123', 'hannah@gmail.com'),
 ('Natalie Young', 'https://www.spacercreative.com/wp-content/uploads/2020/09/002-map.png', 'Vancouver', '123', 'natalie@gmail.com'),
-('Caroline Bo', 'https://www.spacercreative.com/wp-content/uploads/2020/09/003-tennis.png', 'Vancouver', '123', 'caroline@gmail.com'),
+('Caroline Bourne', 'https://www.spacercreative.com/wp-content/uploads/2020/09/003-tennis.png', 'Vancouver', '123', 'caroline@gmail.com'),
 ('Parker Faraday', 'https://www.spacercreative.com/wp-content/uploads/2020/09/005-campfire.png', 'Edmonton', '123', 'parker@gmail.com'),
 ('Miriam Smith', 'https://www.spacercreative.com/wp-content/uploads/2020/09/018-swimming-pool.png', 'Edmonton', '123', 'miriam@gmail.com'),
 ('Leo Schults', 'https://www.spacercreative.com/wp-content/uploads/2020/09/019-rugby-ball.png', 'Edmonton', '123', 'leo@gmail.com'),
 ('River Simmons', 'https://www.spacercreative.com/wp-content/uploads/2020/09/011-motorbike.png', 'Edmonton', '123', 'river@gmail.com'),
-('Trever Ong', 'https://www.spacercreative.com/wp-content/uploads/2020/09/013-boat.png', 'Edmonton', '123', 'trevor@gmail.com');
+('Trevor Ong', 'https://www.spacercreative.com/wp-content/uploads/2020/09/013-boat.png', 'Edmonton', '123', 'trevor@gmail.com');
 
 
 INSERT INTO activities (name, num_of_participants, frequency, days_available, timeframe, location, skill_tag, description)
@@ -63,7 +63,7 @@ VALUES (1, 2,'null'),
 (7, 10, 'pending'),
 (8, 9, 'host'),
 (8, 8, 'pending'),
-(9, 10, 'host'),
+(9, 9, 'host'),
 (9, 8, 'accepted'),
 (10, 15, 'host'),
 (10, 14, 'pending'),

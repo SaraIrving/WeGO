@@ -5,12 +5,14 @@ export default function Landing(props) {
   return (
     <div className="landing-wrapper">
       <section className="hero">
-        <div>
-          <h1>Lets Play Together.</h1>
-        </div>
-        <div>
-          <span></span>
-          <h5>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam</h5>
+        <div className="hero-overlay">
+          <div>
+            <h1>Lets Play Together.</h1>
+          </div>
+          <div>
+            <span></span>
+            <h5>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam</h5>
+          </div>
         </div>
       </section>
       <section className="categories-wrapper">
@@ -37,10 +39,11 @@ export default function Landing(props) {
             <h2 className="circle">3</h2>
             <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt</p>
           </article>
-          <MatButton variant="contained" color="primary" onClick={() => props.setState({...props.state, view:"signin"})}>SIGNUP TODAY!</MatButton>
+          <MatButton variant="contained" color="primary" size="large" onClick={() => props.setState({...props.state, view:"signup"})}>SIGNUP TODAY!</MatButton>
         </div>
       </section>
       <section className="sample-wrapper">
+        <div className="sample-image"></div>
         <div>
           <h2>Browse from a plethora of awesome activities!</h2>
           <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam</p>
@@ -53,7 +56,7 @@ export default function Landing(props) {
           <h3>Get Active</h3>
           <h3>Try Something New</h3>
         </div>
-        <MatButton variant="contained" color="primary" onClick={() => props.setState({...props.state, view:"signin"})}>SIGNUP TODAY!</MatButton>
+        <MatButton variant="contained" color="secondary" size="large" onClick={() => props.setState({...props.state, view:"signup"})}>SIGNUP TODAY!</MatButton>
       </section>
     </div>
   )
