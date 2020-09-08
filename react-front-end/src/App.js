@@ -111,58 +111,88 @@ export default function App(props) {
 
 
 // NOT GEO LOGIN
-  const login = function(username) {
-    
-    for (let i of state.users) {
-      // if (username.toLowerCase() === i.name.split(' ')[0].toLowerCase()) {
-      if (username.toLowerCase() === i.email) {
-        axios.get(`/api/activitiesSorted?city=${i.city}`)
-        .then((response) => {
-          setState(prev => { return {...prev, activitiesSorted: response.data, loggedIn: i.id, view: 'browse', refresh: prev.refresh += 1, name: prev.users[Number(i.id) - 1].name }});
-        })
-      }
-    }
-  }
-
-  // GEOBABY!! // uncomment to use this login for geolocation
   // const login = function(username) {
     
   //   for (let i of state.users) {
-  //     if (username.toLowerCase() === i.name.split(' ')[0].toLowerCase()) {
-
-  //         axios.get('https://api.ipify.org')
-  //         .then((res) => {
-  //           console.log('ip? : ', res.data);
-  //           axios.get(`http://api.ipstack.com/${res.data}?access_key=112f50c4f2e7f7869e3a2f40d9f6b430`) /// THIS IS OUR GEO, UNCOMMENT WHEN READY!!
-  //           .then((res2) => {
-  //             console.log('typeof something? : ', typeof res2.data.city);
-  //             let tempCity;
-  //             if (res2.data.city.split(' ').length > 1) {
-  //               console.log('van? :', res2.data.city.split(' ')[1]);
-  //               tempCity = res2.data.city.split(' ')[1]
-  //             } else {
-  //               tempCity = res2.data.city
-  //             }
-  //             axios.get(`/api/activitiesSorted?city=${tempCity}`)
-  //             .then((response) => {
-  //               setState(prev => { return {...prev, activitiesSorted: response.data, loggedIn: i.id, view: 'browse', refresh: prev.refresh += 1, name: prev.users[Number(i.id) - 1].name }});
-  //             })
-  //           })
-  //         })
+  //     // if (username.toLowerCase() === i.name.split(' ')[0].toLowerCase()) {
+  //     if (username.toLowerCase() === i.email) {
+  //       axios.get(`/api/activitiesSorted?city=${i.city}`)
+  //       .then((response) => {
+  //         setState(prev => { return {...prev, activitiesSorted: response.data, loggedIn: i.id, view: 'browse', refresh: prev.refresh += 1, name: prev.users[Number(i.id) - 1].name }});
+  //       })
   //     }
   //   }
   // }
 
+  // GEOBABY!! // uncomment to use this login for geolocation
+  const login = function(username) {
+    console.log('in login function')
+    console.log('username', username)
+    for (let i of state.users) {
+      if (username.toLowerCase() === i.email) {
+
+          axios.get('https://api.ipify.org')
+          .then((res) => {
+            console.log('ip? : ', res.data);
+            axios.get(`http://api.ipstack.com/${res.data}?access_key=112f50c4f2e7f7869e3a2f40d9f6b430`) /// THIS IS OUR GEO, UNCOMMENT WHEN READY!!
+            .then((res2) => {
+              console.log('typeof something? : ', typeof res2.data.city);
+              let tempCity;
+              if (res2.data.city.split(' ').length > 1) {
+                console.log('van? :', res2.data.city.split(' ')[1]);
+                tempCity = res2.data.city.split(' ')[1]
+              } else {
+                tempCity = res2.data.city
+              }
+              axios.get(`/api/activitiesSorted?city=${tempCity}`)
+              .then((response) => {
+                setState(prev => { return {...prev, activitiesSorted: response.data, loggedIn: i.id, view: 'browse', name: prev.users[Number(i.id) - 1].name }});
+              })
+            })
+          })
+      }
+    }
+  }
+
+  // GEO SIGNUP
   const signup = function(stateForm) {
     axios.post('/api/users', { stateForm })
-    .then((response) => {
-      const city = response.data[0].city
-      axios.get(`/api/activitiesSorted?city=${city[0].toUpperCase() + city.substring(1)}`)
-      .then((response2) => {
-        setState(prev => ({...prev, activitiesSorted: response2.data, loggedIn: response.data[0].id, view: 'browse', name: response.data[0].name }));
+    .then((newUser) => {
+
+      axios.get('https://api.ipify.org')
+      .then((ip) => {
+        console.log('ip? : ', ip.data);
+        axios.get(`http://api.ipstack.com/${ip.data}?access_key=112f50c4f2e7f7869e3a2f40d9f6b430`) /// THIS IS OUR GEO, UNCOMMENT WHEN READY!!
+        .then((geoCity) => {
+          console.log('typeof something? : ', typeof geoCity.data.city);
+          let tempCity;
+          if (geoCity.data.city.split(' ').length > 1) {
+            console.log('van? :', geoCity.data.city.split(' ')[1]);
+            tempCity = geoCity.data.city.split(' ')[1]
+          } else {
+            tempCity = geoCity.data.city
+          }
+          axios.get(`/api/activitiesSorted?city=${tempCity}`)
+          .then((sortedActivities) => {
+            setState(prev => { return {...prev, activitiesSorted: sortedActivities.data, loggedIn: newUser.data[0].id, view: 'browse', name: newUser.data[0].name }});
+          })
+        })
       })
     })
   }
+
+
+  // REGULAR SIGNUP
+  // const signup = function(stateForm) {
+  //   axios.post('/api/users', { stateForm })
+  //   .then((response) => {
+  //     const city = response.data[0].city
+  //     axios.get(`/api/activitiesSorted?city=${city[0].toUpperCase() + city.substring(1)}`)
+  //     .then((response2) => {
+  //       setState(prev => ({...prev, activitiesSorted: response2.data, loggedIn: response.data[0].id, view: 'browse', name: response.data[0].name }));
+  //     })
+  //   })
+  // }
 
 
   useEffect(() => {
