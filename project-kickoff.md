@@ -296,17 +296,24 @@ Messages
 
 ## Presentation
 ** scenarios
-- Signing up, Jeremy Lives in calgary, Last day of vancouver trip, I'm looking for a doubles badminton in calgary, mention how activities are displayed based on our city, but change to calgary
-- Peruse some activities, search by intermediate, not going to find it
-- So create their activity
+- Sign up as Jeremy, Lives in Calgary, change city, change back
+- Peruse some activities, search by tuesday, not going to find it
+- I'm really looking for a singles badminton in calgary
+- So create the activity
 - Show hosted view
 
 ** swap screens
-- sign in as a vancouver person, but decide to look for activities in Calgary that you can do when you visit next week...would show off the city filtering feature
-- Tori from vancouver, but currently in calgary logging in displays calgary plugs our geo feature
-- so we can show the hosted-with accepted and pending(accept and watch person moved from pending to accepted list), already have messages in messages Dashboard
-- then browse for activities, join one and then remove the request
-- find the first persons activity, Message the host for some clarifying info-have chat back and forth, navigate away from the chat to submit a join request, navigate back to the chat via the chat notification from Person 1 confirming they have accepted them, then display Joined activities view. 
+- sign in as a calgary person2
+- talk about having used the app already, show other hosted activity, show accepting a person
+- search for badminton
+- request to join, then send host a message, then keep browsing 
+- chat notification from host pops up, go to dashoboard and click on the one with the notification dot 
+- host says they accepeted me, asks to clarify the time to meet, respond with a time, close the chatbox
+- navigate to joined activities and show that badminton is there 
+
+** done narrative
+
+- geo demo: sign up as a vancouver person, but plug the calgary listings
 
 - end of demo
 

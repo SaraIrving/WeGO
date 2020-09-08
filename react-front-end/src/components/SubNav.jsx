@@ -41,13 +41,13 @@ export default function SubNav(props) {
     if (newValue === 0) {
       props.setState({...props.state, view: 'browse'});
     } else if (newValue === 1) {
-      props.setState({...props.state, view: 'hosted'});
+      props.setState({...props.state, view: 'hosted', filters: []});
     } else if (newValue === 2) {
-      props.setState({...props.state, view: 'joined'});
+      props.setState({...props.state, view: 'joined', filters: []});
     } else if (newValue === 3) {
-      props.setState({...props.state, view: 'pending'});
+      props.setState({...props.state, view: 'pending', filters: []});
     } else if (newValue === 4) {
-      props.setState({...props.state, view: 'messages'});
+      props.setState({...props.state, view: 'messages', filters: []});
     }
   };
 
@@ -79,13 +79,13 @@ export default function SubNav(props) {
         <Tab label="Messages" id="simple-tab-4" aria-controls="simple-tabpanel-4" />
       </Tabs>
       <div>
-        {value === 0 && 
+        {value === 0 &&
         <div>
           <div className="search-wrapper">
             <MatMultiValues 
               options={props.state.tags} 
               label="Search Activities"
-              placeholder="What do you want to do?" 
+              placeholder="What do you want to do?"
               onChange={(event, values) => props.setState(prev => ({...prev, filters: values }))}/>
             <MatMultiSelect inputLabel="Change City" items={cityArray} onChange={(e) => changeCity(e)}/>
           </div>
