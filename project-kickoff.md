@@ -188,18 +188,25 @@ Teck Stack
 - responsive ****
 - style landing page ** 1.5
 
-- Beef up seed data ~ 2 **** 
-  - Edmonton
-- good QA, check and fix bugs ~ .75 - 4hrs
-- responsive **** ~ 3 - 4
-- style landing page ** 1.5
-- could make it super pretty **** ~ chat, create form, spruce up login page ~ 5 - 8
+- Beef up seed data ~ 2 **** --- 
+  - Edmonton ---
+
+- Turn on and test geo again ~ .5 - 1 **** ---
+- Make sure demo is bug free ~ .5 - 2 ***** 
+- Content landing page ** .5
+- could make it super pretty **** ~ chat, create form, spruce up login page ~ 1.5 - 2
 - animations ** ~ .75
+  - render views in subnav maybe instead .5 *
+
+- good QA, check and fix bugs ~ .75 - 4hrs 
 - clean commented code **** ~ 1 - 3
+- responsive **** ~ 3 - 4
 - heroku ** ~ 2 - 4
+
 - prepare presentation - 1 day
 
-tuesday evening, would be nice to start presentation branstorming -- 
+
+tuesday evening, would be nice to start presentation branstorming --
 
 - Signup
 
@@ -288,7 +295,20 @@ Messages
 - chat functionality (mid to late next week)
 
 ## Presentation
-- 
+** scenarios
+- Signing up, Jeremy Lives in calgary, Last day of vancouver trip, I'm looking for a doubles badminton in calgary, mention how activities are displayed based on our city, but change to calgary
+- Peruse some activities, search by intermediate, not going to find it
+- So create their activity
+- Show hosted view
+
+** swap screens
+- sign in as a vancouver person, but decide to look for activities in Calgary that you can do when you visit next week...would show off the city filtering feature
+- Tori from vancouver, but currently in calgary logging in displays calgary plugs our geo feature
+- so we can show the hosted-with accepted and pending(accept and watch person moved from pending to accepted list), already have messages in messages Dashboard
+- then browse for activities, join one and then remove the request
+- find the first persons activity, Message the host for some clarifying info-have chat back and forth, navigate away from the chat to submit a join request, navigate back to the chat via the chat notification from Person 1 confirming they have accepted them, then display Joined activities view. 
+
+- end of demo
 
 
 5 talking points

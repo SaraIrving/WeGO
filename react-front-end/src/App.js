@@ -175,6 +175,9 @@ export default function App(props) {
           axios.get(`/api/activitiesSorted?city=${tempCity}`)
           .then((sortedActivities) => {
             setState(prev => { return {...prev, activitiesSorted: sortedActivities.data, loggedIn: newUser.data[0].id, view: 'browse', name: newUser.data[0].name }});
+            setTimeout(() => {
+              setState(prev => { return {...prev, refresh: prev.refresh += 1 }});
+            },2000)
           })
         })
       })
