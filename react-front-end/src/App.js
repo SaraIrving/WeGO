@@ -177,8 +177,8 @@ export default function App(props) {
             setState(prev => { return {...prev, activitiesSorted: sortedActivities.data, loggedIn: newUser.data[0].id, view: 'browse', name: newUser.data[0].name }});
             axios.get('/api/users')
             .then((users) => {
-              socket.send('update');
               setState(prev => { return {...prev, users: users.data}});
+              // socket.send('update'); // this sockets signup update buuuuut breaks signup geo
             })
           })
         })

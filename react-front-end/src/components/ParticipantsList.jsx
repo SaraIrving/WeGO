@@ -12,17 +12,30 @@ export default function ParticipantsList(props) {
   // let pending = false;
 
   useEffect(() => {
-  for (let i of props.state.activityParticipants) {
-    if (i.activity_id === props.activity_id) {
-      if (i.status === 'pending') {
-        setLocalState(prev => { return {...prev, pending: true}});
-      }
-      if (i.status === 'accepted') {
-        setLocalState(prev => { return {...prev, accepted: true}});
-      }
-    }
+  // for (let i of props.state.activityParticipants) {
+  //   if (i.activity_id === props.activity_id) {
+  //     if (i.status === 'pending') {
+  //       setLocalState(prev => { return {...prev, pending: true}});
+  //     }
+  //     if (i.status === 'accepted') {
+  //       setLocalState(prev => { return {...prev, accepted: true}});
+  //     }
+  //   }
+  // }
+
+  if (props.state.activityParticipants.filter(part => part.activity_id === props.activity_id && part.status === 'pending').length > 0) {
+    setLocalState(prev => { return {...prev, pending: true}});
+  } else {
+    setLocalState(prev => { return {...prev, pending: false}});
   }
-  },[props.state.refresh])
+  if (props.state.activityParticipants.filter(part => part.activity_id === props.activity_id && part.status === 'accepted').length > 0) {
+    setLocalState(prev => { return {...prev, accepted: true}});
+  } else {
+    setLocalState(prev => { return {...prev, accepted: false}});
+  }
+
+
+  },[props.state.activityParticipants])
 
   return (
     <div>

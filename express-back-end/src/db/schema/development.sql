@@ -275,7 +275,9 @@ VALUES
 (6, 5, 2, 'can i bring my dog with me?'),
 (6, 2, 5, 'no!'),
 (6, 4, 2, 'from cohona to tori in spalunk'),
-(6, 2, 4, 'from tori to cohona in spalunk');
+(6, 2, 4, 'from tori to cohona in spalunk'),
+(5, 5, 1, 'Hey are you good with dogs on the hike?'),
+(5, 1, 5, 'Oh totally! I love dogs!');
 
 
 
