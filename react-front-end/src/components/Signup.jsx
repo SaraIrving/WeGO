@@ -10,7 +10,7 @@ export default function Signup(props) {
     "https://www.spacercreative.com/wp-content/uploads/2020/09/003-tennis.png",
     "https://www.spacercreative.com/wp-content/uploads/2020/09/004-soccer.png",
     "https://www.spacercreative.com/wp-content/uploads/2020/09/005-campfire.png",
-    "https://www.spacercreative.com/wp-content/uploads/2020/09/006-football.png",
+    "https://www.spacercreative.com/wp-content/uploads/2020/09/006-football-field.png",
     "https://www.spacercreative.com/wp-content/uploads/2020/09/007-tent.png",
     "https://www.spacercreative.com/wp-content/uploads/2020/09/009-hot-air-balloon.png",
     "https://www.spacercreative.com/wp-content/uploads/2020/09/010-bicycle.png",

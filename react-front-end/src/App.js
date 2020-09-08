@@ -159,7 +159,7 @@ export default function App(props) {
       const city = response.data[0].city
       axios.get(`/api/activitiesSorted?city=${city[0].toUpperCase() + city.substring(1)}`)
       .then((response2) => {
-        setState(prev => ({...prev, activitiesSorted: response2.data, loggedIn: response.data[0].id, view: 'browse', refresh: prev.refresh += 1, name: response.data[0].name }));
+        setState(prev => ({...prev, activitiesSorted: response2.data, loggedIn: response.data[0].id, view: 'browse', name: response.data[0].name }));
       })
     })
   }
