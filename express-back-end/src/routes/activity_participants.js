@@ -24,7 +24,7 @@ module.exports = db => {
       `
       UPDATE activity_participants
       SET status = $3
-      WHERE activity_id = $1 AND user_id = $2
+      WHERE activity_id = $1 AND user_id = $2 AND status <> 'null'
       `
       , [Number(request.query.activity_id), Number(request.query.user_id), request.query.status]
     ).then(({ rows: activity_participants }) => {
