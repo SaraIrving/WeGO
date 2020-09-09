@@ -192,16 +192,16 @@ Teck Stack
   - Edmonton ---
 
 - Turn on and test geo again ~ .5 - 1 **** ---
-- Make sure demo is bug free ~ .5 - 2 ***** 
+- Make sure demo is bug free ~ .5 - 2 ***** ---
 - Content landing page ** .5
 - could make it super pretty **** ~ chat, create form, spruce up login page ~ 1.5 - 2
 - animations ** ~ .75
   - render views in subnav maybe instead .5 *
 
-- good QA, check and fix bugs ~ .75 - 4hrs 
+- good QA, check and fix bugs ~ .75 - 4hrs ---
 - clean commented code **** ~ 1 - 3
-- responsive **** ~ 3 - 4
 - heroku ** ~ 2 - 4
+- responsive **** ~ 3 - 4
 
 - prepare presentation - 1 day
 
@@ -296,23 +296,47 @@ Messages
 
 ## Presentation
 ** scenarios
-- Sign up as Jeremy, Lives in Calgary, change city, change back
-- Peruse some activities, search by tuesday, not going to find it
+- Show landing page
+- (Have 3 tabs open - (activity mostly filled out, sara ready to login, jhuot logged in on landing page))
+- change city, change back
+- Peruse some activities, search by tuesday and badminton, not going to find it
 - I'm really looking for a singles badminton in calgary
-- So create the activity
+- So create the activity (switch tab)
 - Show hosted view
+- handoff to Sara to show us some more features
 
-** swap screens
-- sign in as a calgary person2
-- talk about having used the app already, show other hosted activity, show accepting a person
-- search for badminton
+** Jeremy switches to tab signed in as Sara
+
+- sign in as Sara (who is in Calgary)
+- talk about having used the app already,
+- show my joined activities and leave one
+- SEND CHAT FROM SALLY IN BACKGROUND ("I’d love to come this week, I could meet you in the parking lot at 9AM? :) ")
+- react to chat notification and click on it
+- comment on the message dashboard
+- click on hightlighted message
+- respond with 'Sounds Great!'
+- close chat
+- go to browse and ask to join Badminton
+- show the activity in my pending view
+- do handover to J about more features
+
+** switch back to J account tab 
+- react to the new join notification
+- show accepting sara
+
+- Logout, then add 
 - request to join, then send host a message, then keep browsing 
 - chat notification from host pops up, go to dashoboard and click on the one with the notification dot 
 - host says they accepeted me, asks to clarify the time to meet, respond with a time, close the chatbox
 - navigate to joined activities and show that badminton is there 
 
+change sven to Sara, 
+
+give no mans land another pending
+
 ** done narrative
 
+Afterwards: 
 - geo demo: sign up as a vancouver person, but plug the calgary listings
 
 - end of demo

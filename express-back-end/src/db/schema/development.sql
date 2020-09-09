@@ -13,7 +13,8 @@ VALUES ('Sally Palmer', 'https://www.spacercreative.com/wp-content/uploads/2020/
 ('Miriam Smith', 'https://www.spacercreative.com/wp-content/uploads/2020/09/018-swimming-pool.png', 'Edmonton', '123', 'miriam@gmail.com'),
 ('Leo Schults', 'https://www.spacercreative.com/wp-content/uploads/2020/09/019-rugby-ball.png', 'Edmonton', '123', 'leo@gmail.com'),
 ('River Simmons', 'https://www.spacercreative.com/wp-content/uploads/2020/09/011-motorbike.png', 'Edmonton', '123', 'river@gmail.com'),
-('Trevor Ong', 'https://www.spacercreative.com/wp-content/uploads/2020/09/013-boat.png', 'Edmonton', '123', 'trevor@gmail.com');
+('Trevor Ong', 'https://www.spacercreative.com/wp-content/uploads/2020/09/013-boat.png', 'Edmonton', '123', 'trevor@gmail.com'),
+('Jeremy Huot', 'https://www.spacercreative.com/wp-content/uploads/2020/09/013-boat.png', 'Calgary', '123', 'jer@gmail.com');
 
 
 INSERT INTO activities (name, num_of_participants, frequency, days_available, timeframe, location, skill_tag, description)
@@ -43,8 +44,8 @@ VALUES (1, 2,'null'),
 (2,4,'pending'),
 (3,2,'accepted'),
 (5,2,'accepted'),
-(5,4, 'pending'),
-(5,1, 'pending'),
+(5,4,'pending'),
+(5,1,'accepted'),
 (2,2,'pending'),
 (4,4,'pending'),
 (4,6,'accepted'),

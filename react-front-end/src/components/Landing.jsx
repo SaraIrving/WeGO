@@ -7,11 +7,17 @@ export default function Landing(props) {
       <section className="hero">
         <div className="hero-overlay">
           <div>
-            <h1>Lets Play Together.</h1>
+            <h1>Helping You Do what You Love</h1>
           </div>
           <div>
             <span></span>
-            <h5>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam</h5>
+            <h5> WeGO connects people with the activities they love! It's a one stop shop to find new adventures, try new things and connect with new people who want to do them too,
+              
+              Never miss out because you need another person to join you. 
+
+              Do fun stuff, with other people.
+              
+              Want to play a sport but need a team? Want to go hiking with a fellow nature lover? Want to practice a language with someone else who's learning? How about building up a group to play online games with? </h5>
           </div>
         </div>
       </section>
@@ -27,17 +33,17 @@ export default function Landing(props) {
           <article>
             <h3>Step</h3>
             <h2 className="circle">1</h2>
-            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt</p>
+            <p>Sign Up to see what's happening!</p>
           </article>
           <article>
             <h3>Step</h3>
             <h2 className="circle">2</h2>
-            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt</p>
+            <p>Join an activity to try something new. Host an activity to find other folks who share your interest.</p>
           </article>
           <article>
             <h3>Step</h3>
             <h2 className="circle">3</h2>
-            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt</p>
+            <p>Do something fun with your new pals!</p>
           </article>
           <MatButton variant="contained" color="primary" size="large" onClick={() => props.setState({...props.state, view:"signup"})}>SIGNUP TODAY!</MatButton>
         </div>
@@ -46,7 +52,20 @@ export default function Landing(props) {
         <div className="sample-image"></div>
         <div>
           <h2>Browse from a plethora of awesome activities!</h2>
-          <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam</p>
+          <p>WeGO has something for everyone! 
+              <br></br>
+              <br></br>
+            Looking to round up a group for an adventure in the great outdoors?
+            <br></br>
+            Need another player for your sport of choice?
+            <br></br>
+            Want to connect with an online gaming buddy?
+            <br></br>
+            Hoping to practice your language skills with someone else in your community?
+            <br></br>
+            <br></br>
+            You can find it all on WeGo! 
+          </p>
         </div>
       </section>
       <section className="cta-wrapper">

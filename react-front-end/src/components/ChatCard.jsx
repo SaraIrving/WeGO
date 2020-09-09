@@ -87,7 +87,7 @@ export default function ChatCard(props) {
     <section className="chat-wrapper">
       {/* <MatButton type="normal" startIcon="CloseIcon" onClick={() => props.setState(prev => ({...prev, view: 'messages'}))} /> */}
       <IconButton onClick={() => props.setState(prev => ({...prev, view: 'messages'}))}><CloseIcon /></IconButton>
-      <div><h2>{props.state.activities[props.state.currentActivityId - 1].name}</h2><h3>Host: {props.state.users[props.state.activities[props.state.currentActivityId - 1].user_id - 1].name}</h3></div>
+      <div><h2>{props.state.activities[props.state.currentActivityId - 1].name}</h2><h3>|| Hosted By: {props.state.users[props.state.activities[props.state.currentActivityId - 1].user_id - 1].name}</h3></div>
       <div>
         <div className="chatlog" id="chat-window">
           {/* {renderChatHistory()} */}

@@ -16,7 +16,6 @@ import { geolocated } from "react-geolocated";
 
 import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import createPalette from '@material-ui/core/styles/createPalette';
-import { green } from '@material-ui/core/colors';
 
 const socket = io.connect('http://localhost:8080', {resource: '/nodejs/socket.io'});
 // const socket = io.connect('http://localhost:3000')
@@ -24,8 +23,7 @@ const socket = io.connect('http://localhost:8080', {resource: '/nodejs/socket.io
 
 const theme = createMuiTheme({
   palette: createPalette({
-       primary: { main: '#576D5C' },//{main: '#651FFF'},
-       accent: green,
+       primary: { main: '#576D5C' },// 
        secondary: { main: '#F7BD02' } // #f85466
  }),
   typography: {
