@@ -40,8 +40,10 @@ export default function ParticipantsList(props) {
   return (
     <div>
       {(localState.accepted || localState.pending) &&
-            <div className="participants-list">
+          <div className="participants-list">
+            <div>
             {localState.accepted && <h3>Accepted Participants</h3>}
+            </div>
               <ul>
                 {props.state.activityParticipants.map(part => {
                   if (part.status === "accepted" && part.activity_id === props.activity_id) {
