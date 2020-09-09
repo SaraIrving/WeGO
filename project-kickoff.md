@@ -449,7 +449,7 @@ Afterwards:
 
   7. Then run: `$ ALTER USER jeremyhuot WITH superuser createrole createdb replication;`
 
-  8. Then run: `$ psql`
+  8. Then run: `$ psql` from outside the database
 
   9. Then run: `$ CREATE USER development WITH PASSWORD 'development';`
 
