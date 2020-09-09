@@ -5,6 +5,8 @@ import MatInput from './MatInput';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import { geoPropTypes } from 'react-geolocated';
+import Spin from 'react-reveal/Spin';
+import Swing from 'react-reveal/Swing';
 
 
 export default function ChatCard(props) {
@@ -86,7 +88,9 @@ export default function ChatCard(props) {
   return (
     <section className="chat-wrapper">
       {/* <MatButton type="normal" startIcon="CloseIcon" onClick={() => props.setState(prev => ({...prev, view: 'messages'}))} /> */}
+      <Spin>
       <IconButton onClick={() => props.setState(prev => ({...prev, view: 'messages'}))}><CloseIcon /></IconButton>
+      </Spin>
       <div><h2>{props.state.activities[props.state.currentActivityId - 1].name}</h2><h3>|| Hosted By: {props.state.users[props.state.activities[props.state.currentActivityId - 1].user_id - 1].name}</h3></div>
       <div>
         <div className="chatlog" id="chat-window">
