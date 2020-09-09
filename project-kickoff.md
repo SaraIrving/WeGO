@@ -300,20 +300,35 @@ Messages
 - chat functionality (mid to late next week)
 
 ## Presentation
+- Sara introduction
+  - I came in this bootcamp with a background in healthcare and entreprenurship where I founded and ran my own business for a few years before exiting it to transition into the tech field.  
+- pass to my partner 
+
+
+- Jeremys intro
+  - I have a background in web and graphic design, I came to lighthouse labs to pursue full stack development which has been a strong interest of mine for the past 6 years.
+
+  - When thinking about what we wanted to do for our final project we drew from our own experiences, it can be hard to find others who share your interests. So we built WeGo, an app that helps connect people who want to take part in the same activity.
+  - start demo
+
 ** scenarios
 - Show landing page
+- I signed up looking to find someone to play badminton with
 - (Have 3 tabs open - (activity mostly filled out, sara ready to login, jhuot logged in on landing page))
 - change city, change back
 - Peruse some activities, search by tuesday and badminton, not going to find it
 - I'm really looking for a singles badminton in calgary
 - So create the activity (switch tab)
+- Show the auto image
 - Show hosted view
 - handoff to Sara to show us some more features
 
 ** Jeremy switches to tab signed in as Sara
-
+- hosted, joined, leave, message, browse 
+- i joined looking to try out some new things 
 - sign in as Sara (who is in Calgary)
 - talk about having used the app already,
+- hosted activities 
 - show my joined activities and leave one
 - SEND CHAT FROM SALLY IN BACKGROUND ("I’d love to come this week, I could meet you in the parking lot at 9AM? :) ")
 - react to chat notification and click on it
@@ -323,7 +338,8 @@ Messages
 - close chat
 - go to browse and ask to join Badminton
 - show the activity in my pending view
-- do handover to J about more features
+- do handover to J to show off what it looks like from the host's perspective when someone asks to join your activity 
+- (I want to show off our geolocation feature, here we have a new user who's telling WeGo they're from Edmonton but they're signing up in Calgary, so when they login they're going to see the activities available based on their current geographic location and if they want to plan ahead for when they're back in their hometown they can just filter by city and look at Edmonton..thanks and bye!)
 
 ** switch back to J account tab 
 - react to the new join notification
@@ -334,6 +350,12 @@ Messages
 - chat notification from host pops up, go to dashoboard and click on the one with the notification dot 
 - host says they accepeted me, asks to clarify the time to meet, respond with a time, close the chatbox
 - navigate to joined activities and show that badminton is there 
+
+
+### presentation resources:
+
+Looking for a singles badminton partner to play on a weekly basis at Smash City!
+Skill level is intermediate - advanced.. DM for more info.
 
 change sven to Sara, 
 
@@ -425,6 +447,14 @@ Afterwards:
 - messages: [{}] | [] (based on user_id all relavent messages for them)
 
 
+### horoku
+
+- Setup heroku to start up app in the express back end
+- Add support for public folder to serve static assets
+- Setup front end to build the react app
+- Copy react app into public folder in backend
+- Need an index.html in backend which has script tag linking react app
+- Have a route in express app, which loads the react template
 
 
 ### Troubleshooting

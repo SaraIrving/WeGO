@@ -8,7 +8,7 @@ import Slide from 'react-reveal/Slide';
 
 export default function ActivityCard(props) {
   // Set number of players message based on props.currentPlayers and props.numoOfParticipants
-
+  console.log('activity card rendered');
   const [tagName, setTagName] = useState([{},{name: 'outdoor'}]);
   const [playerMessage, setPlayerMessage] = useState('');
 
@@ -26,7 +26,7 @@ export default function ActivityCard(props) {
       })
     }
     fetchCount(props.id)
-  },[]);
+  },[props.state.activityParticipants]);
 
   useEffect(() => {
     
@@ -262,7 +262,7 @@ export default function ActivityCard(props) {
       {/* {isHosted() ? null : <h3>Looks like you dont have any hosted activities... <a onClick={() => props.setState(prev => {return {...prev, view: 'create'}})}>Yet?</a></h3>} */}
       <div>
         <div>
-          <img src={images[(tagName[0].name)] || '../images/park.jpeg'} width="100%"></img>
+          <img src={findImage() || '../images/park.jpeg'} width="100%"></img>
         </div>
         <div>
           <h3>{playerMessage}</h3>
@@ -296,7 +296,7 @@ export default function ActivityCard(props) {
       {/* {isEmpty('accepted') ? null : <h3>It looks like you haven't joined any activities yet...</h3>} */}
       <div>
         <div>
-          <img src={images[(tagName[0].name)] || '../images/park.jpeg'} width="100%"></img>
+          <img src={findImage() || '../images/park.jpeg'} width="100%"></img>
         </div>
         <div> 
           <h3>{playerMessage}</h3>
@@ -327,7 +327,7 @@ export default function ActivityCard(props) {
       {/* {isEmpty('pending') && <h3>It looks like you don't have any pending activities yet...</h3>} */}
       <div>
         <div>
-          <img src={images[(tagName[0].name)] || '../images/park.jpeg'} width="100%"></img>
+          <img src={findImage() || '../images/park.jpeg'} width="100%"></img>
         </div>
         <div>
          <h3>{playerMessage}</h3>

@@ -53,7 +53,7 @@ export default function ActivityForm(props) {
 
   return (
     <div>
-      <h2>CREATE AN ACTIVITY</h2>
+      <h2 className="form-title">Create an Activity</h2>
       <form className="form activity-form" onSubmit={e => e.preventDefault()}>
         <MatInput
           required={true}

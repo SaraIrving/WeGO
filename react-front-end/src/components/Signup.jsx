@@ -34,7 +34,7 @@ export default function Signup(props) {
   return (
     <div>
       <Fade top>
-        <h2>Sign Up</h2>
+        <h2 className="form-title">Sign Up</h2>
       </Fade>
       <form className="form" onSubmit={e => e.preventDefault()}>
         <MatInput required={true} onChange={event => setStateSignup({...stateSignup, name: event.target.value})} label="Name" value={stateSignup.name} variant="filled" size="small" fullfullWidth={true} />

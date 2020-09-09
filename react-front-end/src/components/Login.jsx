@@ -14,7 +14,7 @@ export default function Login(props) {
   return (
     <div>
       <Fade top>
-       <h2>Login</h2>
+       <h2 className="form-title">Login</h2>
       </Fade>
       <form className="form" onSubmit={e => e.preventDefault()}>
         <MatInput required={true} onChange={event => setStateLogin({...stateLogin, username: event.target.value})} label="Username" value={stateLogin.username} variant="filled" size="small" fullfullWidth={true} />

@@ -57,7 +57,7 @@ export default function EditForm(props) {
 
   return (
     <div>
-      <h2>EDIT YOUR ACTIVITY</h2>
+      <h2 className="form-title">Edit Your Activity</h2>
       <form className="form activity-form" onSubmit={e => e.preventDefault()}>
         <MatInput 
           required={true}
