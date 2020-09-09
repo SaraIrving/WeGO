@@ -193,17 +193,22 @@ Teck Stack
 
 - Turn on and test geo again ~ .5 - 1 **** ---
 - Make sure demo is bug free ~ .5 - 2 ***** ---
-- Content landing page ** .5
-- could make it super pretty **** ~ chat, create form, spruce up login page ~ 1.5 - 2
+- Content landing page ** .5 
+- could make it super pretty **** ~ chat, create form, spruce up login page ~ 1.5 - 2 (spacing between activity and pending participants)
 - animations ** ~ .75
   - render views in subnav maybe instead .5 *
 
 - good QA, check and fix bugs ~ .75 - 4hrs ---
+- heroku ** ~ 2 - 4 (message hafiz, )
 - clean commented code **** ~ 1 - 3
-- heroku ** ~ 2 - 4
 - responsive **** ~ 3 - 4
 
 - prepare presentation - 1 day
+- known bugs: 
+  - Signups dont websocket update
+  - Caroline - offlimits!
+  - Can't set headers backend error
+  - Any chat button click will clear notifications
 
 
 tuesday evening, would be nice to start presentation branstorming --
