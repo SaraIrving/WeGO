@@ -157,13 +157,13 @@ export default function EditForm(props) {
             </div>
             <div>
               <MatButton 
-                  variant="contained"
-                  type="submit"
-                  color="primary"
-                  onClick={() => edit(stateEdit)}
-                  >
-                  EDIT
-                </MatButton>
+                variant="contained"
+                type="submit"
+                color="primary"
+                onClick={() => edit(stateEdit)}
+                >
+                EDIT
+              </MatButton>
             </div>
           </div>
       </form>

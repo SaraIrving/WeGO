@@ -207,6 +207,7 @@ div.participants-list {
 div.participants-list ul {
   padding-left: 0px;
   list-style-type: none;
+  padding-bottom: 1.5em;
 }
 div.participants-list ul > div {
   display: flex;
@@ -349,10 +350,13 @@ form.form .MuiFormControl-root {
   border-radius: 10px;
 }
 .chat-wrapper > div:first-of-type {
+  float: right;
+}
+.chat-wrapper > div:nth-child(2) {
   display: flex;
   align-items: center;
 }
-.chat-wrapper > div:first-of-type h3 {
+.chat-wrapper > div:nth-child(2) h3 {
   margin-top: 4px;
   margin-left: 10px;
 }
