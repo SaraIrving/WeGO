@@ -3,17 +3,18 @@ import MatAvatar from './MatAvatar';
 import MatButton from './MatButton';
 import ParticipantsList from './ParticipantsList';
 import axios from 'axios';
-import classnames from 'classnames';
 import Slide from 'react-reveal/Slide';
 
+
 export default function ActivityCard(props) {
-  // Set number of players message based on props.currentPlayers and props.numoOfParticipants
-  console.log('activity card rendered');
+  
   const [tagName, setTagName] = useState([{},{name: 'outdoor'}]);
+
+  // Set number of players message based on props.currentPlayers and props.numoOfParticipants
   const [playerMessage, setPlayerMessage] = useState('');
 
   useEffect(() => {
-
+    //fetch the count of how many people have joined an activity to display on the activity card
     const fetchCount = function(id) {
       axios.get(`/api/ap_count?activity_id=${id}`)
       .then((response) => {
@@ -28,8 +29,9 @@ export default function ActivityCard(props) {
     fetchCount(props.id)
   },[props.state.activityParticipants]);
 
+
   useEffect(() => {
-    
+    // fetch all the tags associated witn a particular activity id
     const fetchTags = function(id) {
       axios.get(`/api/activity_tag_fetch?tags=${id}`)
       .then((response) => {
@@ -41,6 +43,8 @@ export default function ActivityCard(props) {
 
   }, []);
 
+
+  //images to display based on the activites tags 
   const images = {
     spikeball: '../images/spikeball.png',
     tennis: '../images/tennis.jpeg',
@@ -62,80 +66,74 @@ export default function ActivityCard(props) {
     spalunking: '../images/spalunking.jpeg',
     'language practice': '../images/globe.jpeg',
     frisbee: '../images/frisbee.jpeg'
-  }
+  };
+
 
   const ask = () => {
     // adds the user to the activity_participants table with a status of pending
-    // in the request body pass along: logged in users id, and the id of the activity they are asking to join
-    // console.log("Inside the ask function front end")
+    // in the request body pass along: logged in users id, and the id of the activity they are asking to join and the request type of "ask"
     axios.post(`/api/activity_participants`, {user_id: props.state.loggedIn, activity_id: props.id})
     .then(() => {
       props.socket.send({participant_id: props.state.loggedIn , activity_id: props.id, request_type: "ask"});
       props.setState(prev => ({...prev, view: 'browse', refresh: prev.refresh += 1}))
-      props.socket.send('update');
+      props.socket.send('update'); // send update to the socket after the state is set to update the users page without needing to refresh 
     })
     .catch(err => console.log(err));
   };
 
   const message = () => {
+    // runs when a user clicks on the "Message Host button"
+    // send an 'update' to the socket and changes the view in the app so the chatcard is displayed
     props.socket.send('update');
     props.setState(prev => ({...prev, view: 'chatcard', currentActivityId: props.id, currentChatRecipient: prev.users[prev.activities[props.id - 1].user_id - 1].id }));
-  };
+  }; 
+
 
   const cancel = (userId, activityId) => {
     // cancels a pending request
-    // deletes the entry into the activity participants table 
-    // delete requests accept a path and an optional object where you can put information
-    // put the user_id and activity_id in the optional object so we can use them in the db query?
-
-    console.log("inside the cancel function front end")
-
+    // deletes the entry with status 'pending' in the activity participants table 
+    // pass along the user_id and activity_id to the backend 
+    // update socket to update the users page without needing to refresh 
     axios.delete(`/api/activity_participants?user_id=${userId}&activity_id=${activityId}`)
     .then(() => {
       props.socket.send('update');
       props.setState(prev => { return {...prev, refresh: prev.refresh += 1}})
     })
     .catch(err => console.log(err));
-
-    // refresh the state after the axios request, don't change the view since we could cancel from either browse or from pending and we would just want to stay where we are 
   };
+
 
   const remove = (activityId) => {
     // remove the activity from the database 
-
-    console.log("inside of the remove function front end")
-
     axios.delete(`/api/activities?activity_id=${activityId}`)
     .then(() => {
       props.socket.send('update');
       props.setState(prev => { return {...prev, refresh: prev.refresh += 1}})
     })
     .catch(err => console.log(err));
-    
   };
 
-  const statusChange = (userId, activityId, status) => {
-    //used by the logged in user to remove themself from an activity where they are an accepted participant 
-    // sets the user's status in the activity_participants table to null 
-    //don't change the state since they could be in browse or in joined and we want them to stay where they are
 
-    console.log("inside the leave function front end")
+  const statusChange = (userId, activityId, status) => {
+    // changes the status of an entry in teh activity participants table, pending--> accepted or accepted--> null
+    // don't change the view state since they could be in browse or in joined and we want them to stay where they are
 
     axios.put(`/api/activity_participants?user_id=${userId}&activity_id=${activityId}&status=${status}`)
     .then(() => {
       props.socket.send('update');
       props.setState(prev => { return {...prev, refresh: prev.refresh += 1}})
     })
-    .catch(err => console.log(err));
-    
+    .catch(err => console.log(err))
   };
 
+
   const viewChats = () => {
+    // updates the view to take the user to the message dashboard 
     props.setState(prev => { return {...prev, view: 'messages'}})
   };
 
-  // const [pending, setPending] = useState(false);
 
+  // determine if participants should be listed under the accepted or pending heading
   let hosted = props.hostId === props.state.loggedIn ? true : false;
   let pending = false;
   let joined = false;
@@ -145,34 +143,24 @@ export default function ActivityCard(props) {
       if (activityId === i.activity_id && userId === i.user_id) {
         if (i.status === 'pending') {
           pending = true;
-          // setPending(prev => true)
         }
         if (i.status === 'accepted') {
           joined = true;
         }
       }
     }
-  }
-  filterParticipants(props.state.loggedIn, props.id)
+  };
+  filterParticipants(props.state.loggedIn, props.id);
 
+  // detemine if there are any pending participants for the current activity
   for (let i of props.state.activityParticipants) {
     if (i.activity_id === props.id && i.user_id === props.state.loggedIn && i.status === "pending") {
       props.setPending(true)
-      // props.socket.send('update');
     }
-  }
+  };
 
-  // const pickClass = classnames({'pending': props.pending}); // SEEMING SPOTTY AT BEST?
 
-  const isHosted = () => {
-    for(let i of props.state.activities) {
-      if (props.state.loggedIn === i.user_id) {
-      return false;
-    } else {
-      return true;
-    }
-  }
-}
+  // find an image to display on the activity card based on the tags 
   const findImage = () => {
     for (let [keys, values] of Object.entries(images)) {
       for (let i of props.currentTagNames) {
@@ -181,7 +169,9 @@ export default function ActivityCard(props) {
         }
       }
     }
-  }
+  };
+
+  // ignore these tags when selecting an image
   const filters = [
     'monday', 
     'tuesday', 
@@ -200,7 +190,7 @@ export default function ActivityCard(props) {
     'weekly', 
     'bi-weekly', 
     'monthly'
-  ]
+  ];
 
   return (
     <Slide bottom>
@@ -209,7 +199,6 @@ export default function ActivityCard(props) {
     <article className={pending ? 'pending' : ''}>
       <div>
         <div>
-          {/* <img src={images[(tagName.length > 1 ? tagName[1].name : tagName[0].name)] || '../images/park.jpeg'} width="100%"></img> */}
           <img src={findImage() || '../images/park.jpeg'} width="100%"></img>
         </div>
         <div>
@@ -259,7 +248,6 @@ export default function ActivityCard(props) {
     }
     {props.state.loggedIn === props.hostId && props.state.view === 'hosted' &&
     <article className={props.pending ? 'pending' : ''}>
-      {/* {isHosted() ? null : <h3>Looks like you dont have any hosted activities... <a onClick={() => props.setState(prev => {return {...prev, view: 'create'}})}>Yet?</a></h3>} */}
       <div>
         <div>
           <img src={findImage() || '../images/park.jpeg'} width="100%"></img>
@@ -293,7 +281,6 @@ export default function ActivityCard(props) {
     }
     {joined && props.state.view === 'joined' &&
     <article className={props.pending ? 'pending' : ''}>
-      {/* {isEmpty('accepted') ? null : <h3>It looks like you haven't joined any activities yet...</h3>} */}
       <div>
         <div>
           <img src={findImage() || '../images/park.jpeg'} width="100%"></img>
@@ -324,7 +311,6 @@ export default function ActivityCard(props) {
     
     {pending && props.state.view === 'pending' &&
     <article className={'pending'}>
-      {/* {isEmpty('pending') && <h3>It looks like you don't have any pending activities yet...</h3>} */}
       <div>
         <div>
           <img src={findImage() || '../images/park.jpeg'} width="100%"></img>

@@ -70,7 +70,7 @@ export default function Landing(props) {
         </div>
       </section>
       <section className="cta-wrapper">
-        <h4>Two Users Worldwide!</h4>
+        <h4>14 Users Worldwide!</h4>
         <div>
           <h3>Meet New People</h3>
           <h3>Get Active</h3>
