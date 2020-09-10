@@ -24,8 +24,7 @@ export default function ParticipantsList(props) {
     } else {
       setLocalState(prev => { return {...prev, accepted: false}});
     };
-
-
+    
   },[props.state.activityParticipants])
 
   return (

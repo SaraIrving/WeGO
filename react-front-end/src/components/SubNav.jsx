@@ -13,7 +13,7 @@ export default function SubNav(props) {
 
   //determine what the heading should be
   //determine the index of which tab to set as the default
-  // view: sigin, landing, login, browse, create, joined, hosted, pending, messages, chat
+  //view: sigin, landing, login, browse, create, joined, hosted, pending, messages, chat
   //determine the view index which is used to update the value of which tab is clicked and highlighted by the slider bar 
 
   let subNavHeading = '';
@@ -60,6 +60,7 @@ export default function SubNav(props) {
     .then((response) => {
       props.setState(prev => ({...prev, activitiesSorted: response.data}));
     })
+    .catch((err) => console.log(err));
   };
 
   // determine which cities to show in the MatMultiValue drop down 

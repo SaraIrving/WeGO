@@ -25,6 +25,7 @@ export default function ActivityCard(props) {
           setPlayerMessage(prev => 'Filled')
         }
       })
+      .catch(err => console.log(err));
     }
     fetchCount(props.id)
   },[props.state.activityParticipants]);
@@ -38,6 +39,7 @@ export default function ActivityCard(props) {
         //console.log(response);
         setTagName(response.data)
       })
+      .catch(err => console.log(err));
     }
     fetchTags(props.id)
 

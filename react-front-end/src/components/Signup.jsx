@@ -31,7 +31,6 @@ export default function Signup(props) {
     password: ""
   });
 
-
   return (
     <div>
       <Fade top>
