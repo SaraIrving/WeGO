@@ -1,6 +1,7 @@
 const router = require("express").Router();
 
 module.exports = db => {
+  // Handle get request to retrieve tags
   router.get("/tags", (request, response) => {
     db.query(
       `
@@ -10,7 +11,8 @@ module.exports = db => {
     `
     ).then(({ rows: tags }) => {
       response.json(tags);
-    });
+    })
+    .catch(err => console.log(err));
   });
 
   return router;

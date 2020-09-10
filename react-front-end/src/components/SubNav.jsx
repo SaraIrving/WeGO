@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import ActivityList from './ActivityList';
@@ -12,9 +12,10 @@ import Fade from 'react-reveal/Fade';
 export default function SubNav(props) {
 
   //determine what the heading should be
-   //determine the index of which tab to set as the default
-  // view: ‘signin’ | landing (login, browse, create, joined, hosted, pending, messages, chat)
-  // !!!!!! eventually the first criteria should be set to Browse, not to Landing!!!!!
+  //determine the index of which tab to set as the default
+  // view: sigin, landing, login, browse, create, joined, hosted, pending, messages, chat
+  //determine the view index which is used to update the value of which tab is clicked and highlighted by the slider bar 
+
   let subNavHeading = '';
   let viewIndex;
   if (props.state.view === 'browse') {
@@ -34,6 +35,8 @@ export default function SubNav(props) {
     viewIndex = 4;
   }
 
+
+  // use local state to manage clicking between the tabs
   const [value, setValue] = React.useState(viewIndex);
 
   const handleChange = (event, newValue) => {
@@ -51,20 +54,22 @@ export default function SubNav(props) {
     }
   };
 
+  //populate activitiesSorted state with activities from the specified city 
   const changeCity = (e) => {
     axios.get(`/api/activitiesSorted?city=${e.target.value}`)
     .then((response) => {
       props.setState(prev => ({...prev, activitiesSorted: response.data}));
     })
-  }
+  };
 
+  // determine which cities to show in the MatMultiValue drop down 
   const cityArray = [];
   for (let i of props.state.users) {
     if (!cityArray.includes(i.city[0].toUpperCase() + i.city.substring(1))) {
       cityArray.push(i.city[0].toUpperCase() + i.city.substring(1))
     }
-  }
-  console.log('cityArray', cityArray);
+  };
+ 
 
   return (
     <div className="subnav-wrapper">

@@ -2,13 +2,14 @@ const router = require("express").Router();
 
 
   module.exports = db => {
+    // Handle get request for all activities, join activity hosts in SQL
     router.get("/activities", (request, response) => {
       db.query(
         `
         SELECT
           activities.id,
           activities.name,
-          activities.num_of_participants, 
+          activities.num_of_participants,
           activities.frequency, 
           activities.days_available, 
           activities.timeframe,
@@ -26,21 +27,19 @@ const router = require("express").Router();
       `
       ).then(({ rows: activities }) => {
         response.json(activities);
-      });
+      })
+      .catch(err => console.log(err));
     });
 
+    // Handle post to activities to create a new activities, add the host to the activity_participants table, 
+    // and add the activities tags to the activity_tags table in the database
     router.post("/activities",(request, response) => {
-      console.log('made it to server');
-      console.log('1 req body: ', request.body.stateForm);
       db.query(
         `INSERT INTO activities (name, num_of_participants, frequency, days_available, timeframe, location, skill_tag, description)
         VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
         RETURNING *;`
       ,[request.body.stateForm.activity_name, Number(request.body.stateForm.max_participants), request.body.stateForm.frequency.join(', '), request.body.stateForm.days.join(', '), request.body.stateForm.timeframe.join(', '), request.body.stateForm.location, request.body.stateForm.skill_level.join(', '), request.body.stateForm.description])
       .then(({ rows: activity }) => {
-        console.log('2 activity :', activity);
-        console.log('2 req body: ', request.body.stateForm);
-        // console.log("in activities.js-activity.id = ", activity.id)
 
         db.query(
           `
@@ -49,12 +48,8 @@ const router = require("express").Router();
           RETURNING *;
         `, [Number(activity[0].id), Number(request.body.stateForm.logged_in_user_id), "host"])
         .then(({rows: activity_participants}) => {
-          console.log('3 activity :', activity_participants);
-          console.log('3 req body: ', request.body.stateForm);
-          console.log('tags= ', request.body.stateForm.tags);
-
+          // Loop through activitiy tags and add each one to activity_tags table
           for (let tag of request.body.stateForm.tags) {
-            console.log("In the loop***********")
             db.query(
               `
               INSERT INTO activity_tags (activity_id, tag_id)
@@ -63,8 +58,6 @@ const router = require("express").Router();
               , [Number(activity_participants[0].activity_id), Number(tag.id)]
             )
             .then(({ rows: activity_tags}) => {
-              console.log('response: ', activity_tags)
-              // response.json(activity[0]);
               response.send('completed')
             })
           }
@@ -73,12 +66,10 @@ const router = require("express").Router();
       })
       .catch(err => console.log(err));
 
-
     });
 
+    // Handle put request to activities to edit existing activities and their related tags
     router.put("/activities",(request, response) => {
-      console.log('made it to server');
-      console.log('1 req body: ', request.body.stateEdit);
       db.query(
         `UPDATE activities 
         SET
@@ -94,9 +85,7 @@ const router = require("express").Router();
         `
       ,[request.body.stateEdit.activity_name, Number(request.body.stateEdit.max_participants), request.body.stateEdit.frequency.join(', '), request.body.stateEdit.days.join(', '), request.body.stateEdit.timeframe.join(', '), request.body.stateEdit.location, request.body.stateEdit.skill_level.join(', '), request.body.stateEdit.description, Number(request.body.stateEdit.activity_id)])
       .then(({ rows: activity }) => {
-        console.log('2 activity :', activity);
-        console.log('2 req body: ', request.body.stateEdit);
-        // console.log("in activities.js-activity.id = ", activity.id)
+
         for (let tag of request.body.stateEdit.tags) {
           db.query(
             `
@@ -107,13 +96,12 @@ const router = require("express").Router();
             `
             , [Number(request.body.stateEdit.activity_id), Number(tag.id)])
         }
-
       })
       .catch(err => console.log(err));
     });
 
+    // Handle delete request to delete activities in the database
     router.delete("/activities", (request, response) => {
-      console.log("inside the activities DELETE back end");
 
       db.query(
         `
@@ -123,9 +111,9 @@ const router = require("express").Router();
         `
         , [Number(request.query.activity_id)]
       ).then(({ rows: activities }) => {
-        console.log("after the delete in activites DELETE!")
         response.json(activities);
-      });
+      })
+      .catch(err => console.log(err));
     })
 
   return router;

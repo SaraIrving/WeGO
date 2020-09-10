@@ -1,6 +1,7 @@
 const router = require("express").Router();
 
 module.exports = db => {
+  // Handle get request to retrieve activity_participants
   router.get("/activity_participants", (request, response) => {
     db.query(
       `
@@ -15,11 +16,12 @@ module.exports = db => {
     `
     ).then(({ rows: activity_participants }) => {
       response.json(activity_participants);
-    });
+    })
+    .catch(err => console.log(err));
   });
 
+  // Handle updating activity_participants status
   router.put("/activity_participants", (request, response) => {
-    console.log("made it to the activity_p  PUT in backend");
     db.query(
       `
       UPDATE activity_participants
@@ -28,13 +30,14 @@ module.exports = db => {
       `
       , [Number(request.query.activity_id), Number(request.query.user_id), request.query.status]
     ).then(({ rows: activity_participants }) => {
-      console.log("after the put!")
       response.json(activity_participants);
-    });
+    })
+    .catch(err => console.log(err));
   });
 
+  // Handle adding new activity_participants
   router.post("/activity_participants", (request, response) => {
-    console.log("made it to the activity_p POST!")
+    
     db.query(
       `
       INSERT INTO activity_participants (activity_id, user_id)
@@ -42,14 +45,13 @@ module.exports = db => {
       `
       , [Number(request.body.activity_id), Number(request.body.user_id)]
     ).then(({ rows: activity_participants }) => {
-      console.log("after the post!")
       response.json(activity_participants);
-    });
+    })
+    .catch(err => console.log(err));
   });
 
-
+  // Handle deleting activity_participants
   router.delete("/activity_participants", (request, response) => {
-    console.log("made it to the activity_participants DELETE back end");
 
     db.query (
       `
@@ -59,9 +61,9 @@ module.exports = db => {
       `
       , [Number(request.query.activity_id), Number(request.query.user_id)]
     ).then(({ rows: activity_participants }) => {
-      console.log("after the put in activity_participants DELETE!")
       response.json(activity_participants);
-    });
+    })
+    .catch(err => console.log(err));
   });
 
   return router;

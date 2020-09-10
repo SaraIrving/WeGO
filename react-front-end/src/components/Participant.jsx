@@ -2,16 +2,9 @@ import React from 'react';
 import MatButton from './MatButton';
 import MatAvatar from './MatAvatar';
 import MatNotificationDot from './MatNotificationDot';
-import axios from 'axios';
-import classNames from 'classnames';
+
 
 export default function Participant(props) {
-
-  const accept = () => {
-    // allows host to change the status of a pending participant to accepted
-
-  };
-
 
   return (
     <div>
@@ -20,6 +13,7 @@ export default function Participant(props) {
       </div>
       <span></span>
       <div>
+        {/* if participant is rendered on the message dashboard */}
         {props.status === 'message' &&
         <div>
           <MatButton variant="contained" color="primary" onClick={() => props.setState(prev => ({...prev, view: 'chatcard', currentChatRecipient: props.user_id, currentActivityId: props.activity_id, messageNotification: [] }))}>Open Chat</MatButton>
@@ -27,12 +21,14 @@ export default function Participant(props) {
             <MatNotificationDot label={props.newMessages} notifications={props.notifications}>1</MatNotificationDot>}
         </div>
         }
+        {/* if participant is being rendered in the accepted section of the activity card in the hosted view */}
         {props.status === 'accepted' &&
         <div>
           <MatButton variant="contained" color="primary" onClick={() => props.setState(prev => ({...prev, view: 'chatcard', currentChatRecipient: props.user_id, currentActivityId: props.activity_id, messageNotification: [] }))}>Open Chat</MatButton>
           <MatButton variant="contained" color="secondary" onClick={() => props.statusChangeFunction(props.user_id, props.activity_id, "null")}>Remove</MatButton>
         </div>
         }
+         {/* if participant is being rendered in the pending section of the activity card in the hosted view */}
         {props.status === 'pending' &&
         <div>
           <MatButton variant="contained" color="primary" onClick={() => props.setState(prev => ({...prev, view: 'chatcard', currentChatRecipient: props.user_id, currentActivityId: props.activity_id, messageNotification: [] }))} >Open Chat</MatButton>

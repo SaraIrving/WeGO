@@ -1,6 +1,7 @@
 const router = require("express").Router();
 
 module.exports = db => {
+  // Handle get request to retrieve all messages and join the host to the response
   router.get("/messages", (request, response) => {
     db.query(
       `
@@ -16,7 +17,8 @@ module.exports = db => {
     `
     ).then(({ rows: messages }) => {
       response.json(messages);
-    });
+    })
+    .catch(err => console.log(err));
   });
 
   return router;

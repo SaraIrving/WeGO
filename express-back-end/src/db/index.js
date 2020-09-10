@@ -1,5 +1,6 @@
 const pg = require("pg");
 
+// Estabilish connection to postgresql database
 const client = new pg.Client({
   connectionString: process.env.DATABASE_URL || ""
 });
@@ -9,5 +10,3 @@ client
   .catch(e => console.log(`Error connecting to Postgres server:\n${e}`));
 
 module.exports = client;
-
-console.log('process.env.DATABASE_URL :', process.env.DATABASE_URL);

@@ -22,6 +22,7 @@ export default function Signup(props) {
     "https://www.spacercreative.com/wp-content/uploads/2020/09/030-backpack.png"
   ];
 
+  // use local state to gather infor from the signup form 
   const [stateSignup, setStateSignup] = useState({
     name: "",
     avatar: avatars[Math.floor(Math.random() * avatars.length)],

@@ -6,33 +6,24 @@ export default function ParticipantsList(props) {
   const [localState, setLocalState] = useState({
     accepted: false,
     pending: false
-  })
+  });
 
-  // let accepted = false;
-  // let pending = false;
 
   useEffect(() => {
-  // for (let i of props.state.activityParticipants) {
-  //   if (i.activity_id === props.activity_id) {
-  //     if (i.status === 'pending') {
-  //       setLocalState(prev => { return {...prev, pending: true}});
-  //     }
-  //     if (i.status === 'accepted') {
-  //       setLocalState(prev => { return {...prev, accepted: true}});
-  //     }
-  //   }
-  // }
 
-  if (props.state.activityParticipants.filter(part => part.activity_id === props.activity_id && part.status === 'pending').length > 0) {
-    setLocalState(prev => { return {...prev, pending: true}});
-  } else {
-    setLocalState(prev => { return {...prev, pending: false}});
-  }
-  if (props.state.activityParticipants.filter(part => part.activity_id === props.activity_id && part.status === 'accepted').length > 0) {
-    setLocalState(prev => { return {...prev, accepted: true}});
-  } else {
-    setLocalState(prev => { return {...prev, accepted: false}});
-  }
+    // if there is one or more activity participants with the status pending for the current activity, then set the pending key in the local state to true which will cause the pending participants title and list of pending participants to be displayed on the activity card in the hosted view 
+    if (props.state.activityParticipants.filter(part => part.activity_id === props.activity_id && part.status === 'pending').length > 0) {
+      setLocalState(prev => { return {...prev, pending: true}});
+    } else {
+      setLocalState(prev => { return {...prev, pending: false}});
+    };
+
+    // if there is one or more activity participants with the status accepted for the current activity, then set the pending key in the local state to true which will cause the pending participants title and list of pending participants to be displayed on the activity card in the hosted view 
+    if (props.state.activityParticipants.filter(part => part.activity_id === props.activity_id && part.status === 'accepted').length > 0) {
+      setLocalState(prev => { return {...prev, accepted: true}});
+    } else {
+      setLocalState(prev => { return {...prev, accepted: false}});
+    };
 
 
   },[props.state.activityParticipants])
