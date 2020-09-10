@@ -1,8 +1,8 @@
 import React from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import { makeStyles } from '@material-ui/core/styles';
-// import images from '../images/'
 
+// use the theme set up in app.js
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
@@ -11,6 +11,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
+
 
 export default function MatAvatar(props) {
   const classes = useStyles();

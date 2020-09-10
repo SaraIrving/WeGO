@@ -1,11 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import ActivityCard from './ActivityCard';
 
 export default function ActivityList(props) {
-  // const [pending, setPending] = useState(false);
+  
+  // local state to determine if the user is pending or not for that activity
   const [pending, setPending] = useState(false)
 
-  return (<div>
+  // loop through each activity in the activitiesSorted state and determine how it should be displayed
+  return (
+  <div>
      {props.state.activitiesSorted.map(activity => {
        const currentTagNames = props.state.activityTags.filter(tag => tag.activity_id === activity.id).map(tag => tag.name)
           
@@ -18,10 +21,10 @@ export default function ActivityList(props) {
         }
       }
 
-      //  let pending = false;
+      //  pending = false
        for (let i of props.state.activityParticipants) {
          if (i.activity_id === activity.id && i.user_id === props.state.loggedIn && i.status === "pending") { // This might be buggy? currently socket not updating if other user is in hosted view
-          // pending = true;
+          // pending = true
             setPending(prev => true)
          }
 
@@ -52,4 +55,4 @@ export default function ActivityList(props) {
     </div>
     )
 
-}
+};

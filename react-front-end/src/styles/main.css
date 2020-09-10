@@ -467,14 +467,14 @@ div.signup-instead-wrapper button {
   background: rgba(87, 109, 92, 0.5);
   display: flex;
   justify-content: center;
-  padding: 10em 9em;
+  padding: 10em 14em;
   align-items: flex-start;
 }
 .hero .hero-overlay div:first-of-type {
-  width: 35%;
+  width: 40%;
 }
 .hero .hero-overlay div:last-of-type {
-  width: 65%;
+  width: 60%;
 }
 .hero .hero-overlay h1 {
   color: #ffffff;

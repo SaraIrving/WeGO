@@ -2,8 +2,7 @@ import React from 'react';
 import { TextField } from '@material-ui/core';
 
 // props.label: a string of whatever label you want to appear over the Input, ex: "Name"
-//props.required: a boolean, true if field is required, false if field is not required 
-// ?? might need an ID prop?
+// props.required: a boolean, true if field is required, false if field is not required 
 // props.error toggles the error state
 // props.helperText will display text to explain the errors 
 

@@ -5,6 +5,7 @@ import Fade from 'react-reveal/Fade';
 
 export default function Login(props) {
 
+  // set local state to value inputted into form 
   const [stateLogin, setStateLogin] = useState({
     username: "",
     password: ""

@@ -8,6 +8,7 @@ import MatMultiSelect from './MatMultiSelect';
 
 export default function ActivityForm(props) {
 
+  // build up an object to submit when the form is completed 
   const [stateForm, setStateForm] = useState({
     activity_name: "",
     description: "",
@@ -23,9 +24,9 @@ export default function ActivityForm(props) {
   });
 
   const create = function(stateForm) {
-    console.log('inside create function');
     // update Activity participants, activity tags, activities 
     // need to put activity in the DB first so we can use the activity id to update the activity tags page and the activity participants page
+    //verify necessary fields in the form have been completed
     if (stateForm.activity_name &&
       stateForm.description &&
       stateForm.max_participants &&
@@ -39,17 +40,13 @@ export default function ActivityForm(props) {
       ) {
       axios.post(`/api/activities`, {stateForm})
       .then((res) => {
-        // console.log('res after new post: ', res.data);
         props.socket.send('update');
         props.setState(prev => { return {...prev, view: 'browse', refresh: prev.refresh += 1 }})
         // not sure why, but not getting a response back
       })
       .catch(err => console.log(err));
-    }
-    // setTimeout(() => {
-    //   props.setState(prev => { return {...prev, view: 'browse', refresh: prev.refresh += 1 }})
-    // }, 1000)    
-  }
+    } 
+  };
 
   return (
     <div>
@@ -72,7 +69,6 @@ export default function ActivityForm(props) {
           fullWidth
           multiline
           rows={3}
-
           />
         <MatInput 
           required={true} 
@@ -80,7 +76,6 @@ export default function ActivityForm(props) {
           label="max_participants"
           value={stateForm.max_participants}
           variant="filled" size="small"
-          //fullWidth
           />
         <MatInput 
           required={false}
@@ -126,7 +121,7 @@ export default function ActivityForm(props) {
           options={props.state.tags}
           label="Searchable Tags" 
           placeholder="Select Searchable Tags"
-          onChange={(event, values) => setStateForm({...stateForm, tags: values })} // COULD REVISIT, AND ALLOW NEW ACTIVITY POSTS TO PLOP ALL RELAENT INFO INTO TAGS (CURRENTLY NOT DOING THAT)
+          onChange={(event, values) => setStateForm({...stateForm, tags: values })} // COULD REVISIT, AND ALLOW NEW ACTIVITY POSTS TO PLOP ALL RELAVENT INFO INTO TAGS (CURRENTLY NOT DOING THAT)
           />
         <div className="form-button-wrapper">
           <div>

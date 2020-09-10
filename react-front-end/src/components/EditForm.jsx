@@ -10,15 +10,15 @@ import MatMultiSelect from './MatMultiSelect';
 
 export default function EditForm(props) {
 
-    // make a function that finds the activity details from the state based on the activity id(the value of refresh)
+    // a function that finds the activity details from the state based on the activity id(the value of refresh)
     let activityToEdit = {};
     for (let activity of props.state.activities) {
       if (activity.id === props.state.refresh) {
         activityToEdit = activity;
-        console.log("found the activity to edit! = ", activityToEdit);
       }
-    }
+    };
 
+    // build up this local state object which will have the previous values as default and will be what is submitted to the backend when the Edit button is clicked
   const [stateEdit, setStateEdit] = useState({
     activity_id: props.state.refresh,
     activity_name: activityToEdit.name,
@@ -26,7 +26,6 @@ export default function EditForm(props) {
     max_participants: activityToEdit.num_of_participants,
     city: activityToEdit.city,
     location: activityToEdit.location,
-    // frequency: [`${activityToEdit.frequency}`],
     frequency: activityToEdit.frequency.split(' '),
     timeframe: activityToEdit.timeframe.split(' '),
     days: activityToEdit.days_available.split(' '),
@@ -53,8 +52,6 @@ export default function EditForm(props) {
     }, 1000)    
   }
 
-  console.log("the stateEdit is = ", stateEdit);
-
   return (
     <div>
       <h2 className="form-title">Edit Your Activity</h2>
@@ -62,8 +59,7 @@ export default function EditForm(props) {
         <MatInput 
           required={true}
           onChange={event => setStateEdit({...stateEdit, activity_name: event.target.value, city: props.state.users[props.state.loggedIn - 1].city})} 
-          label="activity_name" 
-          //value={stateEdit.activity_name} 
+          label="activity_name"
           variant="filled" 
           size="small" 
           fullfullWidth={true} 
@@ -73,7 +69,6 @@ export default function EditForm(props) {
           required={true}
           onChange={event => setStateEdit({...stateEdit, description: event.target.value})} 
           label="description" 
-          //value={stateEdit.description} 
           variant="filled" 
           size="small" 
           fullfullWidth={true} 
@@ -84,7 +79,6 @@ export default function EditForm(props) {
           required={true} 
           onChange={event => setStateEdit({...stateEdit, max_participants: event.target.value})} 
           label="max_participants"
-          //value={stateEdit.max_participants}
           variant="filled" 
           size="small"
           fullfullWidth={true}
@@ -94,7 +88,6 @@ export default function EditForm(props) {
           required={false}
           onChange={event => setStateEdit({...stateEdit, location: event.target.value})} 
           label="location" 
-          //value={stateEdit.location} 
           variant="filled" 
           size="small" 
           fullfullWidth={true}
@@ -108,16 +101,13 @@ export default function EditForm(props) {
               multiple
               fullWidth
               onChange={event => setStateEdit({...stateEdit, frequency: event.target.value})}
-              // defaultValue={[`${activityToEdit.frequency}`]}
             />
-
             <MatMultiSelect 
               items={['Morning', 'Daytime', 'Evening']} 
               inputLabel="Timeframe" 
               multiple
               fullWidth
               onChange={event => setStateEdit({...stateEdit, timeframe: event.target.value})}
-              // defaultValue={[`${activityToEdit.timeframe}`]}
             />
             </div>
             <div>
@@ -127,7 +117,6 @@ export default function EditForm(props) {
                 multiple
                 fullWidth
                 onChange={event => setStateEdit({...stateEdit, days: event.target.value})}
-                // defaultValue={[`${activityToEdit.days_available}`]}
                 />
               <MatMultiSelect 
                 items={['Beginner', 'Intermediate', 'Advanced']} 
@@ -135,7 +124,6 @@ export default function EditForm(props) {
                 multiple
                 fullWidth
                 onChange={event => setStateEdit({...stateEdit, skill_level: event.target.value})}
-                // defaultValue={[`${activityToEdit.skill_tag}`]}
                 />
             </div>
           </div>

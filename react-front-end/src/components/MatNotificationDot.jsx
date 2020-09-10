@@ -1,8 +1,7 @@
 import React from 'react';
 import { Chip } from '@material-ui/core';
 
-//props.new_messages is a number that represents how many new messages have been sent since the last time a user open this chat 
-
+// this is the notification dot that pops up next to the chat where there is a new message
 export default function MatNotificationDot(props) {
   return (
     <Chip

@@ -53,27 +53,12 @@ export default function MatMultiSelect(props) {
   const [personName, setPersonName] = React.useState([]);
 
 
-
+  // set what to display when user clicks on an item in the menu list 
   const handleChange = (event) => {
     setPersonName(event.target.value);
     props.onChange(event);
   };
   
-  // const handleChangeMultiple = (event) => {
-  //   const { options } = event.target;
-  //   console.log("options = ", options)
-  //   console.log("Event.target.value = ", event.target.value)
-  //   //const options = event.target.value
-  //   const value = [];
-  //   for (let i = 0, l = options.length; i < l; i += 1) {
-  //     if (options[i].selected) {
-  //       value.push(options[i].value);
-  //     }
-  //   }
-  //   console.log('value = ', value);
-  //   setPersonName(value);
-  //   props.onChange(event);
-  // };
 
   return (
     <div>
@@ -82,22 +67,15 @@ export default function MatMultiSelect(props) {
         <InputLabel id="demo-mutiple-chip-label">{props.inputLabel}</InputLabel>
         <Select
           displayEmpty
-          //defaultValue={props.defaultValue}
           labelId={props.labelId}
           fullWidth={props.fullWidth}
           id={props.id}
           multiple={props.multiple}
           items={props.items}
           value={personName }
-          // value={props.defaultValue ? props.defaultValue : personName }
           onChange={handleChange}
           input={<Input id="select-multiple-chip" />}
           renderValue={(selected) => {
-            // if (selected.length === 0 && props.defaultValue) {
-            // return <div className={classes.chips}>
-            //           <Chip label={props.defaultValue} className={classes.chip} />
-            //         </div>;
-            // }
             if (typeof selected === 'object') {
               return (
                 <div className={classes.chips}>
@@ -122,12 +100,4 @@ export default function MatMultiSelect(props) {
       </FormControl>
     </div>
   );
-}
-
-
-// days: multi - select
-// frequency: single - select
-// timeframe: multi - select
-
-// tags: multiValue
-// search:multiValues
+};
