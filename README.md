@@ -19,7 +19,7 @@ WeGO helps connect individuals and teams around real-world and online recreation
 
 ### Tech stack
 
-- React | PostgreSQL | Express | Node | Socket.io | Material UI
+- React | PostgreSQL | Express | Node | Socket.io | Material UI | Sass
 
 
 ### Built on React + Express No-Fluff Boilerplate
@@ -72,5 +72,23 @@ The React project has `proxy` set to `localhost:8080` in the `package.json` file
 
 ## Screenshots
 
-### Homepage
-!["Homepage"]()
+### Landing Page
+!["Landing Page"](https://github.com/jdhuot/final/blob/code-cleanup/Docs/home-page.png?raw=true)
+
+### Signup Page
+!["Signup Page"](https://github.com/jdhuot/final/blob/code-cleanup/Docs/signup.png?raw=true)
+
+### Login Page
+!["Login Page"](https://github.com/jdhuot/final/blob/code-cleanup/Docs/login.png?raw=true)
+
+### Activities Page
+!["Activities Page"](https://github.com/jdhuot/final/blob/code-cleanup/Docs/activities-page.png?raw=true)
+
+### Hosted Page
+!["Hosted Page"](https://github.com/jdhuot/final/blob/code-cleanup/Docs/hosted.png?raw=true)
+
+### Messages Page
+!["Messages Page"](https://github.com/jdhuot/final/blob/code-cleanup/Docs/messages.png?raw=true)
+
+### Create Activity Page
+!["Create Activity Page"](https://github.com/jdhuot/final/blob/code-cleanup/Docs/create.png?raw=true)

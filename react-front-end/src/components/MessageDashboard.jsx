@@ -3,10 +3,8 @@ import Participant from './Participant';
 
 export default function MessageDashboard(props) {
 
-  // const [localState, setLocalState] = useState({
   
-  // })
-
+// sample structure for activityMessages elements 
 // [{id: 3, messages: [{message-info}]
 // let activityMessages = [{id: 0, messages: []}]
 let activityMessages = [];
@@ -18,16 +16,13 @@ let activityMessages = [];
     for (let i of props.state.messages) {
       
       if ((i.sender_id === props.state.loggedIn) || (i.host === props.state.loggedIn) || (i.receiver_id === props.state.loggedIn)) {
-        // console.log('first IF in the loop = ');
-        // console.log("i.sender_id === props.state.loggedIn  = ", i.sender_id === props.state.loggedIn )
-        // console.log("i.host === props.state.loggedIn = ", i.host === props.state.loggedIn)
-        // console.log("activity in question = ", i.activity_id)
+      
         if(activityMessages.length !== 0) {
-          // for (let j of activityMessages) {
+       
             if (!activityMessages.map(obj => obj.id).includes(i.activity_id)) {
               activityMessages.push({ id: i.activity_id, messages: [i] })
-            }
-          // }
+            };
+      
         } else {
           activityMessages.push({ id: i.activity_id, messages: [i] })
         }
